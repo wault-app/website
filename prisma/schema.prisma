@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  uuid     String    @id
+  name     String
+  devices  Device[]
+  keycards Keycard[]
+
+  Authentication Authentication[]
+  @@map("users")
+}
+
+model Device {
+  uuid           String          @id
+  name           String
+  loggedInAt     DateTime        @default(now())
+  rsaKey         String
+  user           User            @relation(fields: [userUuid], references: [uuid])
+  keyExchanges   KeyExchange[]
+  authentication Authentication?
+
+  userUuid String
+  @@map("devices")
+}
+
+model KeyExchange {
+  uuid      String   @id
+  content   String
+  device    Device   @relation(fields: [deviceUuid], references: [uuid])
+  vault     Vault    @relation(fields: [vaultUuid], references: [uuid])
+  createdAt DateTime @default(now())
+
+  deviceUuid String
+  vaultUuid  String
+  @@map("key_exchanges")
+}
+
+model Keycard {
+  uuid  String   @id
+  user  User     @relation(fields: [userUuid], references: [uuid])
+  vault Vault    @relation(fields: [vaultUuid], references: [uuid])
+  role  RoleType
+
+  userUuid  String
+  vaultUuid String
+
+  @@unique([userUuid, vaultUuid])
+  @@map("keycards")
+}
+
+model Vault {
+  uuid         String        @id
+  name         String // encrypted
+  accounts     Account[]
+  keyExchanges KeyExchange[]
+  keycards     Keycard[]
+
+  @@map("vaults")
+}
+
+model Authentication {
+  uuid       String  @id
+  deviceName String
+  secret     String
+  rsa        String
+  user       User?   @relation(fields: [userUuid], references: [uuid])
+  device     Device? @relation(fields: [deviceUuid], references: [uuid])
+
+  userUuid   String?
+  deviceUuid String?
+  @@map("authentication_process")
+}
+
+model Account {
+  uuid        String   @id
+  username    String // encrypted
+  password    String? // encrypted
+  description String? // encrypted
+  tags        String[] // not encrypted
+  vault       Vault    @relation(fields: [vaultUuid], references: [uuid])
+
+  vaultUuid String
+  @@map("accounts")
+}
+
+enum RoleType {
+  OWNER
+  WRITER
+  READER
+}

@@ -1,22 +1,24 @@
 import Platforms from "@lib/client/platforms";
-import { makeStyles, Skeleton, Typography } from "@material-ui/core";
+import { makeStyles, Skeleton, Theme, Typography } from "@material-ui/core";
 
 export type PlatformIconProps = {
     hostname: string;
+    size?: number;
 } | {
     loading: true;
+    size?: number;
 };
 
-const size = 96;
+const size = 72;
 
 const PlatformIcon = (props: PlatformIconProps) => {
-    const classes = useStyles();
+    const classes = useStyles({ size: props.size || size });
 
     if ("loading" in props) {
         return (
             <Skeleton
-                width={size}
-                height={size}
+                width={props.size}
+                height={props.size}
                 variant={"rectangular"}
                 animation={"wave"}
                 className={classes.loader}
@@ -30,7 +32,7 @@ const PlatformIcon = (props: PlatformIconProps) => {
     const backgroundColor = platform?.icon?.color;
 
     const Icon = () => {
-        if (platform.icon) return (
+        if (platform?.icon) return (
             <platform.icon.badge
                 className={classes.icon}
             />
@@ -56,34 +58,35 @@ const PlatformIcon = (props: PlatformIconProps) => {
     );
 };
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: size,
-        height: size,
-        borderRadius: size / 4,
-        backgroundColor: theme.palette.primary.main,
-    },
-    loader: {
-        width: size,
-        height: size,
-        boxShadow: theme.shadows[4],
-        borderRadius: size / 4,
-    },
-    icon: {
-        margin: size / 4,
-        width: `${size / 2}px !important`,
-        height: `${size / 2}px !important`,
-    },
-    text: {
-        padding: size / 4,
-        height: size,
-        width: size,
-        textAlign: "center",
-        fontSize: `${size / 3}px !important`,
-        lineHeight: `${size / 2}px !important`,
-        margin: "auto",
-        color: theme.palette.primary.contrastText,
-    },
-}));
+const useStyles = makeStyles<Theme, { size: number }>((theme) => ({
+        root: {
+            width: props => props.size,
+            height: props => props.size,
+            borderRadius: props => props.size / 4,
+            backgroundColor: theme.palette.primary.main,
+        },
+        loader: {
+            width: props => props.size,
+            height: props => props.size,
+            boxShadow: theme.shadows[4],
+            borderRadius: props => props.size / 4,
+        },
+        icon: {
+            margin: props => props.size / 4,
+            width: props => `${props.size / 2}px !important`,
+            height: props => `${props.size / 2}px !important`,
+        },
+        text: {
+            padding: props => props.size / 4,
+            height: props => props.size,
+            width: props => props.size,
+            textAlign: "center",
+            fontSize: props => `${props.size / 3}px !important`,
+            lineHeight: props => `${props.size / 2}px !important`,
+            margin: "auto",
+            color: theme.palette.primary.contrastText,
+        },
+    }
+));
 
 export default PlatformIcon;

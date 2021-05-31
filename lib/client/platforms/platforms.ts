@@ -37,7 +37,12 @@ export default class Platforms {
      * Gets a selected platforms data
      * @param url 
      */
-    public static get(url: string) {
-        return platforms[url] || platforms[aliases[url]];
+    public static get(url: string): PlatformType {
+        const fallback = {
+            name: url,
+            categories: [],
+        };
+
+        return platforms[url] || platforms[aliases[url]] || fallback;
     }
 }

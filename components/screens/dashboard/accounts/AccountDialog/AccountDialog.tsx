@@ -139,7 +139,7 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
     },
     box: {
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.8)",
+        backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
         margin: theme.spacing(2),
         padding: theme.spacing(2),
     },

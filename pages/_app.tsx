@@ -6,6 +6,7 @@ import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/cor
 import DialogProvider from "@components/screens/dialog/DialogProvider/DialogProvider";
 
 import "../public/css/fix-height.css";
+import FaviconList from "@components/seo/FaviconList";
 
 const theme = createTheme({
     components: {
@@ -29,6 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <title>Wault</title>
                 <meta charSet="utf-8" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+                <FaviconList />
             </Head>
             <NoSsr>
                 <DialogProvider>

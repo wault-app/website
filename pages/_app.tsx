@@ -3,6 +3,7 @@ import { AppProps } from "next/app";
 import { Fragment } from "react";
 import Head from "next/head";
 import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
+import DialogProvider from "@components/screens/dialog/DialogProvider/DialogProvider";
 
 const theme = createTheme({
     components: {
@@ -29,7 +30,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Head>
             <ThemeProvider theme={theme}>
                 <NoSsr>    
-                    <Component {...pageProps} />
+                    <DialogProvider>
+                        <Component {...pageProps} />
+                    </DialogProvider>
                 </NoSsr>
             </ThemeProvider>
         </Fragment>

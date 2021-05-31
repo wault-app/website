@@ -1,13 +1,14 @@
 import Platforms from "@lib/client/platforms";
 import { makeStyles, Skeleton, Theme, Typography } from "@material-ui/core";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-export type PlatformIconProps = {
+export type PlatformIconProps = ({
     hostname: string;
     size?: number;
 } | {
     loading: true;
     size?: number;
-};
+}) & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const size = 72;
 
@@ -48,9 +49,11 @@ const PlatformIcon = (props: PlatformIconProps) => {
 
     return (
         <div
-            className={classes.root}
+            {...props}
+            className={`${props.className} ${classes.root}`}
             style={{
                 backgroundColor,
+                ...props?.style,
             }}
         >
             <Icon />

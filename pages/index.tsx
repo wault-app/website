@@ -1,12 +1,11 @@
 import AccountCard from "@components/screens/dashboard/accounts/AccountCard";
-import PlatformIcon from "@components/screens/dashboard/platforms/PlatformIcon";
-import { useEffect, useState } from "react";
 
 const MainPage = () => {
     return (
         <AccountCard
-            platform={"discorad.com"}
+            platform={"discord.com"}
             username={"pepyta118@gmail.com"}
+            password={"password123"}
             categories={[]}
         />
     );

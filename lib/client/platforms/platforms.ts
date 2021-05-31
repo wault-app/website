@@ -38,9 +38,11 @@ export default class Platforms {
      * @param url 
      */
     public static get(url: string): PlatformType {
+        const categories: CategoryType[] = [];
+        
         const fallback = {
             name: url,
-            categories: [],
+            categories,
         };
 
         return platforms[url] || platforms[aliases[url]] || fallback;

@@ -1,8 +1,9 @@
-import { Card, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
 import { Fragment } from "react";
 import ResponsiveCard from "./ResponsiveCard";
 import Image from "next/image";
 import ScanQRCode from "./ScanQRCode";
+import ShowUser from "./ShowUser";
 
 const SigninPage = () => {
     const classes = useStyles();
@@ -11,20 +12,25 @@ const SigninPage = () => {
     const Wrapper = isLarge ? Card : Fragment;
 
     return (
-        <ResponsiveCard>
-            <div className={classes.logo}>
-                <Image
-                    src={"/img/logo.png"}
-                    width={224}
-                    height={40}
-                />
-            </div>
-            <Wrapper variant={"outlined"}>
-                <CardContent>
-                    <ScanQRCode loading />
-                </CardContent>
-            </Wrapper>
-        </ResponsiveCard>
+        <Container maxWidth={"sm"} className={classes.container}>
+            <ResponsiveCard>
+                <div className={classes.logo}>
+                    <Image
+                        src={"/img/logo.png"}
+                        width={224}
+                        height={40}
+                    />
+                </div>
+                <Wrapper variant={"outlined"}>
+                    <CardContent>
+                        <ShowUser
+                            onBack={() => {}}
+                            user={{ name: "pepyta", image: "/img/logo.png" }}
+                        />
+                    </CardContent>
+                </Wrapper>
+            </ResponsiveCard>
+        </Container>
     );
 };
 
@@ -37,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             paddingTop: theme.spacing(4),
         },
+    },
+    container: {
+        height: "100%",
     },
 }));
 

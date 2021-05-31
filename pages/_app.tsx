@@ -5,10 +5,9 @@ import Head from "next/head";
 import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
 import DialogProvider from "@components/screens/dialog/DialogProvider/DialogProvider";
 
+import "../public/css/fix-height.css";
+
 const theme = createTheme({
-    palette: {
-        mode: "dark",
-    },
     components: {
         MuiCardContent: {
             styleOverrides: {

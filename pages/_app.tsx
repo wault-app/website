@@ -6,6 +6,9 @@ import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/cor
 import DialogProvider from "@components/screens/dialog/DialogProvider/DialogProvider";
 
 const theme = createTheme({
+    palette: {
+        mode: "dark",
+    },
     components: {
         MuiCardContent: {
             styleOverrides: {
@@ -21,21 +24,19 @@ const theme = createTheme({
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
-        <Fragment>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <Head>
                 <title>Wault</title>
                 <meta charSet="utf-8" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             </Head>
-            <ThemeProvider theme={theme}>
-                <NoSsr>    
-                    <DialogProvider>
-                        <Component {...pageProps} />
-                    </DialogProvider>
-                </NoSsr>
-            </ThemeProvider>
-        </Fragment>
+            <NoSsr>
+                <DialogProvider>
+                    <Component {...pageProps} />
+                </DialogProvider>
+            </NoSsr>
+        </ThemeProvider>
     );
 };
 

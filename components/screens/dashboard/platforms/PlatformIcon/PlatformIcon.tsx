@@ -1,19 +1,36 @@
 import Platforms from "@lib/client/platforms";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Skeleton, Typography } from "@material-ui/core";
 
 export type PlatformIconProps = {
     hostname: string;
+} | {
+    loading: true;
 };
 
 const size = 96;
 
-const PlatformIcon = ({ hostname }: PlatformIconProps) => {
+const PlatformIcon = (props: PlatformIconProps) => {
+    const classes = useStyles();
+
+    if ("loading" in props) {
+        return (
+            <Skeleton
+                width={size}
+                height={size}
+                variant={"rectangular"}
+                animation={"wave"}
+                className={classes.loader}
+            />
+        );
+    }
+
+    const { hostname } = props;
     const platform = Platforms.get(hostname);
 
     const backgroundColor = platform?.icon?.color;
-    
+
     const Icon = () => {
-        if(platform.icon) return (
+        if (platform.icon) return (
             <platform.icon.badge
                 className={classes.icon}
             />
@@ -26,7 +43,6 @@ const PlatformIcon = ({ hostname }: PlatformIconProps) => {
         );
     };
 
-    const classes = useStyles();
 
     return (
         <div
@@ -35,7 +51,7 @@ const PlatformIcon = ({ hostname }: PlatformIconProps) => {
                 backgroundColor,
             }}
         >
-            <Icon  />
+            <Icon />
         </div>
     );
 };
@@ -44,14 +60,19 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: size,
         height: size,
-        boxShadow: theme.shadows[4],
         borderRadius: size / 4,
         backgroundColor: theme.palette.primary.main,
     },
+    loader: {
+        width: size,
+        height: size,
+        boxShadow: theme.shadows[4],
+        borderRadius: size / 4,
+    },
     icon: {
         margin: size / 4,
-        width: size / 2,
-        height: size / 2,
+        width: `${size / 2}px !important`,
+        height: `${size / 2}px !important`,
     },
     text: {
         padding: size / 4,

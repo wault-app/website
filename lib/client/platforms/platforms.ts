@@ -1,34 +1,7 @@
 import DiscordIcon from "@components/platforms/DiscordIcon";
 import { SvgIconProps } from "@material-ui/core";
+import { CategoryType } from "../categories";
 
-const categories = {
-    work: {
-        name: "Work",
-    },
-    communication: {
-        name: "Communication",
-    },
-    games: {
-        name: "Games",
-    },
-    financial: {
-        name: "Financial",
-    },
-    social: {
-        name: "Social"
-    },
-    entertainment: {
-        name: "Entartainment",
-    },
-    shopping: {
-        name: "Shopping",
-    },
-    education: {
-        name: "Education",
-    },
-} as const;
-
-type CategoryType = keyof typeof categories;
 type IconType = {
     color: string;
     badge: (props: SvgIconProps) => JSX.Element;
@@ -46,6 +19,10 @@ const platforms: {
     "discord.com": {
         name: "Discord",
         categories: ["games", "social"],
+        icon: {
+            color: "#5865F2",
+            badge: DiscordIcon,
+        },
     },
 };
 

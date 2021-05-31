@@ -1,4 +1,4 @@
-import AccountItem from "./AccountItem";
-export default AccountItem;
+import AccountCard from "./AccountCard";
+export default AccountCard;
 
-export * from "./AccountItem";
+export * from "./AccountCard";

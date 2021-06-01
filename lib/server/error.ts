@@ -21,7 +21,7 @@ export type ErrorType = keyof typeof errors;
 export default class WrapperError extends Error {
     public data: any;
     
-    constructor(err: ErrorType, data?) {
+    constructor(err: ErrorType, data?: any) {
         super(err);
         this.data = data;
     }

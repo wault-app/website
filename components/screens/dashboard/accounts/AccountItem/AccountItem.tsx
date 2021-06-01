@@ -5,6 +5,7 @@ import AccountDialog from "../AccountDialog";
 import { Fragment, useState } from "react";
 import AccountMenu from "../AccountMenu";
 import { CategoryType } from "@lib/client/categories";
+import { useMenu } from "@components/screens/menu/MenuProvider";
 
 export type AccountType = {
     platform: string;
@@ -24,8 +25,7 @@ export type AccountItemProps = AccountItemLoadedProps | {
 
 const AccountItem = (props: AccountItemProps) => {
     const { setOpen, setComponent } = useDialog();
-    const [anchorEl, setAnchorEl] = useState<HTMLElement>(null);
-    const [openMenu, setOpenMenu] = useState(false);
+    const { open: openMenu } = useMenu();
     const classes = useStyles();
 
     if ("loading" in props) {
@@ -46,20 +46,17 @@ const AccountItem = (props: AccountItemProps) => {
 
     return (
         <Fragment>
-            <AccountMenu
-                keepMounted
-                anchorEl={anchorEl}
-                open={openMenu}
-                onClose={() => setOpenMenu(false)}
-                account={account}
-            />
             <ListItem
                 button
                 onClick={() => open()}
                 onContextMenu={(e) => {
                     e.preventDefault();
-                    setOpenMenu(true);
-                    setAnchorEl(e.currentTarget);
+                    openMenu(
+                        <AccountMenu
+                            account={account}
+                        />,
+                        e.currentTarget
+                    );
                 }}
             >
                 <ListItemAvatar>

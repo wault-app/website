@@ -1,12 +1,12 @@
 
 import { AppProps } from "next/app";
-import { Fragment } from "react";
 import Head from "next/head";
 import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
 import DialogProvider from "@components/screens/dialog/DialogProvider/DialogProvider";
 
 import "../public/css/fix-height.css";
 import FaviconList from "@components/seo/FaviconList";
+import MenuProvider from "@components/screens/menu/MenuProvider";
 
 const theme = createTheme({
     components: {
@@ -34,7 +34,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Head>
             <NoSsr>
                 <DialogProvider>
-                    <Component {...pageProps} />
+                    <MenuProvider>
+                        <Component {...pageProps} />
+                    </MenuProvider>
                 </DialogProvider>
             </NoSsr>
         </ThemeProvider>

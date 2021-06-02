@@ -1,9 +1,9 @@
 import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
 import { Fragment } from "react";
-import ResponsiveCard from "./ResponsiveCard";
+import ResponsiveCard from "./SigninPage/ResponsiveCard";
 import Image from "next/image";
-import ScanQRCode from "./ScanQRCode";
-import ShowUser from "./ShowUser";
+import ScanQRCode from "./SigninPage/ScanQRCode";
+import ShowUser from "./SigninPage/ShowUser";
 
 const SigninPage = () => {
     const classes = useStyles();

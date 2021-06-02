@@ -1,9 +1,9 @@
-import { useDialog } from "@components/screens/dialog/DialogProvider";
+import { useDialog } from "@components/DialogProvider";
 import { IssuerType } from "@lib/client/credit-cards/issuers";
 import Issuers from "@lib/client/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemIcon, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";
-import CreditCardDialog from "../CreditCardDialog";
+import CreditCardDialog from "./CreditCardDialog";
 
 type CreditCardType = {
     uuid: string;

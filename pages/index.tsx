@@ -1,8 +1,8 @@
-import AccountItem from "@components/screens/dashboard/accounts/AccountItem";
-import AddItemFAB from "@components/screens/dashboard/add/AddItemFAB";
-import CreditCardItem from "@components/screens/dashboard/cards/CreditCardItem";
-import VaultCard from "@components/screens/dashboard/vault/VaultCard";
-import { useDialog } from "@components/screens/dialog/DialogProvider";
+import AccountItem from "@components/dashboard/accounts/AccountItem";
+import AddItemFAB from "@components/dashboard/landing/AddItemFAB";
+import CreditCardItem from "@components/dashboard/cards/CreditCardItem";
+import VaultCard from "@components/dashboard/vault/VaultCard";
+import { useDialog } from "@components/DialogProvider";
 import { List, ListSubheader } from "@material-ui/core";
 import { Fragment } from "react";
 

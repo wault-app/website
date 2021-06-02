@@ -2,12 +2,12 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
-import DialogProvider from "@components/screens/dialog/DialogProvider";
+import DialogProvider from "@components/DialogProvider";
 
 import "../public/css/fix-height.css";
 import "node_modules/react-credit-cards/src/styles.scss";
-import FaviconList from "@components/seo/FaviconList";
-import MenuProvider from "@components/screens/menu/MenuProvider";
+import FaviconList from "@components/FaviconList";
+import MenuProvider from "@components/MenuProvider";
 
 const theme = createTheme({
     components: {

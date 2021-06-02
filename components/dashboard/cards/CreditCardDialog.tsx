@@ -1,7 +1,7 @@
 import { IssuerType } from "@lib/client/credit-cards/issuers";
 import { Grid, makeStyles } from "@material-ui/core";
 import { useState } from "react";
-import EnterCVCScreen from "./EnterCVCScreen";
+import EnterCVCScreen from "./CreditCardDialog/EnterCVCScreen";
 
 export type CreditCardDialogProps = {
     uuid: string;

@@ -1,4 +1,4 @@
-import { useDialog } from "@components/screens/dialog/DialogProvider";
+import { useDialog } from "@components/DialogProvider";
 import { Fab, makeStyles } from "@material-ui/core";
 import { AddRounded } from "@material-ui/icons";
 import { Fragment } from "react";

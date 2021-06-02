@@ -1,3 +1,3 @@
-import SigninPage from "@components/screens/dashboard/auth/SigninPage";
+import SigninPage from "@components/dashboard/auth/SigninPage";
 
 export default SigninPage;

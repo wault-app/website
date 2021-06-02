@@ -1,4 +1,4 @@
-import { Dialog, DialogProps } from "@material-ui/core";
+import { Dialog, DialogProps, useMediaQuery, useTheme } from "@material-ui/core";
 import { createContext, Dispatch, Fragment, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 
 type DialogPropsWithoutOpen = Omit<DialogProps, "open">;
@@ -13,8 +13,11 @@ export const useDialog = () => {
         setOpen(true);
     };
 
+    const close = () => setOpen(false);
+
     return {
-        open
+        open,
+        close,
     };
 };
 
@@ -34,6 +37,9 @@ const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
     const [component, setComponent] = useState(<Fragment />);
     const [props, setProps] = useState<DialogPropsWithoutOpen>({});
     
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    
     return (
         <DialogContext.Provider value={{ open, setOpen, component, setComponent, props, setProps }}>
             <Dialog
@@ -42,6 +48,7 @@ const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
                 style={{
                     backdropFilter: "blur(4px)"
                 }}
+                fullScreen={fullScreen}
                 {...props}
                 open={open}
                 onClose={() => setOpen(false)}

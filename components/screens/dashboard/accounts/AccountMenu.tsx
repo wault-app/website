@@ -1,6 +1,6 @@
 import { MenuProps } from "@material-ui/core";
-import { AccountType } from "../AccountItem";
-import { CopyUsernameButton, CopyPasswordButton, OpenPlatformButton } from "../AccountDialog";
+import { AccountType } from "./AccountItem";
+import { CopyUsernameButton, CopyPasswordButton, OpenPlatformButton } from "./AccountDialog";
 import { Fragment } from "react";
 
 export type AccountMenuProps = {

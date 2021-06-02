@@ -1,10 +1,10 @@
 import { Collapse, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
-import PlatformIcon from "../../platforms/PlatformIcon";
-import { AccountType } from "../AccountItem";
+import PlatformIcon from "../platforms/PlatformIcon";
+import { AccountType } from "./AccountItem";
 import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon, FileCopyRounded as CopyIcon, LanguageRounded as WebsiteIcon, VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
 import Platforms from "@lib/client/platforms";
 import { Fragment, useState } from "react";
-import CategoryBadge from "../CategoryBadge";
+import CategoryBadge from "./CategoryBadge";
 
 export type AccountDialogProps = AccountType;
 

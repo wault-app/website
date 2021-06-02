@@ -1,9 +1,9 @@
 import { ListItem, ListItemAvatar, ListItemText, makeStyles } from "@material-ui/core";
-import PlatformIcon from "../../platforms/PlatformIcon";
-import { useDialog } from "@components/screens/dialog/DialogProvider/DialogProvider";
-import AccountDialog from "../AccountDialog";
+import PlatformIcon from "../platforms/PlatformIcon";
+import { useDialog } from "@components/screens/dialog/DialogProvider";
+import AccountDialog from "./AccountDialog";
 import { Fragment, useState } from "react";
-import AccountMenu from "../AccountMenu";
+import AccountMenu from "./AccountMenu";
 import { CategoryType } from "@lib/client/categories";
 import { useMenu } from "@components/screens/menu/MenuProvider";
 
@@ -24,7 +24,7 @@ export type AccountItemProps = AccountItemLoadedProps | {
 };
 
 const AccountItem = (props: AccountItemProps) => {
-    const { setOpen, setComponent } = useDialog();
+    const { open } = useDialog();
     const { open: openMenu } = useMenu();
     const classes = useStyles();
 
@@ -34,21 +34,15 @@ const AccountItem = (props: AccountItemProps) => {
 
     const { account } = props;
 
-    const open = () => {
-        setComponent(
-            <AccountDialog
-                {...account}
-            />
-        );
-
-        setOpen(true);
-    };
-
     return (
         <Fragment>
             <ListItem
                 button
-                onClick={() => open()}
+                onClick={() => open(
+                    <AccountDialog
+                        {...account}
+                    />
+                )}
                 onContextMenu={(e) => {
                     e.preventDefault();
                     openMenu(

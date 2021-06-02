@@ -1,19 +1,30 @@
-import { Dialog } from "@material-ui/core";
+import { Dialog, DialogProps } from "@material-ui/core";
 import { createContext, Dispatch, Fragment, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 
+type DialogPropsWithoutOpen = Omit<DialogProps, "open">;
+
 export const useDialog = () => {
-    const { setOpen, setComponent } = useContext(DialogContext);
+    const { setOpen, setComponent, setProps } = useContext(DialogContext);
+
+    const open = (component: JSX.Element, props?: DialogPropsWithoutOpen) => {
+        setComponent(component);
+
+        setProps(props || { });
+        setOpen(true);
+    };
 
     return {
-        setOpen,
-        setComponent,
+        open
     };
 };
 
 type DialogContextType = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
+    component: JSX.Element;
     setComponent: Dispatch<SetStateAction<JSX.Element>>;
+    props: DialogPropsWithoutOpen;
+    setProps: Dispatch<SetStateAction<DialogPropsWithoutOpen>>;
 };
 
 const DialogContext = createContext<DialogContextType>(null);
@@ -21,17 +32,19 @@ const DialogContext = createContext<DialogContextType>(null);
 const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState(<Fragment />);
+    const [props, setProps] = useState<DialogPropsWithoutOpen>({});
     
     return (
-        <DialogContext.Provider value={{ open, setOpen, setComponent }}>
+        <DialogContext.Provider value={{ open, setOpen, component, setComponent, props, setProps }}>
             <Dialog
-                open={open}
                 fullWidth
                 maxWidth={"md"}
-                onClose={() => setOpen(false)}
                 style={{
                     backdropFilter: "blur(4px)"
                 }}
+                {...props}
+                open={open}
+                onClose={() => setOpen(false)}
             >
                 {component}
             </Dialog>

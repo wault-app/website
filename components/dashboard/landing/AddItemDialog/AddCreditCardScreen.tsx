@@ -1,7 +1,7 @@
 import { CardContent, Grid, makeStyles, TextField } from "@material-ui/core";
-import Payment from "payment";
 import { useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";
+import CreditCardCVCField from "./AddCreditCardScreen/CreditCardCVCField";
 import CreditCardNumberField from "./AddCreditCardScreen/CreditCardNumberField";
 import ExpirationDateField from "./AddCreditCardScreen/ExpirationDateField";
 
@@ -52,13 +52,11 @@ const AddCreditCardScreen = () => {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField
-                        fullWidth
-                        variant={"outlined"}
-                        label={"CVC"}
-                        onFocus={() => setFocused("cvc")}
+                    <CreditCardCVCField
+                        number={number}
                         value={cvc}
-                        onChange={(e) => setCVC(formatCVC(e.target.value, cvc, { number }))}
+                        onFocus={() => setFocused("cvc")}
+                        onChange={(e) => setCVC(e.target.value)}
                     />
                 </Grid>
             </Grid>
@@ -76,21 +74,5 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function clearNumber(value = "") {
-    return value.replace(/\D+/g, "");
-}
-
-
-function formatCVC(value: string, prevValue: string, allValues: { number: string }) {
-    const clearValue = clearNumber(value);
-    let maxLength = 4;
-
-    if (allValues.number) {
-        const issuer = Payment.fns.cardType(allValues.number);
-        maxLength = issuer === "amex" ? 4 : 3;
-    }
-
-    return clearValue.slice(0, maxLength);
-}
 
 export default AddCreditCardScreen;

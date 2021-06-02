@@ -1,7 +1,7 @@
 import { useDialog } from "@components/DialogProvider";
 import { IssuerType } from "@lib/client/credit-cards/issuers";
 import Issuers from "@lib/client/credit-cards/issuers/issuers";
-import { ListItem, ListItemAvatar, ListItemIcon, ListItemText, makeStyles, Theme } from "@material-ui/core";
+import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";
 import CreditCardDialog from "./CreditCardDialog";
 

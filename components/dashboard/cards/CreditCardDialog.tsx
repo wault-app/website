@@ -1,6 +1,7 @@
 import { IssuerType } from "@lib/client/credit-cards/issuers";
 import { Grid, makeStyles } from "@material-ui/core";
 import { useState } from "react";
+import DecryptedCreditCardScreen from "./CreditCardDialog/DecryptedCreditCardScreen";
 import EnterCVCScreen from "./CreditCardDialog/EnterCVCScreen";
 
 export type CreditCardDialogProps = {
@@ -19,19 +20,27 @@ export type CreditCardType = {
 
 const CreditCardDialog = (props: CreditCardDialogProps) => {
     const [decrypted, setDecrypted] = useState<CreditCardType>();
-
-    if(!decrypted) {
-        return (
-            <EnterCVCScreen
-                onDecrypt={(decrypted) => setDecrypted(decrypted)}
-            />
-        );
-    }
+    const classes = useStyles();
 
     return (
-        <div />
+        <div className={classes.root}>
+            {!decrypted ? (
+                <EnterCVCScreen
+                    onDecrypt={(decrypted) => setDecrypted(decrypted)}
+                />
+            ) : (
+                <DecryptedCreditCardScreen
+                    creditCard={decrypted}
+                />
+            )}
+        </div>
     );
 };
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        transition: "1s all linear",
+    },
+}));
 
 export default CreditCardDialog;

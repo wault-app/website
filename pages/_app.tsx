@@ -5,7 +5,7 @@ import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/cor
 import DialogProvider from "@components/DialogProvider";
 
 import "../public/css/fix-height.css";
-import "node_modules/react-credit-cards/src/styles.scss";
+import "../public/css/react-credit-card.css";
 import FaviconList from "@components/FaviconList";
 import MenuProvider from "@components/MenuProvider";
 

@@ -1,14 +1,13 @@
 import { Collapse, DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/PlatformIcon";
-import { AccountType } from "./AccountItem";
-import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon, FileCopyRounded as CopyIcon, LanguageRounded as WebsiteIcon, VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
-import Platforms from "@lib/client/platforms";
-import { Fragment, useState } from "react";
+import { AccountType } from "./AccountItem";import Platforms from "@lib/client/platforms";
+import { Fragment } from "react";
 import CategoryBadge from "./CategoryBadge";
-import { DialogFooter, useDialog } from "@components/DialogProvider";
-import { useSnackbar } from "notistack";
-import Clipboard from "@lib/client/clipboard";
-import { useMenu } from "@components/MenuProvider";
+import { DialogFooter } from "@components/DialogProvider";
+import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
+import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
+import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";
+import ShowDescriptionButton from "./AccountDialog/ShowDescriptionButton";
 
 export type AccountDialogProps = AccountType;
 
@@ -76,73 +75,6 @@ const AccountDialog = (props: AccountDialogProps) => {
     );
 };
 
-export const CopyUsernameButton = ({ username }: { username: string }) => {
-    const { enqueueSnackbar } = useSnackbar();
-
-    const copy = async () => {
-        try {
-            await Clipboard.copy(username);
-            enqueueSnackbar("Successfully copied username to clipboard");
-        } catch(e) {
-            console.error(e);
-            enqueueSnackbar("Failed to copy to clipboard", {
-                variant: "error",
-            });
-        };
-    };    
-
-    return (
-        <ListItem button onClick={copy}>
-            <ListItemIcon>
-                <CopyIcon />
-            </ListItemIcon>
-            <ListItemText>Copy username</ListItemText>
-        </ListItem>
-    );
-}
-
-export const CopyPasswordButton = ({ password }: { password: string }) => (
-    <ListItem button>
-        <ListItemIcon>
-            <PasswordIcon />
-        </ListItemIcon>
-        <ListItemText>Copy password</ListItemText>
-    </ListItem>
-);
-
-export const OpenPlatformButton = ({ platform }: { platform: string }) => (
-    <ListItem button onClick={() => window.location.href = `https://${platform}`}>
-        <ListItemIcon>
-            <WebsiteIcon />
-        </ListItemIcon>
-        <ListItemText>Open website</ListItemText>
-    </ListItem>
-);
-
-const ShowDescriptionButton = ({ description }: { description: string }) => {
-    const [open, setOpen] = useState(false);
-    const classes = useStyles({ color: "#000000" });
-
-    return (
-        <Fragment>
-            <ListItem button onClick={() => setOpen(!open)}>
-                <ListItemIcon>
-                    <DescriptionIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Show description"} />
-                {open ? <DecreaseIcon /> : <ExpandIcon />}
-            </ListItem>
-            <Collapse in={open} timeout={"auto"} unmountOnExit>
-                <div className={classes.box}>
-                    <Typography>
-                        {description}
-                    </Typography>
-                </div>
-            </Collapse>
-        </Fragment>
-    );
-};
-
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
     root: {
         padding: 0,
@@ -165,12 +97,6 @@ const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
         width: "100%",
         height: 64,
         background: props => `linear-gradient(${props.color || theme.palette.primary.main}, transparent)`
-    },
-    box: {
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
-        margin: theme.spacing(2),
-        padding: theme.spacing(2),
     },
 }));
 

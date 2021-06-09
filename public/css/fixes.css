@@ -1,0 +1,8 @@
+body, html, #__next {
+    height: 100% !important;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}

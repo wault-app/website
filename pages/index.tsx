@@ -11,75 +11,75 @@ const MainPage = () => {
 
     return (
         <Fragment>
+        <VaultCard>
+            <List>
+                <ListSubheader>
+                    Test vault
+                    </ListSubheader>
+                <AccountItem
+                    account={{
+                        platform: "discord.com",
+                        username: "pepyta118@gmail.com",
+                        password: "password123",
+                        description: "Lorem ipsum dolor",
+                        categories: ["work", "social", "games"],
+                    }}
+                />
+
+                <CreditCardItem
+                    creditCard={{
+                        uuid: "asdasd123",
+                        name: "OTP Junior",
+                        endsWith: "1234",
+                        issuer: "mastercard"
+                    }}
+                />
+
+                <CreditCardItem
+                    creditCard={{
+                        uuid: "asdasd123",
+                        name: "OTP Junior",
+                        endsWith: "1234",
+                        issuer: "amex",
+                    }}
+                />
+            </List>
+        </VaultCard>
+        <VaultCard>
+            <List>
+                <ListSubheader>
+                    Test vault
+                    </ListSubheader>
+                <AccountItem
+                    account={{
+                        platform: "discord.com",
+                        username: "pepyta118@gmail.com",
+                        password: "password123",
+                        description: "Lorem ipsum dolor",
+                        categories: ["work", "social", "games"],
+                    }}
+                />
+
+                <CreditCardItem
+                    creditCard={{
+                        uuid: "asdasd123",
+                        name: "OTP Junior",
+                        endsWith: "1234",
+                        issuer: "mastercard"
+                    }}
+                />
+
+                <CreditCardItem
+                    creditCard={{
+                        uuid: "asdasd123",
+                        name: "OTP Junior",
+                        endsWith: "1234",
+                        issuer: "amex",
+                    }}
+                />
+            </List>
+        </VaultCard>
             <AddItemFAB />
-        <VaultCard>
-            <List>
-                <ListSubheader>
-                    Test vault
-                    </ListSubheader>
-                <AccountItem
-                    account={{
-                        platform: "discord.com",
-                        username: "pepyta118@gmail.com",
-                        password: "password123",
-                        description: "Lorem ipsum dolor",
-                        categories: ["work", "social", "games"],
-                    }}
-                />
-
-                <CreditCardItem
-                    creditCard={{
-                        uuid: "asdasd123",
-                        name: "OTP Junior",
-                        endsWith: "1234",
-                        issuer: "mastercard"
-                    }}
-                />
-
-                <CreditCardItem
-                    creditCard={{
-                        uuid: "asdasd123",
-                        name: "OTP Junior",
-                        endsWith: "1234",
-                        issuer: "amex",
-                    }}
-                />
-            </List>
-        </VaultCard>
-        <VaultCard>
-            <List>
-                <ListSubheader>
-                    Test vault
-                    </ListSubheader>
-                <AccountItem
-                    account={{
-                        platform: "discord.com",
-                        username: "pepyta118@gmail.com",
-                        password: "password123",
-                        description: "Lorem ipsum dolor",
-                        categories: ["work", "social", "games"],
-                    }}
-                />
-
-                <CreditCardItem
-                    creditCard={{
-                        uuid: "asdasd123",
-                        name: "OTP Junior",
-                        endsWith: "1234",
-                        issuer: "mastercard"
-                    }}
-                />
-
-                <CreditCardItem
-                    creditCard={{
-                        uuid: "asdasd123",
-                        name: "OTP Junior",
-                        endsWith: "1234",
-                        issuer: "amex",
-                    }}
-                />
-            </List>
-        </VaultCard>
         </Fragment>
     );
 };

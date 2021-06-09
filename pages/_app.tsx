@@ -8,6 +8,7 @@ import "../public/css/fix-height.css";
 import "../public/css/react-credit-card.css";
 import FaviconList from "@components/FaviconList";
 import MenuProvider from "@components/MenuProvider";
+import { SnackbarProvider } from "notistack";
 
 const theme = createTheme({
     components: {
@@ -34,11 +35,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <FaviconList />
             </Head>
             <NoSsr>
-                <DialogProvider>
-                    <MenuProvider>
-                        <Component {...pageProps} />
-                    </MenuProvider>
-                </DialogProvider>
+                <SnackbarProvider>
+                    <DialogProvider>
+                        <MenuProvider>
+                            <Component {...pageProps} />
+                        </MenuProvider>
+                    </DialogProvider>
+                </SnackbarProvider>
             </NoSsr>
         </ThemeProvider>
     );

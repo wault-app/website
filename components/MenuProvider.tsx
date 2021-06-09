@@ -10,8 +10,13 @@ export const useMenu = () => {
         setOpen(true);
     };
 
+    const close = () => {
+        setOpen(false);
+    };
+
     return {
         open,
+        close,
     };
 };
 

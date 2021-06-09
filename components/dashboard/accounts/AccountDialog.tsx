@@ -5,7 +5,10 @@ import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIco
 import Platforms from "@lib/client/platforms";
 import { Fragment, useState } from "react";
 import CategoryBadge from "./CategoryBadge";
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter, useDialog } from "@components/DialogProvider";
+import { useSnackbar } from "notistack";
+import Clipboard from "@lib/client/clipboard";
+import { useMenu } from "@components/MenuProvider";
 
 export type AccountDialogProps = AccountType;
 
@@ -73,14 +76,30 @@ const AccountDialog = (props: AccountDialogProps) => {
     );
 };
 
-export const CopyUsernameButton = ({ username }: { username: string }) => (
-    <ListItem button>
-        <ListItemIcon>
-            <CopyIcon />
-        </ListItemIcon>
-        <ListItemText>Copy username</ListItemText>
-    </ListItem>
-);
+export const CopyUsernameButton = ({ username }: { username: string }) => {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const copy = async () => {
+        try {
+            await Clipboard.copy(username);
+            enqueueSnackbar("Successfully copied username to clipboard");
+        } catch(e) {
+            console.error(e);
+            enqueueSnackbar("Failed to copy to clipboard", {
+                variant: "error",
+            });
+        };
+    };    
+
+    return (
+        <ListItem button onClick={copy}>
+            <ListItemIcon>
+                <CopyIcon />
+            </ListItemIcon>
+            <ListItemText>Copy username</ListItemText>
+        </ListItem>
+    );
+}
 
 export const CopyPasswordButton = ({ password }: { password: string }) => (
     <ListItem button>

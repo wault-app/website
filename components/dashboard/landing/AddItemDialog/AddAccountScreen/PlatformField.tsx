@@ -12,6 +12,7 @@ const PlatformField = (props: TextFieldProps) => {
         <TextField
             label={"Platform"}
             required
+            type={"url"}
             {...props}
             InputProps={{
                 endAdornment: props.value.length > 0 && (

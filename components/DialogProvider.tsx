@@ -57,9 +57,6 @@ const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
             <Dialog
                 fullWidth
                 maxWidth={"md"}
-                style={{
-                    backdropFilter: "blur(4px)"
-                }}
                 fullScreen={fullScreen}
                 {...props}
                 open={open}

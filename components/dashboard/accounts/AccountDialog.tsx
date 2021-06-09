@@ -1,10 +1,11 @@
-import { Collapse, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
+import { Collapse, DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/PlatformIcon";
 import { AccountType } from "./AccountItem";
 import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon, FileCopyRounded as CopyIcon, LanguageRounded as WebsiteIcon, VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
 import Platforms from "@lib/client/platforms";
 import { Fragment, useState } from "react";
 import CategoryBadge from "./CategoryBadge";
+import { DialogFooter } from "@components/DialogProvider";
 
 export type AccountDialogProps = AccountType;
 
@@ -14,56 +15,61 @@ const AccountDialog = (props: AccountDialogProps) => {
     const classes = useStyles({ color: platform?.icon.color });
 
     return (
-        <Grid container>
-            <Grid item xs={12} md={5}>
-                <div
-                    className={classes.gradient}
-                />
-                <PlatformIcon
-                    className={classes.icon}
-                    hostname={props.platform}
-                />
-                <div className={classes.leftSide}>
-                    <Typography variant={"h6"} noWrap>
-                        <b>
-                            {props.platform}
-                        </b>
-                    </Typography>
-                    <Typography noWrap gutterBottom>
-                        {props.username}
-                    </Typography>
-                    <Grid container spacing={1} justifyContent={"center"}>
-                        {props.categories.map((category) => (
-                            <CategoryBadge
-                                category={category}
-                            />
-                        ))}
+        <Fragment>
+            <DialogContent className={classes.root}>
+                <Grid container>
+                    <Grid item xs={12} md={5}>
+                        <div
+                            className={classes.gradient}
+                        />
+                        <PlatformIcon
+                            className={classes.icon}
+                            hostname={props.platform}
+                        />
+                        <div className={classes.leftSide}>
+                            <Typography variant={"h6"} noWrap>
+                                <b>
+                                    {props.platform}
+                                </b>
+                            </Typography>
+                            <Typography noWrap gutterBottom>
+                                {props.username}
+                            </Typography>
+                            <Grid container spacing={1} justifyContent={"center"}>
+                                {props.categories.map((category) => (
+                                    <CategoryBadge
+                                        category={category}
+                                    />
+                                ))}
+                            </Grid>
+                        </div>
                     </Grid>
-                </div>
-            </Grid>
-            <Grid item xs={12} md={7}>
-                <List>
-                    <OpenPlatformButton
-                        platform={props.platform}
-                    />
-                    {!!props.username && (
-                        <CopyUsernameButton
-                            username={props.username}
-                        />
-                    )}
-                    {!!props.password && (
-                        <CopyPasswordButton
-                            password={props.password}
-                        />
-                    )}
-                    {!!props.description && (
-                        <ShowDescriptionButton
-                            description={props.description}
-                        />
-                    )}
-                </List>
-            </Grid>
-        </Grid>
+                    <Grid item xs={12} md={7}>
+                        <List>
+                            <OpenPlatformButton
+                                platform={props.platform}
+                            />
+                            {!!props.username && (
+                                <CopyUsernameButton
+                                    username={props.username}
+                                />
+                            )}
+                            {!!props.password && (
+                                <CopyPasswordButton
+                                    password={props.password}
+                                />
+                            )}
+                            {!!props.description && (
+                                <ShowDescriptionButton
+                                    description={props.description}
+                                />
+                            )}
+                        </List>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+            <DialogFooter />
+        </Fragment>
     );
 };
 
@@ -119,6 +125,10 @@ const ShowDescriptionButton = ({ description }: { description: string }) => {
 };
 
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+    root: {
+        padding: 0,
+        paddingTop: "0 !important",
+    },
     icon: {
         marginTop: -32,
         marginBottom: 24,

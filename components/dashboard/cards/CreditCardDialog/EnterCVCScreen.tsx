@@ -1,6 +1,6 @@
 import CreditCardCVCField from "@components/dashboard/landing/AddItemDialog/AddCreditCardScreen/CreditCardCVCField";
-import { useDialog } from "@components/DialogProvider";
-import { Button, CardActions, CardContent, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Typography } from "@material-ui/core";
+import { DialogFooter } from "@components/DialogProvider";
+import { Button, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Typography } from "@material-ui/core";
 import { Fragment, useState } from "react";
 import { CreditCardType } from "../CreditCardDialog";
 
@@ -10,7 +10,6 @@ export type EnterCVCScreenProps = {
 
 const EnterCVCScreen = ({ onDecrypt }: EnterCVCScreenProps) => {
     const [cvc, setCVC] = useState("");
-    const { close } = useDialog();
 
     return (
         <Fragment>
@@ -29,8 +28,7 @@ const EnterCVCScreen = ({ onDecrypt }: EnterCVCScreenProps) => {
                     onChange={(e) => setCVC(e.target.value)}
                 />
             </DialogContent>
-            <DialogActions>
-                <Button onClick={close}>Close</Button>
+            <DialogFooter>
                 <Button
                     disabled={cvc.length < 3}
                     onClick={() => onDecrypt({
@@ -42,10 +40,8 @@ const EnterCVCScreen = ({ onDecrypt }: EnterCVCScreenProps) => {
                         issuer: "mastercard",
                         name: "My Mastercard"
                     })}
-                >
-                    Continue
-                    </Button>
-            </DialogActions>
+                >Continue</Button>
+            </DialogFooter>
         </Fragment>
     );
 };

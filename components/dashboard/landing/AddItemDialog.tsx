@@ -1,11 +1,12 @@
 import { DialogFooter } from "@components/DialogProvider";
-import { DialogContent, DialogTitle, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import SafeIcon from "@components/icons/SafeIcon";
+import { DialogContent, DialogTitle, Grid, Icon, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@material-ui/icons";
 import { Fragment, useState } from "react";
 import AddAccountScreen from "./AddItemDialog/AddAccountScreen";
 import AddCreditCardScreen from "./AddItemDialog/AddCreditCardScreen";
 
-type ScreenType = "account" | "credit-card";
+type ScreenType = "account" | "credit-card" | "safe";
 
 const AddItemDialog = () => {
     const classes = useStyles();
@@ -19,6 +20,14 @@ const AddItemDialog = () => {
                 </DialogTitle>
                 <DialogContent className={classes.root}>
                     <List>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <SafeIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Safe"}
+                            />
+                        </ListItem>
                         <ListItem button onClick={() => setSelected("account")}>
                             <ListItemIcon>
                                 <AccountItem />

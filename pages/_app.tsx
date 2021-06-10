@@ -9,6 +9,8 @@ import "../public/css/react-credit-card.css";
 import FaviconList from "@components/FaviconList";
 import MenuProvider from "@components/MenuProvider";
 import { SnackbarProvider } from "notistack";
+import NavigationBar from "@components/dashboard/global/NavigationBar";
+import { Fragment } from "react";
 
 const theme = createTheme({
     components: {
@@ -24,7 +26,9 @@ const theme = createTheme({
     }
 })
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
+    const Wrapper = true ? NavigationBar : Fragment;
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -38,7 +42,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <SnackbarProvider>
                     <DialogProvider>
                         <MenuProvider>
-                            <Component {...pageProps} />
+                            <Wrapper>
+                                <Component {...pageProps} />
+                            </Wrapper>
                         </MenuProvider>
                     </DialogProvider>
                 </SnackbarProvider>

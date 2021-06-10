@@ -49,7 +49,7 @@ const AccountItem = (props: AccountItemProps) => {
                         <AccountMenu
                             account={account}
                         />,
-                        e.currentTarget
+                        e
                     );
                 }}
             >

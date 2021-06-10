@@ -2,11 +2,12 @@ import { Menu } from "@material-ui/core";
 import { createContext, Dispatch, Fragment, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 
 export const useMenu = () => {
-    const { setOpen, setComponent, setAnchorEl } = useContext(MenuContext);
+    const { setOpen, setComponent, setX, setY } = useContext(MenuContext);
 
-    const open = (component: JSX.Element, target?: HTMLElement) => {
+    const open = (component: JSX.Element, event?: React.MouseEvent<HTMLDivElement>) => {
         setComponent(component);
-        setAnchorEl(target);
+        setX(event.clientX);
+        setY(event.clientY);
         setOpen(true);
     };
 
@@ -25,8 +26,10 @@ type MenuContextType = {
     setOpen: Dispatch<SetStateAction<boolean>>;
     component: JSX.Element;
     setComponent: Dispatch<SetStateAction<JSX.Element>>;
-    anchorEl: HTMLElement;
-    setAnchorEl: Dispatch<SetStateAction<HTMLElement>>;
+    x: number;
+    setX: Dispatch<SetStateAction<number>>;
+    y: number;
+    setY: Dispatch<SetStateAction<number>>;
 };
 
 const MenuContext = createContext<MenuContextType>(null);
@@ -34,13 +37,19 @@ const MenuContext = createContext<MenuContextType>(null);
 const MenuProvider = ({ children }: PropsWithChildren<{}>) => {
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState(<Fragment />);
-    const [anchorEl, setAnchorEl] = useState<HTMLElement>(null);
-    
+    const [x, setX] = useState(0);
+    const [y, setY] = useState(0);
+
     return (
-        <MenuContext.Provider value={{ open, setOpen, component, setComponent, anchorEl, setAnchorEl }}>
+        <MenuContext.Provider value={{ open, setOpen, component, setComponent, x, setX, y, setY }}>
             <Menu
+                keepMounted
                 open={open}
-                anchorEl={anchorEl}
+                anchorReference="anchorPosition"
+                anchorPosition={{
+                    left: x,
+                    top: y,
+                }}
                 onClose={() => setOpen(false)}
             >
                 {component}

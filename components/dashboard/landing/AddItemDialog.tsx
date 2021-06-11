@@ -5,6 +5,7 @@ import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } fro
 import { Fragment, useState } from "react";
 import AddAccountScreen from "./AddItemDialog/AddAccountScreen";
 import AddCreditCardScreen from "./AddItemDialog/AddCreditCardScreen";
+import AddSafeScreen from "./AddItemDialog/AddSafeScreen";
 
 type ScreenType = "account" | "credit-card" | "safe";
 
@@ -20,7 +21,7 @@ const AddItemDialog = () => {
                 </DialogTitle>
                 <DialogContent className={classes.root}>
                     <List>
-                        <ListItem button>
+                        <ListItem button onClick={() => setSelected("safe")}>
                             <ListItemIcon>
                                 <SafeIcon />
                             </ListItemIcon>
@@ -53,6 +54,9 @@ const AddItemDialog = () => {
 
     return (
         <Fragment>
+            {selected === "safe" && (
+                <AddSafeScreen />
+            )}
             {selected === "account" && (
                 <AddAccountScreen />
             )}

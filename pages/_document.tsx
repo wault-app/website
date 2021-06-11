@@ -20,15 +20,18 @@ const generateCsp = (): [csp: string, nonce: string] => {
     hash.update(v4());
     const nonce = hash.digest('base64');
 
-    let csp = ``;
-    csp += `default-src 'none';`;
-    csp += `base-uri 'self';`;
-    csp += `style-src https://fonts.googleapis.com 'unsafe-inline';`; // NextJS requires 'unsafe-inline'
-    csp += `script-src 'nonce-${nonce}' 'self' ${production ? '' : "'unsafe-eval'"};`; // NextJS requires 'self' and 'unsafe-eval' in dev (faster source maps)
-    csp += `font-src https://fonts.gstatic.com;`;
-    if (!production) csp += `connect-src 'self';`;
+    let csp = [
+        `default-src 'none'`,
+        `base-uri 'self'`,
+        `style-src https://fonts.googleapis.com 'self' ${production ? `'nonce-${nonce}'` : "'unsafe-inline'"}`,
+        `script-src 'nonce-${nonce}' 'self'`,
+        `font-src https://fonts.gstatic.com`,
+        `img-src 'self' data:`,
+    ];
 
-    return [csp, nonce];
+    if (!production) csp.push(`connect-src 'self'`);
+
+    return [csp.join(";"), nonce];
 };
 
 export default class MyDocument extends Document {

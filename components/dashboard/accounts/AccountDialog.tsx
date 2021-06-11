@@ -37,7 +37,7 @@ const AccountDialog = (props: AccountDialogProps) => {
                             <Typography noWrap gutterBottom>
                                 {props.username}
                             </Typography>
-                            <Grid container spacing={1} justifyContent={"center"}>
+                            <Grid container spacing={1} justify={"center"}>
                                 {props.categories.map((category) => (
                                     <CategoryBadge
                                         category={category}

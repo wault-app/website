@@ -11,14 +11,14 @@ export type AuthenticationSentResponseType = {
 
 export default wrapper<AuthenticationSentResponseType>(async (req) => {
     const schema = z.object({
-        uuid: z.string(),
+        id: z.string(),
         keys: z.array(z.object({
-            vaultUUID: z.string(),
+            vaultid: z.string(),
             content: z.string(),
         })),
     });
 
-    const { uuid, keys } = schema.parse(JSON.parse(req.body));
+    const { keys } = schema.parse(JSON.parse(req.body));
 
     const user = await User.get(req);
     const auth = await find(uuid);

@@ -11,7 +11,7 @@ generator client {
 }
 
 model User {
-  uuid     String    @id
+  id       String    @id @default(cuid()) @map("_id")
   name     String
   devices  Device[]
   keycards Keycard[]
@@ -21,47 +21,47 @@ model User {
 }
 
 model Device {
-  uuid           String          @id
+  id             String          @id @default(cuid()) @map("_id")
   name           String
   loggedInAt     DateTime        @default(now())
   rsaKey         String
-  user           User            @relation(fields: [userUuid], references: [uuid])
+  user           User            @relation(fields: [userid], references: [id])
   keyExchanges   KeyExchange[]
   authentication Authentication?
 
-  userUuid String
+  userid String
   @@map("devices")
 }
 
 model KeyExchange {
-  uuid      String   @id
+  id        String   @id @default(cuid()) @map("_id")
   content   String
-  device    Device   @relation(fields: [deviceUuid], references: [uuid])
-  vault     Vault    @relation(fields: [vaultUuid], references: [uuid])
+  device    Device   @relation(fields: [deviceid], references: [id])
+  vault     Vault    @relation(fields: [vaultid], references: [id])
   createdAt DateTime @default(now())
 
-  deviceUuid String
-  vaultUuid  String
+  deviceid String
+  vaultid  String
   @@map("key_exchanges")
 }
 
 model Keycard {
-  uuid  String   @id
-  user  User     @relation(fields: [userUuid], references: [uuid])
-  vault Vault    @relation(fields: [vaultUuid], references: [uuid])
+  id    String   @id @default(cuid()) @map("_id")
+  user  User     @relation(fields: [userid], references: [id])
+  vault Vault    @relation(fields: [vaultid], references: [id])
   role  RoleType
 
-  userUuid  String
-  vaultUuid String
+  userid  String
+  vaultid String
 
-  @@unique([userUuid, vaultUuid])
+  @@unique([userid, vaultid])
   @@map("keycards")
 }
 
 model Vault {
-  uuid         String        @id
+  id           String        @id @default(cuid()) @map("_id")
   name         String // encrypted
-  accounts     Account[]
+  items        Item[]
   keyExchanges KeyExchange[]
   keycards     Keycard[]
 
@@ -69,27 +69,24 @@ model Vault {
 }
 
 model Authentication {
-  uuid       String  @id
+  id         String  @id @default(cuid()) @map("_id")
   deviceName String
   secret     String
   rsa        String
-  user       User?   @relation(fields: [userUuid], references: [uuid])
-  device     Device? @relation(fields: [deviceUuid], references: [uuid])
+  user       User?   @relation(fields: [userid], references: [id])
+  device     Device? @relation(fields: [deviceid], references: [id])
 
-  userUuid   String?
-  deviceUuid String?
+  userid   String?
+  deviceid String?
   @@map("authentication_process")
 }
 
-model Account {
-  uuid        String   @id
-  username    String // encrypted
-  password    String? // encrypted
-  description String? // encrypted
-  tags        String[] // not encrypted
-  vault       Vault    @relation(fields: [vaultUuid], references: [uuid])
+model Item {
+  uuid  String @id @default(cuid()) @map("_id")
+  data  Json // encrypted
+  vault Vault  @relation(fields: [vaultid], references: [id])
 
-  vaultUuid String
+  vaultid String
   @@map("accounts")
 }
 

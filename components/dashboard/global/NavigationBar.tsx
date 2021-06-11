@@ -1,4 +1,4 @@
-import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
+import { AppBar, Box, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
 import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as MenuIcon } from "@material-ui/icons";
 import { Fragment, PropsWithChildren, useState } from "react";
 import Image from "next/image";
@@ -37,71 +37,50 @@ const NavigationBar = (props: NavigationBarProps) => {
         </Fragment>
     );
 
-    const container = window !== undefined ? () => window.document.body : undefined;
-
     return (
-        <Box sx={{ display: "flex" }}>
-            <AppBar color={"default"} className={classes.responsiveHide}>
-                <Toolbar>
-                    <IconButton
-                        onClick={() => setOpen(true)}
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-
-            <Box
-                component="nav"
-                sx={{
-                    width: {
-                        md: DRAWER_WIDTH
-                    },
-                    flexShrink: {
-                        md: 0
-                    }
-                }}
-            >
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{
-                        display: {
-                            xs: "block",
-                            md: "none"
-                        },
-                        "& .MuiDrawer-paper": {
-                            boxSizing: "border-box",
-                            width: DRAWER_WIDTH
-                        },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
+        <Box>
+            <Hidden smDown>
                 <Drawer
                     variant="permanent"
-                    sx={{
-                        display: { xs: "none", sm: "none", md: "block" },
-                        "& .MuiDrawer-paper": { boxSizing: "border-box", width: DRAWER_WIDTH },
+                    classes={{
+                      paper: classes.drawer,
                     }}
                     open
                 >
                     {drawer}
                 </Drawer>
-            </Box>
-            <Box component="main" sx={{ flexGrow: 1 }}>
-                <div className={classes.wrapper}>
-                    {props.children}
-                </div>
-            </Box>
+            </Hidden>
+            <Hidden mdUp>
+                <AppBar color={"default"}>
+                    <Toolbar>
+                        <IconButton
+                            onClick={() => setOpen(true)}
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+
+                <Drawer
+                    variant={"temporary"}
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
+                    classes={{
+                      paper: classes.drawer,
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </Hidden>
+            <div className={classes.wrapper}>
+                {props.children}
+            </div>
         </Box>
     );
 };
@@ -109,19 +88,16 @@ const NavigationBar = (props: NavigationBarProps) => {
 const DRAWER_WIDTH = 300;
 
 const useStyles = makeStyles((theme) => ({
-    responsiveHide: {
-        [theme.breakpoints.up("md")]: {
-            display: "none",
-        },
-    },
     wrapper: {
-        [theme.breakpoints.down("md")]: {
+        marginLeft: DRAWER_WIDTH,
+        [theme.breakpoints.down("sm")]: {
             paddingTop: 64,
+            marginLeft: 0,
         },
     },
     drawer: {
-        [theme.breakpoints.up("sm")]: {
-            width: DRAWER_WIDTH,
+        width: DRAWER_WIDTH,
+        [theme.breakpoints.up("md")]: {
             flexShrink: 0,
         },
     },

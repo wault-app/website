@@ -1,7 +1,7 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
 import DialogProvider from "@components/DialogProvider";
 
 import "../public/css/fixes.css";
@@ -12,19 +12,7 @@ import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
 
-const theme = createTheme({
-    components: {
-        MuiCardContent: {
-            styleOverrides: {
-                root: {
-                    "&:last-child": {
-                        paddingBottom: 16,
-                    }
-                }
-            }
-        }
-    }
-})
+const theme = createMuiTheme({});
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;
@@ -38,17 +26,15 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <FaviconList />
             </Head>
-            <NoSsr>
-                <SnackbarProvider>
-                    <DialogProvider>
-                        <MenuProvider>
-                            <Wrapper>
-                                <Component {...pageProps} />
-                            </Wrapper>
-                        </MenuProvider>
-                    </DialogProvider>
-                </SnackbarProvider>
-            </NoSsr>
+            <SnackbarProvider>
+                <DialogProvider>
+                    <MenuProvider>
+                        <Wrapper>
+                            <Component {...pageProps} />
+                        </Wrapper>
+                    </MenuProvider>
+                </DialogProvider>
+            </SnackbarProvider>
         </ThemeProvider>
     );
 };

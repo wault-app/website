@@ -1,11 +1,10 @@
 import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
-import { v4 } from "uuid";
 import { z } from "zod";
 
 export type AuthenticationStartResponseType = {
     data: {
-        uuid: string;
+        id: string;
     };
 };
 
@@ -26,19 +25,18 @@ export default wrapper<AuthenticationStartResponseType>(async (req) => {
      */
     const authentication = await prisma.authentication.create({
         data: {
-            uuid: v4(),
             secret,
             deviceName,
             rsa,
         },
         select: {
-            uuid: true,
+            id: true,
         },
     });
 
     return {
         data: {
-            uuid: authentication.uuid,
+            id: authentication.id,
         },
     };
 });

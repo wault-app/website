@@ -1,7 +1,7 @@
 import { Authentication, User as PrismaUser } from ".prisma/client";
 import WrapperError from "@lib/server/error";
 import prisma from "@lib/server/prisma";
-import User from "@lib/server/user";
+import User from "@lib/server/auth/User";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
 

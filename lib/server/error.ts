@@ -11,6 +11,7 @@ export const errors = {
     "service_unavailable": "We could not reach the remote servers",
     "username_already_used": "This username is already used",
     "invalid_secret": "This secret is invalid",
+    "device_not_found": "We could not find this device. Perhaps it was removed before.",
 };
 
 export type ErrorType = keyof typeof errors;

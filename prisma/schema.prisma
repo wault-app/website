@@ -24,6 +24,7 @@ model Device {
   id             String          @id @default(cuid()) @map("_id")
   name           String
   loggedInAt     DateTime        @default(now())
+  refreshToken   String
   rsaKey         String
   user           User            @relation(fields: [userid], references: [id])
   keyExchanges   KeyExchange[]

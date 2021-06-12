@@ -1,4 +1,10 @@
 const config = {
+    cookies: {
+        auth: {
+            refreshToken: "refresh_token",
+            accessToken: "access_token",
+        },
+    },
     secrets: {
         jwt: {
             privateKey: process.env.JWT_PRIVATE_KEY,

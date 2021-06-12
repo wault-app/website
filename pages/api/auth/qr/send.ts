@@ -1,9 +1,9 @@
 import WrapperError from "@lib/server/error";
 import prisma from "@lib/server/prisma";
-import User from "@lib/server/user";
+import User from "@lib/server/auth/User";
 import wrapper from "@lib/server/wrapper";
-import { v4 } from "uuid";
 import { z } from "zod";
+import RefreshToken from "@lib/server/auth/RefreshToken";
 
 export type AuthenticationSentResponseType = {
     message: "successfully_sent_authentication_data";
@@ -28,17 +28,8 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
      */
     if (auth.userid !== user.id) throw new WrapperError("forbidden");
 
-    const device = await prisma.device.create({
-        data: {
-            name: auth.deviceName,
-            rsaKey: auth.rsa,
-            user: {
-                connect: {
-                    id: user.id,
-                },
-            },
-        },
-    });
+    // todo: refresh token
+    const { device } = await RefreshToken.create([auth.deviceName, auth.rsa, user]);
 
     await prisma.authentication.update({
         where: {

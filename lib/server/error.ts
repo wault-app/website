@@ -20,6 +20,7 @@ export type ErrorType = keyof typeof errors;
  * Class to handle errors that is thrown 
  */
 export default class WrapperError extends Error {
+    public name: ErrorType;
     public data: any;
     
     constructor(err: ErrorType, data?: any) {

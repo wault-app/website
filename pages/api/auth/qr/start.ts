@@ -1,6 +1,7 @@
 import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
 
 export type AuthenticationStartResponseType = {
     data: {
@@ -25,7 +26,7 @@ export default wrapper<AuthenticationStartResponseType>(async (req) => {
      */
     const authentication = await prisma.authentication.create({
         data: {
-            secret,
+            secret: await bcrypt.hash(secret, 10),
             deviceName,
             rsa,
         },

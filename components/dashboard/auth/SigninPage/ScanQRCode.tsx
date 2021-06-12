@@ -1,5 +1,5 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
-import QRCode from "qrcode.react";
+import QRCode from "react-qr-code";
 import { Skeleton } from "@material-ui/lab";
 
 export type ScanQRCodeProps = {
@@ -8,7 +8,7 @@ export type ScanQRCodeProps = {
     value: string;
 };
 
-const size = 156;
+const size = 128;
 
 const ScanQRCode = (props: ScanQRCodeProps) => {
     const classes = useStyles();
@@ -21,7 +21,6 @@ const ScanQRCode = (props: ScanQRCodeProps) => {
                 ) : (
                     <QRCode
                         value="http://facebook.github.io/react/"
-                        className={classes.qr}
                         size={size}
                     />
                 )}

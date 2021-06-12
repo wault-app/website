@@ -1,15 +1,35 @@
 import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import ResponsiveCard from "./SigninPage/ResponsiveCard";
 import Image from "next/image";
 import ScanQRCode from "./SigninPage/ScanQRCode";
 import ShowUser from "./SigninPage/ShowUser";
+import UnwrapPromise from "@lib/client/types/UnwrapPromise";
+import Authentication from "@lib/client/api/Authentication";
+
+type ProcessType = UnwrapPromise<typeof Authentication.start>
+type StateType = UnwrapPromise<typeof Authentication.check>;
 
 const SigninPage = () => {
+    const [process, setProcess] = useState<ProcessType>();
+    const [state, setState] = useState<StateType>();
     const classes = useStyles();
 
     const isLarge = useMediaQuery('(min-width:600px)');
     const Wrapper = isLarge ? Card : Fragment;
+
+    const check = async (process: ProcessType) => {
+        setState(await Authentication.check(process.id, process.secret));
+        setTimeout(() => check(process), 3000);
+    };
+
+    useEffect(() => {
+        (async () => {
+            const process = await Authentication.start();
+            setProcess(process);
+            await check(process);
+        })();
+    }, []);
 
     return (
         <Container maxWidth={"sm"} className={classes.container}>
@@ -23,10 +43,16 @@ const SigninPage = () => {
                 </div>
                 <Wrapper variant={"outlined"}>
                     <CardContent>
-                        <ShowUser
-                            onBack={() => {}}
-                            user={{ name: "pepyta", image: "/img/logo.png" }}
-                        />
+                        {!process && (
+                            <ScanQRCode 
+                                loading
+                            />
+                        )}
+                        {(state?.message === "not_scanned_yet" || true) && !!process && (
+                            <ScanQRCode 
+                                value={process.id}
+                            />
+                        )}
                     </CardContent>
                 </Wrapper>
             </ResponsiveCard>

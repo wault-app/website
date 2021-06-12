@@ -8,6 +8,7 @@ import MenuProvider from "@components/MenuProvider";
 import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
+import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 
 const theme = createMuiTheme({});
 
@@ -28,9 +29,11 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
             <SnackbarProvider>
                 <DialogProvider>
                     <MenuProvider>
-                        <Wrapper>
-                            <Component {...pageProps} />
-                        </Wrapper>
+                        <AuthenticationProvider>
+                            <Wrapper>
+                                <Component {...pageProps} />
+                            </Wrapper>
+                        </AuthenticationProvider>
                     </MenuProvider>
                 </DialogProvider>
             </SnackbarProvider>

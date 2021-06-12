@@ -17,7 +17,7 @@ type AuthenticationCodeCheckResponseType = {
     message: "scanned_and_verified",
     data: {
         exchanges: ({
-            vaultUUID: string;
+            vaultid: string;
             content: string;
         })[];
     };
@@ -63,7 +63,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req) => {
         message: "scanned_and_verified",
         data: {
             exchanges: exchanges.map((exchange) => ({
-                vaultUUID: exchange.vaultid,
+                vaultid: exchange.vaultid,
                 content: exchange.content,
             })),
         },

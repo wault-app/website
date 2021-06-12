@@ -1,6 +1,7 @@
 import Platforms from "@lib/client/platforms";
-import { makeStyles, Skeleton, Theme, Typography } from "@material-ui/core";
+import { makeStyles, Theme, Typography } from "@material-ui/core";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { Skeleton } from "@material-ui/lab";
 
 export type PlatformIconProps = ({
     hostname: string;
@@ -20,7 +21,7 @@ const PlatformIcon = (props: PlatformIconProps) => {
             <Skeleton
                 width={props.size}
                 height={props.size}
-                variant={"rectangular"}
+                variant={"rect"}
                 animation={"wave"}
                 className={classes.loader}
             />

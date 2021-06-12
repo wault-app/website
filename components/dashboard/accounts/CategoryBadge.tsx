@@ -20,7 +20,7 @@ const CategoryBadge = ({ category: name }: CategoryBadgeProps) => {
 
 const useStyles = makeStyles((theme) => ({
     badge: {
-        background: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
+        background: theme.palette.type === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
         padding: theme.spacing(1),
         borderRadius: theme.shape.borderRadius,
     },

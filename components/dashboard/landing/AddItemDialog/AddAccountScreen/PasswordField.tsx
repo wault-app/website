@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, makeStyles, TextField, TextFieldProps } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField, TextFieldProps } from "@material-ui/core";
 import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
 import { useState } from "react";
 
@@ -26,11 +26,5 @@ const PasswordField = (props: TextFieldProps) => {
         />
     );
 };
-
-const useStyles = makeStyles({
-    root: {
-        
-    },
-});
 
 export default PasswordField;

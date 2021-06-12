@@ -14,11 +14,11 @@ export type AuthenticationScannedResponseType = {
 
 export default wrapper<AuthenticationScannedResponseType>(async (req) => {
     const schema = z.object({
-        uuid: z.string(),
+        id: z.string(),
     });
 
-    const { uuid } = schema.parse(JSON.parse(req.body));
-    const auth = await find(uuid);
+    const { id } = schema.parse(JSON.parse(req.body));
+    const auth = await find(id);
     const user = await User.get(req);
     
     await setUser(auth, user);
@@ -34,22 +34,22 @@ export default wrapper<AuthenticationScannedResponseType>(async (req) => {
 const setUser = async (auth: Authentication, user: PrismaUser) => {
     return await prisma.authentication.update({
         where: {
-            uuid: auth.uuid,
+            id: auth.id,
         },
         data: {
             user: {
                 connect: {
-                    uuid: user.uuid,
+                    id: user.id,
                 },
             },
         },
     });
 };
 
-const find = async (uuid: string) => {
+const find = async (id: string) => {
     const resp = await prisma.authentication.findUnique({
         where: {
-            uuid,
+            id,
         },
     });
 

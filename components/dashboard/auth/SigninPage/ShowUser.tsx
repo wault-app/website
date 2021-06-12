@@ -33,7 +33,7 @@ const ShowUser = ({ onBack, user }: ShowUserProps) => {
                     If you can see your name here, then you can click on the continue in the application!
                 </Typography>
             </Grid>
-            <Grid item xs={12} justifyContent={"center"}>
+            <Grid item xs={12} justify={"center"}>
                 <Button
                     onClick={() => onBack()}
                     startIcon={<BackIcon />}

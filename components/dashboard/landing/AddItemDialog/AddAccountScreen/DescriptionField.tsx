@@ -5,8 +5,7 @@ const DescriptionField = (props: TextFieldProps) => {
         <TextField 
             label={"Description"}
             multiline
-            minRows={3}
-            maxRows={6}
+            rows={4}
             {...props}
         />
     );

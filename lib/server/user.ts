@@ -14,11 +14,11 @@ export default class User {
         if(typeof token === "string") throw new WrapperError("unexcepted_error");
 
         // @ts-ignore
-        const uuid = token.uuid;
+        const id = token.id;
 
         const user = await prisma.user.findUnique({
             where: {
-                uuid,
+                id,
             },
         });
 

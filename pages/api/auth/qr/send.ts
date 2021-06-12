@@ -18,24 +18,23 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
         })),
     });
 
-    const { keys } = schema.parse(JSON.parse(req.body));
+    const { id, keys } = schema.parse(JSON.parse(req.body));
 
     const user = await User.get(req);
-    const auth = await find(uuid);
+    const auth = await find(id);
 
     /**
      * Forbidden if user is not associated with authentication code object
      */
-    if (auth.userUuid !== user.uuid) throw new WrapperError("forbidden");
+    if (auth.userid !== user.id) throw new WrapperError("forbidden");
 
     const device = await prisma.device.create({
         data: {
-            uuid: v4(),
             name: auth.deviceName,
             rsaKey: auth.rsa,
             user: {
                 connect: {
-                    uuid: user.uuid,
+                    id: user.id,
                 },
             },
         },
@@ -43,12 +42,12 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
 
     await prisma.authentication.update({
         where: {
-            uuid: auth.uuid,
+            id: auth.id,
         },
         data: {
             device: {
                 connect: {
-                    uuid: device.uuid,
+                    id: device.id,
                 },
             },
         },
@@ -57,16 +56,15 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
     const exchanges = await Promise.all(keys.map(async (key) =>
         await prisma.keyExchange.create({
             data: {
-                uuid: v4(),
                 content: key.content,
                 vault: {
                     connect: {
-                        uuid: key.vaultUUID,
+                        id: key.vaultid,
                     },
                 },
                 device: {
                     connect: {
-                        uuid: device.uuid,
+                        id: device.id,
                     },
                 },
             },
@@ -86,10 +84,10 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
  * @param uuid 
  * @returns `Authentication` object
  */
-const find = async (uuid: string) => {
+const find = async (id: string) => {
     const resp = await prisma.authentication.findUnique({
         where: {
-            uuid,
+            id,
         },
     });
 

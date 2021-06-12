@@ -16,7 +16,7 @@ const ResponsiveCard = (props: ResponsiveCardProps) => {
     }
 
     return (
-        <Grid className={classes.fullHeight} container alignItems={"center"} justifyContent={"center"}>
+        <Grid className={classes.fullHeight} container alignItems={"center"} justify={"center"}>
             <Grid item>
                 {props.children}
             </Grid>

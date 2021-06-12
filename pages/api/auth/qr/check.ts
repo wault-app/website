@@ -25,12 +25,12 @@ type AuthenticationCodeCheckResponseType = {
 
 export default wrapper<AuthenticationCodeCheckResponseType>(async (req) => {
     const schema = z.object({
-        uuid: z.string(),
+        id: z.string(),
         secret: z.string(),
     });
 
-    const { uuid, secret } = schema.parse(JSON.parse(req.body));
-    const auth = await find(uuid, secret);
+    const { id, secret } = schema.parse(JSON.parse(req.body));
+    const auth = await find(id, secret);
 
     if(!auth.user) {
         return {
@@ -51,10 +51,10 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req) => {
 
     const exchanges = await prisma.keyExchange.findMany({
         where: {
-            deviceUuid: auth.device.uuid,
+            deviceid: auth.device.id,
         },
         select: {
-            vaultUuid: true,
+            vaultid: true,
             content: true,
         }
     });
@@ -63,17 +63,17 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req) => {
         message: "scanned_and_verified",
         data: {
             exchanges: exchanges.map((exchange) => ({
-                vaultUUID: exchange.vaultUuid,
+                vaultUUID: exchange.vaultid,
                 content: exchange.content,
             })),
         },
     };
 });
 
-const find = async (uuid: string, secret: string) => {
+const find = async (id: string, secret: string) => {
     const auth = await prisma.authentication.findUnique({
         where: {
-            uuid,
+            id,
         },
         include: {
             user: true,

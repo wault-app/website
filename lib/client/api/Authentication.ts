@@ -37,6 +37,7 @@ export default class Authentication {
             body: JSON.stringify({
                 id,
                 secret,
+                web: true,
             }),
         });
 

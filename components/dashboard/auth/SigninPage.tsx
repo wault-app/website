@@ -23,12 +23,14 @@ const SigninPage = () => {
         setTimeout(() => check(process), 3000);
     };
 
+    const start = async () => {
+        const process = await Authentication.start();
+        setProcess(process);
+        await check(process);
+    };    
+
     useEffect(() => {
-        (async () => {
-            const process = await Authentication.start();
-            setProcess(process);
-            await check(process);
-        })();
+        start();    
     }, []);
 
     return (
@@ -51,6 +53,18 @@ const SigninPage = () => {
                         {(state?.message === "not_scanned_yet" || true) && !!process && (
                             <ScanQRCode 
                                 value={process.id}
+                            />
+                        )}
+                        {state.message === "scanned_but_not_verified" && (
+                            <ShowUser 
+                                onBack={async () => {
+                                    setProcess(null);
+                                    setState(null);
+                                    await start();
+                                }}
+                                user={{
+                                    name: state.data.user.name || "",
+                                }}
                             />
                         )}
                     </CardContent>

@@ -24,7 +24,7 @@ export default class RefreshToken {
         });
 
         return {
-            secret,
+            refreshToken: this.serialize(device.id, secret),
             device,
         };
     }

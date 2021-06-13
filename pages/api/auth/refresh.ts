@@ -1,9 +1,8 @@
 import RefreshToken from "@lib/server/auth/RefreshToken";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
-import { serialize } from 'cookie';
-import config from "@lib/server/config";
 import AccessToken from "@lib/server/auth/AccessToken";
+import Cookies from "@lib/server/auth/Cookies";
 
 export default wrapper(async (req, res) => {
     const schema = z.object({
@@ -15,17 +14,9 @@ export default wrapper(async (req, res) => {
     const { web } = schema.parse(JSON.parse(req.body));
 
     if(web) {
-        res.setHeader("Set-Cookie", serialize(config.cookies.auth.accessToken, accessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // only enable secure in production, as localhost can't have https
-            sameSite: "strict",
-        }));
-
-        res.setHeader("Set-Cookie", serialize(config.cookies.auth.refreshToken, refreshToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // only enable secure in production, as localhost can't have https
-            sameSite: "strict",
-        }));
+        for(const cookie of Cookies.serialize(accessToken, refreshToken)) {
+            res.setHeader("Set-Cookie", cookie);
+        }
         
         return {
             message: "successful_refresh_token",

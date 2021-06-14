@@ -21,7 +21,7 @@ const generateCsp = (): [csp: string, nonce: string] => {
     const nonce = hash.digest('base64');
 
     let csp = [
-        `default-src 'none'`,
+        `default-src 'self'`,
         `base-uri 'self'`,
         `style-src https://fonts.googleapis.com 'self' ${production ? `'nonce-${nonce}'` : "'unsafe-inline'"}`,
         `script-src 'nonce-${nonce}' 'self'`,

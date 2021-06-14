@@ -7,7 +7,7 @@ export default wrapper(async (req) => {
     return {
         data: {
             id: user.id,
-            name: user.name,
+            username: user.username,
         },
     };
 });

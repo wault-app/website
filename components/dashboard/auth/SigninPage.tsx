@@ -63,7 +63,7 @@ const SigninPage = () => {
                                     await start();
                                 }}
                                 user={{
-                                    name: state.data.user.name || "",
+                                    name: state.data.user.username || "",
                                 }}
                             />
                         )}

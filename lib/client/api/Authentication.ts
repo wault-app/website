@@ -47,14 +47,14 @@ export default class Authentication {
             message: z.literal("scanned_but_not_verified"),
             data: z.object({
                 user: z.object({
-                    name: z.string(),
+                    username: z.string(),
                 }),
             }),
         })).or(z.object({
             message: z.literal("scanned_and_verified"),
             data: z.object({
                 exchanges: z.array(z.object({
-                    vaultid: z.string(),
+                    safeid: z.string(),
                     content: z.string(),
                 })),
             }),

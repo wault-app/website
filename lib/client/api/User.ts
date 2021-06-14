@@ -3,7 +3,7 @@ import get from "./fetch/get";
 
 export type UserType = {
     id: string,
-    name: string,
+    username: string,
 };
 
 export default class User {

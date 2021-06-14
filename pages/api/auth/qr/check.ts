@@ -14,14 +14,14 @@ type AuthenticationCodeCheckResponseType = {
     message: "scanned_but_not_verified",
     data: {
         user: {
-            name: string;
+            username: string;
         };
     };
 } | {
     message: "scanned_and_verified",
     data: {
         exchanges: ({
-            vaultid: string;
+            safeid: string;
             content: string;
         })[];
     };
@@ -48,7 +48,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
             message: "scanned_but_not_verified",
             data: {
                 user: {
-                    name: auth.user.name,
+                    username: auth.user.username,
                 },
             },
         };
@@ -59,15 +59,17 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
             deviceid: auth.device.id,
         },
         select: {
-            vaultid: true,
+            safeid: true,
             content: true,
         }
     });
 
-    const [accessToken, { refreshToken }] = await Promise.all([
-        AccessToken.generate(auth.user),
-        RefreshToken.create([auth.deviceName, auth.rsa, auth.user]),
-    ])
+    const { refreshToken, device } = await RefreshToken.create([auth.deviceName, auth.rsa, auth.user]);
+    const accessToken = await AccessToken.generate({ 
+        id: auth.user.id,
+        username: auth.user.username,
+        deviceid: device.id
+    });
 
     if(web) {
         for(const cookie of Cookies.serialize(accessToken, refreshToken)) {
@@ -78,7 +80,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
             message: "scanned_and_verified",
             data: {
                 exchanges: exchanges.map((exchange) => ({
-                    vaultid: exchange.vaultid,
+                    safeid: exchange.safeid,
                     content: exchange.content,
                 })),
             },
@@ -90,7 +92,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
                 accessToken,
                 refreshToken,
                 exchanges: exchanges.map((exchange) => ({
-                    vaultid: exchange.vaultid,
+                    safeid: exchange.safeid,
                     content: exchange.content,
                 })),
             },

@@ -54,7 +54,7 @@ export default class RefreshToken {
 
         const { secret, hash } = await this.generate();
 
-        await prisma.device.update({
+        const device = await prisma.device.update({
             where: {
                 id: deviceid,
             },
@@ -66,6 +66,7 @@ export default class RefreshToken {
         return {
             refreshToken: this.serialize(deviceid, secret),
             user,
+            device,
         };
     }
 

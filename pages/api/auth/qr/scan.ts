@@ -7,9 +7,7 @@ import { z } from "zod";
 
 export type AuthenticationScannedResponseType = {
     message: "successfully_scanned_authentication_code";
-    data: {
-        rsa: string;
-    };
+    rsa: string;
 };
 
 export default wrapper<AuthenticationScannedResponseType>(async (req) => {
@@ -25,9 +23,7 @@ export default wrapper<AuthenticationScannedResponseType>(async (req) => {
 
     return {
         message: "successfully_scanned_authentication_code",
-        data: {
-            rsa: auth.rsa,
-        },
+        rsa: auth.rsa,
     };
 });
 

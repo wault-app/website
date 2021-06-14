@@ -5,43 +5,43 @@ import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
 
-export type RegistrationMessageType = "successful_registration"; 
+export type RegistrationMessageType = "successful_registration";
 
 export default wrapper(async (req) => {
     /**
      * Checking given parameters for any type mismatch
      */
     const parameters = z.object({
-        name: z.string(),
+        username: z.string(),
         deviceName: z.string(),
         rsaKey: z.string(),
     });
 
-    const { name, rsaKey, deviceName } = parameters.parse(JSON.parse(req.body));
+    const { username, rsaKey, deviceName } = parameters.parse(JSON.parse(req.body));
 
     /**
      * Creating user and filtering data to prevent accidental data passing
      */
     const user = await prisma.user.create({
         data: {
-            name,
+            username,
         },
         select: {
             id: true,
-            name: true,
+            username: true,
         },
     });
 
-    const [accessToken, refreshToken] = await Promise.all([
-        AccessToken.generate(user),
-        RefreshToken.create([deviceName, rsaKey, user]),
-    ])
+    const refreshToken = await RefreshToken.create([deviceName, rsaKey, user]);
+    const accessToken = await AccessToken.generate({
+        id: user.id,
+        username: user.username,
+        deviceid: refreshToken.device.id
+    });
 
     return {
         message: "successful_registration",
-        data: {
-            accessToken,
-            refreshToken,
-        },
+        accessToken,
+        refreshToken,
     };
 });

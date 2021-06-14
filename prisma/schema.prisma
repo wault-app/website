@@ -12,7 +12,7 @@ generator client {
 
 model User {
   id       String    @id @default(cuid()) @map("_id")
-  name     String
+  username String    @unique
   devices  Device[]
   keycards Keycard[]
 
@@ -38,35 +38,35 @@ model KeyExchange {
   id        String   @id @default(cuid()) @map("_id")
   content   String
   device    Device   @relation(fields: [deviceid], references: [id])
-  vault     Vault    @relation(fields: [vaultid], references: [id])
+  safe      Safe     @relation(fields: [safeid], references: [id])
   createdAt DateTime @default(now())
 
   deviceid String
-  vaultid  String
+  safeid   String
   @@map("key_exchanges")
 }
 
 model Keycard {
-  id    String   @id @default(cuid()) @map("_id")
-  user  User     @relation(fields: [userid], references: [id])
-  vault Vault    @relation(fields: [vaultid], references: [id])
-  role  RoleType
+  id   String   @id @default(cuid()) @map("_id")
+  user User     @relation(fields: [userid], references: [id])
+  safe Safe     @relation(fields: [safeid], references: [id])
+  role RoleType
 
-  userid  String
-  vaultid String
+  userid String
+  safeid String
 
-  @@unique([userid, vaultid])
+  @@unique([userid, safeid])
   @@map("keycards")
 }
 
-model Vault {
+model Safe {
   id           String        @id @default(cuid()) @map("_id")
   name         String // encrypted
   items        Item[]
   keyExchanges KeyExchange[]
   keycards     Keycard[]
 
-  @@map("vaults")
+  @@map("safes")
 }
 
 model Authentication {
@@ -83,11 +83,11 @@ model Authentication {
 }
 
 model Item {
-  uuid  String @id @default(cuid()) @map("_id")
-  data  Json // encrypted
-  vault Vault  @relation(fields: [vaultid], references: [id])
+  id String @id @default(cuid()) @map("_id")
+  data Json // encrypted
+  safe Safe   @relation(fields: [safeid], references: [id])
 
-  vaultid String
+  safeid String
   @@map("accounts")
 }
 

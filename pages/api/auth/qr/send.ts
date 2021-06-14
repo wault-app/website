@@ -13,7 +13,7 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
     const schema = z.object({
         id: z.string(),
         keys: z.array(z.object({
-            vaultid: z.string(),
+            safeid: z.string(),
             content: z.string(),
         })),
     });
@@ -43,13 +43,13 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
         },
     });
 
-    const exchanges = await Promise.all(keys.map(async (key) =>
+    await Promise.all(keys.map(async (key) =>
         await prisma.keyExchange.create({
             data: {
                 content: key.content,
-                vault: {
+                safe: {
                     connect: {
-                        id: key.vaultid,
+                        id: key.safeid,
                     },
                 },
                 device: {
@@ -63,9 +63,7 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
 
     return {
         message: "successfully_sent_authentication_data",
-        data: {
-            device,
-        },
+        device,
     };
 });
 

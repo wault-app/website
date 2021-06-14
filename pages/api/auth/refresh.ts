@@ -9,8 +9,13 @@ export default wrapper(async (req, res) => {
         web: z.boolean(),
     });
 
-    const { refreshToken, user } = await RefreshToken.refresh(req);
-    const accessToken = await AccessToken.generate(user);
+    const { refreshToken, user, device } = await RefreshToken.refresh(req);
+    const accessToken = await AccessToken.generate({
+        id: user.id,
+        username: user.username,
+        deviceid: device.id,
+    });
+    
     const { web } = schema.parse(JSON.parse(req.body));
 
     if(web) {
@@ -24,10 +29,8 @@ export default wrapper(async (req, res) => {
     } else {
         return {
             message: "successful_refresh_token",
-            data: {
-                refreshToken,
-                accessToken,
-            },
+            refreshToken,
+            accessToken,
         };
     }
 });

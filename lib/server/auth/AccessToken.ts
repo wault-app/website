@@ -1,4 +1,3 @@
-import { User as PrismaUser } from ".prisma/client";
 import jsonwebtoken from "jsonwebtoken";
 import { NextApiRequest } from "next";
 import { z } from "zod";
@@ -11,8 +10,12 @@ export default class AccessToken {
      * @param user the user who we want to generate jwt for
      * @returns JsonWebToken as a string
      */
-    public static async generate(user: PrismaUser) {
-        return await jsonwebtoken.sign(user, config.secrets.jwt.privateKey, {
+    public static async generate(instance: {
+        id: string;
+        username: string;
+        deviceid: string;
+    }) {
+        return await jsonwebtoken.sign(instance, config.secrets.jwt.privateKey, {
             issuer: "Wault",
             expiresIn: "5m",
         });
@@ -46,9 +49,10 @@ export default class AccessToken {
     }
 
     private static typeCheck(data: any) {
-        // TODO: schema
         const schema = z.object({
             id: z.string(),
+            username: z.string(),
+            deviceid: z.string(),
         });
 
         return schema.parse(data);

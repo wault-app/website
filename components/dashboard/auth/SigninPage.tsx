@@ -19,7 +19,8 @@ const SigninPage = () => {
     const Wrapper = isLarge ? Card : Fragment;
 
     const check = async (process: ProcessType) => {
-        setState(await Authentication.check(process.id, process.secret));
+        const resp = await Authentication.check(process.id, process.secret)
+        setState(resp);
         setTimeout(() => check(process), 3000);
     };
 
@@ -55,7 +56,7 @@ const SigninPage = () => {
                                 value={process.id}
                             />
                         )}
-                        {state.message === "scanned_but_not_verified" && (
+                        {state?.message === "scanned_but_not_verified" && (
                             <ShowUser 
                                 onBack={async () => {
                                     setProcess(null);

@@ -1,6 +1,9 @@
 const { createSecureHeaders } = require("next-secure-headers");
 
 module.exports = {
+    future: {
+        webpack5: false,
+    },
     async headers() {
         return [{
             source: "/(.*)",

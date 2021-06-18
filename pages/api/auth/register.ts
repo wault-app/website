@@ -32,7 +32,7 @@ export default wrapper(async (req) => {
         },
     });
 
-    const refreshToken = await RefreshToken.create([deviceName, rsaKey, user]);
+    const { refreshToken } = await RefreshToken.create([deviceName, rsaKey, user]);
     const accessToken = await AccessToken.generate({
         id: user.id,
         username: user.username,

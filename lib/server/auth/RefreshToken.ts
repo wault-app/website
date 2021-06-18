@@ -71,7 +71,7 @@ export default class RefreshToken {
     }
 
     private static async generate(rounds = 10) {
-        const secret = await crypto.randomBytes(512).toString("utf8");
+        const secret = await crypto.randomBytes(512).toString("hex");
         const hash = await bcrypt.hash(secret, rounds);
 
         return {

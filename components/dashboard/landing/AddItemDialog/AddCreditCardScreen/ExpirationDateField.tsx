@@ -6,6 +6,7 @@ const ExpirationDateField = (props: ExpirationDateFieldProps) => (
     <TextField
         type={"tel"}
         fullWidth
+        autoComplete={"cc-exp"}
         variant={"outlined"}
         label={"Expiration date"}
         {...props}
@@ -16,7 +17,7 @@ const ExpirationDateField = (props: ExpirationDateFieldProps) => (
         }}
         inputProps={{
             ...props?.inputProps,
-            pattern: "\d\d/\d\d",
+            pattern: "(?:0[1-9]|1[0-2])/[0-9]{2}",
         }}
     />
 );

@@ -2,6 +2,7 @@ import { DialogFooter } from "@components/DialogProvider";
 import { Button, CardContent, DialogContent, Grid, makeStyles, TextField } from "@material-ui/core";
 import { Fragment, useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";
+import CardHolderNameField from "./AddCreditCardScreen/CardHolderNameField";
 import CreditCardCVCField from "./AddCreditCardScreen/CreditCardCVCField";
 import CreditCardNumberField from "./AddCreditCardScreen/CreditCardNumberField";
 import ExpirationDateField from "./AddCreditCardScreen/ExpirationDateField";
@@ -37,10 +38,7 @@ const AddCreditCardScreen = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            variant={"outlined"}
-                            label={"Card holder's name"}
+                        <CardHolderNameField
                             value={name}
                             onFocus={() => setFocused("name")}
                             onChange={(e) => setName(e.target.value)}

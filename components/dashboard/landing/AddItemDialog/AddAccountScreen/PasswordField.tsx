@@ -9,6 +9,7 @@ const PasswordField = (props: TextFieldProps) => {
         <TextField
             type={show ? "text" : "password"}
             label={"Password"} 
+            autoComplete={"current-password"}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position={"end"}>

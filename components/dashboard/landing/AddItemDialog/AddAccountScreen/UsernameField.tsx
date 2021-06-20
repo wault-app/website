@@ -4,6 +4,7 @@ const UsernameField = (props: TextFieldProps) => {
     return (
         <TextField
             label={"Username"}
+            autoComplete={"username"}
             {...props}
         />
     );

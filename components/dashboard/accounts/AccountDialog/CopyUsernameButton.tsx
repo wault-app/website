@@ -3,6 +3,10 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { FileCopyRounded as CopyIcon } from "@material-ui/icons";
 
+/**
+ * A button used to copy the username of an `Account` to the Clipboard
+ * @param password {username} the value of the username
+ */
 const CopyUsernameButton = ({ username }: { username: string }) => {
     const { enqueueSnackbar } = useSnackbar();
 

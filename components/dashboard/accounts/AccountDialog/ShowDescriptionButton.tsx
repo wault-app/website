@@ -2,6 +2,10 @@ import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles, Typography 
 import { Fragment, useState } from "react";
 import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon, FileCopyRounded as CopyIcon, LanguageRounded as WebsiteIcon, VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
 
+/**
+ * A button and a container to display the description of an `Account`
+ * @param description {string} content of the description 
+ */
 const ShowDescriptionButton = ({ description }: { description: string }) => {
     const [open, setOpen] = useState(false);
     const classes = useStyles();
@@ -29,7 +33,7 @@ const ShowDescriptionButton = ({ description }: { description: string }) => {
 const useStyles = makeStyles((theme) => ({
     box: {
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.type === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
+        backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
         margin: theme.spacing(2),
         padding: theme.spacing(2),
     },

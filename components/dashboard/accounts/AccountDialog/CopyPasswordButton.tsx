@@ -3,6 +3,10 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import Clipboard from "@lib/client/clipboard";
 import { useSnackbar } from "notistack";
 
+/**
+ * A button used to copy the password of an `Account` to the Clipboard
+ * @param password {string} the value of the password
+ */
 const CopyPasswordButton = ({ password }: { password: string }) => {
     const { enqueueSnackbar } = useSnackbar();
 

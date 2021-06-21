@@ -1,5 +1,5 @@
 import CreditCardCVCField from "@components/dashboard/landing/AddItemDialog/AddCreditCardScreen/CreditCardCVCField";
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter } from "@components/providers/DialogProvider";
 import { Button, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Typography } from "@material-ui/core";
 import { Fragment, useState } from "react";
 import { CreditCardType } from "../CreditCardDialog";

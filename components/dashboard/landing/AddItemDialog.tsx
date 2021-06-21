@@ -1,4 +1,4 @@
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter } from "@components/providers/DialogProvider";
 import SafeIcon from "@components/icons/SafeIcon";
 import { DialogContent, DialogTitle, Grid, Icon, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@material-ui/icons";

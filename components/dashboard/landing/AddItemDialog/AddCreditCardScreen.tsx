@@ -1,4 +1,4 @@
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter } from "@components/providers/DialogProvider";
 import { Button, CardContent, DialogContent, Grid, makeStyles, TextField } from "@material-ui/core";
 import { Fragment, useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";

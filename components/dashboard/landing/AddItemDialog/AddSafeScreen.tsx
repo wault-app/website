@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { Button, DialogContent, DialogTitle } from "@material-ui/core";
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter } from "@components/providers/DialogProvider";
 import SafeNameField from "./AddSafeScreen/SafeNameField";
 
 const AddSafeScreen = () => {

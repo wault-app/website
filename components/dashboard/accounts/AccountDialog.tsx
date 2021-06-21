@@ -1,9 +1,9 @@
 import { Collapse, DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
-import PlatformIcon from "@components/PlatformIcon";
+import PlatformIcon from "@components/platforms/PlatformIcon";
 import { AccountType } from "./AccountItem";import Platforms from "@lib/client/platforms";
 import { Fragment } from "react";
 import CategoryBadge from "./CategoryBadge";
-import { DialogFooter } from "@components/DialogProvider";
+import { DialogFooter } from "@components/providers/DialogProvider";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";

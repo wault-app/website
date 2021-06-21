@@ -1,11 +1,11 @@
 import { ListItem, ListItemAvatar, ListItemText, makeStyles } from "@material-ui/core";
-import PlatformIcon from "@components/PlatformIcon";
-import { useDialog } from "@components/DialogProvider";
+import PlatformIcon from "@components/platforms/PlatformIcon";
+import { useDialog } from "@components/providers/DialogProvider";
 import AccountDialog from "./AccountDialog";
 import { Fragment  } from "react";
 import AccountMenu from "./AccountMenu";
 import { CategoryType } from "@lib/client/categories";
-import { useMenu } from "@components/MenuProvider";
+import { useMenu } from "@components/providers/MenuProvider";
 
 export type AccountType = {
     platform: string;

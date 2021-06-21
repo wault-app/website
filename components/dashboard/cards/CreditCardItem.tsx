@@ -1,4 +1,4 @@
-import { useDialog } from "@components/DialogProvider";
+import { useDialog } from "@components/providers/DialogProvider";
 import { IssuerType } from "@lib/client/credit-cards/issuers";
 import Issuers from "@lib/client/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";

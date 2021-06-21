@@ -1,5 +1,5 @@
-import { DialogFooter } from "@components/DialogProvider";
-import PlatformIcon from "@components/PlatformIcon";
+import { DialogFooter } from "@components/providers/DialogProvider";
+import PlatformIcon from "@components/platforms/PlatformIcon";
 import { Button, DialogContent, DialogTitle, Grid, InputAdornment, TextField, Typography } from "@material-ui/core";
 import { Fragment, useState } from "react";
 import DescriptionField from "./AddAccountScreen/DescriptionField";

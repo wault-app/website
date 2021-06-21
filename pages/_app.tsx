@@ -2,9 +2,9 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { createMuiTheme as createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-import DialogProvider from "@components/DialogProvider";
-import FaviconList from "@components/FaviconList";
-import MenuProvider from "@components/MenuProvider";
+import DialogProvider from "@components/providers/DialogProvider";
+import FaviconList from "@components/seo/FaviconList";
+import MenuProvider from "@components/providers/MenuProvider";
 import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
@@ -12,7 +12,7 @@ import AuthenticationProvider from "@components/providers/AuthenticationProvider
 
 const theme = createTheme({});
 
-const MyApp = ({ Component, pageProps, router }: AppProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;
 
     return (

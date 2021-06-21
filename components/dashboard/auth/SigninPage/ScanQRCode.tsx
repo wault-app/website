@@ -20,7 +20,7 @@ const ScanQRCode = (props: ScanQRCodeProps) => {
                     <QRCodeLoader />
                 ) : (
                     <QRCode
-                        value="http://facebook.github.io/react/"
+                        value={props.value}
                         size={size}
                     />
                 )}

@@ -5,6 +5,7 @@ import { NextApiRequest } from "next";
 import { z } from "zod";
 import WrapperError from "../error";
 import { User } from ".prisma/client";
+import AccessToken from "./AccessToken";
 
 export default class RefreshToken {
     public static async create([name, rsaKey, user]: [string, string, User]) {
@@ -24,31 +25,28 @@ export default class RefreshToken {
         });
 
         return {
-            refreshToken: this.serialize(device.id, secret),
+            refreshToken: secret,
             device,
         };
     }
 
-    private static serialize(deviceid: string, secret: string) {
-        return JSON.stringify({
-            deviceid,
-            refreshToken: secret, 
-        });
-    }
-
-    private static extract(req: NextApiRequest) {
-        const token = (req.cookies || JSON.parse(req.body))["refresh_token"];
+    private static async extract(req: NextApiRequest) {
+        const refreshToken = (req.cookies || JSON.parse(req.body))["refresh_token"];
+        const { deviceid } = await AccessToken.unsafeCheck(AccessToken.extract(req));
 
         const schema = z.object({
             deviceid: z.string().min(1),
             refreshToken: z.string().min(1),
         });
 
-        return schema.parse(JSON.parse(token));
+        return schema.parse({
+            refreshToken,
+            deviceid,
+        });
     }
 
     public static async refresh(req: NextApiRequest) {
-        const { deviceid, refreshToken } = this.extract(req);
+        const { deviceid, refreshToken } = await this.extract(req);
 
         const user = await this.validate(deviceid, refreshToken);
 
@@ -64,7 +62,7 @@ export default class RefreshToken {
         });
 
         return {
-            refreshToken: this.serialize(deviceid, secret),
+            refreshToken: secret,
             user,
             device,
         };

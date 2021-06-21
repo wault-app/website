@@ -33,7 +33,7 @@ const ShowDescriptionButton = ({ description }: { description: string }) => {
 const useStyles = makeStyles((theme) => ({
     box: {
         borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
+        backgroundColor: theme.palette.type === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
         margin: theme.spacing(2),
         padding: theme.spacing(2),
     },

@@ -1,8 +1,7 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
+import { createMuiTheme as createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import DialogProvider from "@components/DialogProvider";
 import FaviconList from "@components/FaviconList";
 import MenuProvider from "@components/MenuProvider";

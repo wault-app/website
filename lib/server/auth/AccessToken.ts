@@ -34,7 +34,7 @@ export default class AccessToken {
     }
 
     public static extract(req: NextApiRequest): string | undefined {
-        return req.cookies["access_token"] || req.headers?.authorization?.replaceAll("Bearer ", "");
+        return req.cookies["access_token"] || (req.headers.authorization || "").replace("Bearer ", "");
     }
 
     public static async unsafeCheck(jwt?: string) {

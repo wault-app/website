@@ -65,9 +65,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
     });
 
     if (web) {
-        for (const cookie of Cookies.serialize(accessToken, refreshToken)) {
-            res.setHeader("Set-Cookie", cookie);
-        }
+        res.setHeader("Set-Cookie", Cookies.serialize(accessToken, refreshToken));
 
         return {
             message: "scanned_and_verified",

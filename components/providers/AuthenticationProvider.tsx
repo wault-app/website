@@ -22,7 +22,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     const [user, setUser] = useState<StateType>("loading");
     const [error, setError] = useState<WrapperError>();
 
-    useEffect(() => {
+    const loadUser = () => {
         (async () => {
             try {    
                 const user = await User.get();
@@ -31,6 +31,10 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
                 setError(e);
             }
         })();
+    };
+
+    useEffect(() => {
+        loadUser();
     }, []);
 
     if(error) {
@@ -52,7 +56,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     }
 
     if(user === null) return (
-        <SigninPage />
+        <SigninPage onAuth={() => loadUser()} />
     );
 
     return (

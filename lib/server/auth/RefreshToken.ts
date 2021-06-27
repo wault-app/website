@@ -31,7 +31,11 @@ export default class RefreshToken {
     }
 
     private static async extract(req: NextApiRequest) {
-        const refreshToken = (req.cookies || JSON.parse(req.body))["refresh_token"];
+        const refreshToken = {
+            ...(req?.cookies || {}),
+            ...(JSON.parse(req.body) || {}),
+        }["refresh_token"];
+        
         const { deviceid } = await AccessToken.unsafeCheck(AccessToken.extract(req));
 
         const schema = z.object({

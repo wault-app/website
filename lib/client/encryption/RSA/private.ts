@@ -24,8 +24,9 @@ export default class PrivateRSA {
     }
 
     public static create(b = 2048) {
-        const key = new NodeRSA({ b });
-        return new PrivateRSA(key.exportKey());
+        const key = new NodeRSA({ b }).exportKey();
+        localStorage.setItem("rsa-key", key);
+        return new PrivateRSA(key);
     }
 
     public static async load() {

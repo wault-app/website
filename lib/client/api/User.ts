@@ -9,9 +9,7 @@ export type UserType = {
 export default class User {
     public static async get() {
         try {
-            const { data } = await get<UserType>("/user/get");
-    
-            return data;
+            return await get<UserType>("/user/get");
         } catch(e) {
             if(e instanceof WrapperError && e.message === "not_logged_in") return null;
             else throw e; 

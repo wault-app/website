@@ -5,9 +5,7 @@ export default wrapper(async (req) => {
     const user = await User.get(req);
 
     return {
-        data: {
-            id: user.id,
-            username: user.username,
-        },
+        id: user.id,
+        username: user.username,
     };
 });

@@ -63,7 +63,6 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
 
     return {
         message: "successfully_sent_authentication_data",
-        device,
     };
 });
 

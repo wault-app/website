@@ -45,19 +45,15 @@ export default class Authentication {
             message: z.literal("not_scanned_yet"),
         }).or(z.object({
             message: z.literal("scanned_but_not_verified"),
-            data: z.object({
-                user: z.object({
-                    username: z.string(),
-                }),
+            user: z.object({
+                username: z.string(),
             }),
         })).or(z.object({
             message: z.literal("scanned_and_verified"),
-            data: z.object({
-                exchanges: z.array(z.object({
-                    safeid: z.string(),
-                    content: z.string(),
-                })),
-            }),
+            exchanges: z.array(z.object({
+                safeid: z.string(),
+                content: z.string(),
+            })),
         }));
 
         return schema.parse(resp);

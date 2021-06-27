@@ -1,30 +1,25 @@
 import WrapperError from "@lib/server/error";
 import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
-import { string, z } from "zod";
+import { z } from "zod";
 import bcrypt from "bcryptjs";
 import AccessToken from "@lib/server/auth/AccessToken";
 import RefreshToken from "@lib/server/auth/RefreshToken";
-import { serialize } from "cookie";
 import Cookies from "@lib/server/auth/Cookies";
 
 type AuthenticationCodeCheckResponseType = {
     message: "not_scanned_yet",
 } | {
     message: "scanned_but_not_verified",
-    data: {
-        user: {
-            username: string;
-        };
+    user: {
+        username: string;
     };
 } | {
     message: "scanned_and_verified",
-    data: {
-        exchanges: ({
-            safeid: string;
-            content: string;
-        })[];
-    };
+    exchanges: ({
+        safeid: string;
+        content: string;
+    })[];
 };
 
 export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => {
@@ -37,19 +32,17 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
     const { id, secret, web } = schema.parse(JSON.parse(req.body));
     const auth = await find(id, secret);
 
-    if(!auth.user) {
+    if (!auth.user) {
         return {
             message: "not_scanned_yet",
         };
     }
 
-    if(!auth.device) {
+    if (!auth.device) {
         return {
-            message: "scanned_but_not_verified",
-            data: {
-                user: {
-                    username: auth.user.username,
-                },
+            message: "scanned_but_not_verified",        
+            user: {
+                username: auth.user.username,
             },
         };
     }
@@ -65,37 +58,33 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
     });
 
     const { refreshToken, device } = await RefreshToken.create([auth.deviceName, auth.rsa, auth.user]);
-    const accessToken = await AccessToken.generate({ 
+    const accessToken = await AccessToken.generate({
         id: auth.user.id,
         username: auth.user.username,
         deviceid: device.id
     });
 
-    if(web) {
-        for(const cookie of Cookies.serialize(accessToken, refreshToken)) {
+    if (web) {
+        for (const cookie of Cookies.serialize(accessToken, refreshToken)) {
             res.setHeader("Set-Cookie", cookie);
         }
-    
+
         return {
             message: "scanned_and_verified",
-            data: {
-                exchanges: exchanges.map((exchange) => ({
-                    safeid: exchange.safeid,
-                    content: exchange.content,
-                })),
-            },
+            exchanges: exchanges.map((exchange) => ({
+                safeid: exchange.safeid,
+                content: exchange.content,
+            })),
         };
     } else {
         return {
             message: "scanned_and_verified",
-            data: {
-                accessToken,
-                refreshToken,
-                exchanges: exchanges.map((exchange) => ({
-                    safeid: exchange.safeid,
-                    content: exchange.content,
-                })),
-            },
+            accessToken,
+            refreshToken,
+            exchanges: exchanges.map((exchange) => ({
+                safeid: exchange.safeid,
+                content: exchange.content,
+            })),
         };
     }
 
@@ -112,8 +101,8 @@ const find = async (id: string, secret: string) => {
         }
     });
 
-    if(!auth) throw new WrapperError("authentication_code_expired");
-    if(!(await bcrypt.compare(secret, auth.secret))) throw new WrapperError("invalid_secret");
+    if (!auth) throw new WrapperError("authentication_code_expired");
+    if (!(await bcrypt.compare(secret, auth.secret))) throw new WrapperError("invalid_secret");
 
     return auth;
 };

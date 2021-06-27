@@ -6,11 +6,17 @@ import ScanQRCode from "./SigninPage/ScanQRCode";
 import ShowUser from "./SigninPage/ShowUser";
 import UnwrapPromise from "@lib/client/types/UnwrapPromise";
 import Authentication from "@lib/client/api/Authentication";
+import EncryptionKey from "@lib/client/encryption/EncryptionKey"; 
+import { useSnackbar } from "notistack";
 
 type ProcessType = UnwrapPromise<typeof Authentication.start>
 type StateType = UnwrapPromise<typeof Authentication.check>;
 
-const SigninPage = () => {
+export type SigninPageProps = {
+    onAuth: () => void;
+};
+
+const SigninPage = ({ onAuth }: SigninPageProps) => {
     const [process, setProcess] = useState<ProcessType>();
     const [state, setState] = useState<StateType>();
     const classes = useStyles();
@@ -18,10 +24,22 @@ const SigninPage = () => {
     const isLarge = useMediaQuery('(min-width:600px)');
     const Wrapper = isLarge ? Card : Fragment;
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const check = async (process: ProcessType) => {
         const resp = await Authentication.check(process.id, process.secret)
         setState(resp);
-        setTimeout(() => check(process), 3000);
+        
+        if(resp.message === "scanned_and_verified") {
+            for(const key of resp.exchanges) {
+                EncryptionKey.save(key.safeid, key.content);
+            }
+
+            enqueueSnackbar("Successful authentication!", { variant: "success" });
+            onAuth();
+        } else {
+            setTimeout(() => check(process), 3000);
+        }
     };
 
     const start = async () => {
@@ -51,7 +69,7 @@ const SigninPage = () => {
                                 loading
                             />
                         )}
-                        {(state?.message === "not_scanned_yet" || true) && !!process && (
+                        {state?.message === "not_scanned_yet" && !!process && (
                             <ScanQRCode 
                                 value={process.id}
                             />
@@ -64,7 +82,7 @@ const SigninPage = () => {
                                     await start();
                                 }}
                                 user={{
-                                    name: state.data.user.username || "",
+                                    name: state.user.username || "",
                                 }}
                             />
                         )}

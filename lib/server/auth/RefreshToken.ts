@@ -56,9 +56,6 @@ export default class RefreshToken {
 
         const { secret, hash } = await this.generate();
 
-        console.log(secret);
-        console.log(hash);
-
         const device = await prisma.device.update({
             where: {
                 id: deviceid,
@@ -77,6 +74,7 @@ export default class RefreshToken {
 
     private static async generate(rounds = 10) {
         const secret = await crypto.randomBytes(512).toString("hex");
+        console.log(hash);
         const hash = await bcrypt.hash(secret, rounds);
 
         return {
@@ -98,7 +96,7 @@ export default class RefreshToken {
         if(!device) throw new WrapperError("device_not_found");
 
         console.log(refreshToken);
-        console.log(device.refreshToken);
+        console.log(device.refreshToken)
         const result = await bcrypt.compare(refreshToken, device.refreshToken);
 
         if(!result) throw new WrapperError("invalid_refresh_token");

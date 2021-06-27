@@ -7,6 +7,7 @@ export default class Cookies {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production", // only enable secure in production, as localhost can't have https
             sameSite: "strict",
+            path: "/",
         };
 
         return [

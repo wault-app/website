@@ -23,8 +23,6 @@ const wrapper = <T = {}>(endpoint: (req: NextApiRequest, res?: NextApiResponse) 
                 }
             }
         } catch(e) {
-            console.log(e);
-
             res.json({
                 error: true,
                 message: e.message,

@@ -1,11 +1,6 @@
 import WrapperError from "@lib/server/error";
 
-type ResponseType<T> = {
-    message?: string;
-    data: T;
-};
-
-const get = async <T = {}>(input: RequestInfo, init?: RequestInit): Promise<ResponseType<T>> => {
+const get = async <T = {}>(input: RequestInfo, init?: RequestInit): Promise<T> => {
     const resp = await fetch(`/api${input}`, init);
     if(!resp.ok) throw new WrapperError("service_unavailable");
 

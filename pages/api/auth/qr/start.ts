@@ -4,9 +4,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 
 export type AuthenticationStartResponseType = {
-    data: {
-        id: string;
-    };
+    id: string;
 };
 
 export default wrapper<AuthenticationStartResponseType>(async (req) => {
@@ -36,8 +34,6 @@ export default wrapper<AuthenticationStartResponseType>(async (req) => {
     });
 
     return {
-        data: {
-            id: authentication.id,
-        },
+        id: authentication.id,
     };
 });

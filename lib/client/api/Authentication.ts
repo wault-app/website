@@ -26,7 +26,7 @@ export default class Authentication {
         });
 
         return {
-            id: resp.data.id,
+            id: resp.id,
             secret,
             rsa,
         };

@@ -36,27 +36,29 @@ export default class Safe {
 
         return await Promise.all(
             keycards.map(
-                async (keycard) => {
-                    const key = new AES(await EncryptionKey.get(keycard.safe.id));
-                    
-                    return {
-                        ...keycard,
-                        safe: {
-                            ...keycard.safe,
-                            name: key.decrypt(keycard.safe.name),
-                            items: await Promise.all(
-                                keycard.safe.items.map(
-                                    async (item) => ({
-                                        ...item,
-                                        content: key.decrypt(item.content),
-                                    })
-                                )
-                            ),
-                        },
-                    };
-                }
+                async (keycard) => await this.decrypt(keycard),
             )
         );
+    }
+
+    public static async decrypt(keycard: KeycardType) {
+        const key = new AES(await EncryptionKey.get(keycard.safe.id));
+                    
+        return {
+            ...keycard,
+            safe: {
+                ...keycard.safe,
+                name: key.decrypt(keycard.safe.name),
+                items: await Promise.all(
+                    keycard.safe.items.map(
+                        async (item) => ({
+                            ...item,
+                            content: key.decrypt(item.content),
+                        })
+                    )
+                ),
+            },
+        };
     }
 
     public static async create(name: string) {
@@ -68,14 +70,14 @@ export default class Safe {
         const encryptedName = encryptor.encrypt(name);
 
         // create the safe on the server
-        const safe = await post<SafeType>("/safe/create", {
+        const { keycard } = await post<{ keycard: KeycardType }>("/safe/create", {
             body: JSON.stringify({
                 name: encryptedName,
             })
         });
 
         // save the encryption key to local storage
-        await EncryptionKey.save(safe.id, key);
+        await EncryptionKey.save(keycard.safe.id, key);
 
         // query all of our devices
         const { devices } = await Device.getAll();
@@ -87,12 +89,18 @@ export default class Safe {
                     const rsa = new PublicRSA(device.rsaKey);
 
                     return await KeyExchange.send(
-                        safe.id,
+                        keycard.safe.id,
                         device.id,
                         rsa.encrypt(key)
                     );
                 } 
             )
         );
+
+        // decrypt the remote data
+        const decrypted = await this.decrypt(keycard);
+
+        // send back the new keycard object to be stored in a context
+        return decrypted;
     }
 }

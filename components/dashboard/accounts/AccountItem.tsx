@@ -25,8 +25,8 @@ export type AccountItemProps = AccountItemLoadedProps | {
 };
 
 const AccountItem = (props: AccountItemProps) => {
-    const { open } = useDialog();
-    const { open: openMenu } = useMenu();
+    // const { open } = useDialog();
+    // const { open: openMenu } = useMenu();
     const classes = useStyles();
 
     if ("loading" in props) {
@@ -52,19 +52,8 @@ const AccountItem = (props: AccountItemProps) => {
         <Fragment>
             <ListItem
                 button
-                onClick={() => open(
-                    <AccountDialog
-                        {...account}
-                    />
-                )}
                 onContextMenu={(e) => {
                     e.preventDefault();
-                    openMenu(
-                        <AccountMenu
-                            account={account}
-                        />,
-                        e
-                    );
                 }}
             >
                 <ListItemAvatar>

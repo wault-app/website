@@ -13,6 +13,6 @@ export default class Device {
             devices: DeviceType[];
         };
 
-        return await get<ResponseType>("/devices/getAll");
+        return await get<ResponseType>("/device/getAll");
     }
 }

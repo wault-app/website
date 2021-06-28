@@ -4,78 +4,19 @@ import CreditCardItem from "@components/dashboard/cards/CreditCardItem";
 import VaultCard from "@components/dashboard/vault/VaultCard";
 import { List, ListSubheader } from "@material-ui/core";
 import { Fragment } from "react";
+import { useKeycards } from "@components/providers/KeycardProvider";
+import SafeItem from "@components/dashboard/vault/SafeItem";
 
 const MainPage = () => {
+    const { keycards } = useKeycards();
+    
     return (
         <Fragment>
-            <VaultCard>
-                <List>
-                    <ListSubheader>
-                        Test vault
-                    </ListSubheader>
-                    <AccountItem
-                        account={{
-                            platform: "discord.com",
-                            username: "pepyta118@gmail.com",
-                            password: "password123",
-                            description: "Lorem ipsum dolor",
-                            categories: ["work", "social", "games"],
-                        }}
-                    />
-
-                    <CreditCardItem
-                        creditCard={{
-                            uuid: "asdasd123",
-                            name: "OTP Junior",
-                            endsWith: "1234",
-                            issuer: "mastercard"
-                        }}
-                    />
-
-                    <CreditCardItem
-                        creditCard={{
-                            uuid: "asdasd123",
-                            name: "OTP Junior",
-                            endsWith: "1234",
-                            issuer: "amex",
-                        }}
-                    />
-                </List>
-            </VaultCard>
-            <VaultCard>
-                <List>
-                    <ListSubheader>
-                        Test vault
-                    </ListSubheader>
-                    <AccountItem
-                        account={{
-                            platform: "discord.com",
-                            username: "pepyta118@gmail.com",
-                            password: "password123",
-                            description: "Lorem ipsum dolor",
-                            categories: ["work", "social", "games"],
-                        }}
-                    />
-
-                    <CreditCardItem
-                        creditCard={{
-                            uuid: "asdasd123",
-                            name: "OTP Junior",
-                            endsWith: "1234",
-                            issuer: "mastercard"
-                        }}
-                    />
-
-                    <CreditCardItem
-                        creditCard={{
-                            uuid: "asdasd123",
-                            name: "OTP Junior",
-                            endsWith: "1234",
-                            issuer: "amex",
-                        }}
-                    />
-                </List>
-            </VaultCard>
+            {keycards.map((keycard) => (
+                <SafeItem 
+                    keycard={keycard}
+                />
+            ))}
             <AddItemFAB />
         </Fragment>
     );

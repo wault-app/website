@@ -28,17 +28,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <FaviconList />
             </Head>
             <SnackbarProvider>
-                <DialogProvider>
-                    <MenuProvider>
-                        <AuthenticationProvider>
-                            <Wrapper>
-                                <KeycardProvider>
+                <AuthenticationProvider>
+                    <Wrapper>
+                        <KeycardProvider>
+                            <DialogProvider>
+                                <MenuProvider>
                                     <Component {...pageProps} />
-                                </KeycardProvider>
-                            </Wrapper>
-                        </AuthenticationProvider>
-                    </MenuProvider>
-                </DialogProvider>
+                                </MenuProvider>
+                            </DialogProvider>
+                        </KeycardProvider>
+                    </Wrapper>
+                </AuthenticationProvider>
             </SnackbarProvider>
         </ThemeProvider>
     );

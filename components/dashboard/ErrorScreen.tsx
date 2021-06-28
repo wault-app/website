@@ -9,6 +9,8 @@ export type ErrorScreenProps = PropsWithChildren<{
 const ErrorScreen = (props: ErrorScreenProps) => {
     const classes = useStyles();
     
+    console.error(props.error);
+
     return (
         <Grid
             container

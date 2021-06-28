@@ -26,6 +26,23 @@ export default wrapper(async (req) => {
                 },
             },
         },
+        include: {
+            safe: {
+                include: {
+                    keycards: {
+                        include: {
+                            user: {
+                                select: {
+                                    id: true,
+                                    username: true,
+                                },
+                            },
+                        },
+                    },
+                    items: true,
+                },
+            },
+        },
     });
 
     return {

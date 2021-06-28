@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import VaultCard from "@components/dashboard/vault/VaultCard";
 import { Skeleton } from "@material-ui/lab";
 import AccountItem from "@components/dashboard/accounts/AccountItem";
+import SafeItem from "@components/dashboard/vault/SafeItem";
 
 export type KeycardProviderProps = PropsWithChildren<{}>;
 
@@ -19,10 +20,19 @@ type KeycardContextType = {
 const KeycardContext = createContext<KeycardContextType>(null);
 
 export const useKeycards = () => {
-    const { keycards } = useContext(KeycardContext);
+    const { keycards, setKeycards } = useContext(KeycardContext);
+
+    /**
+     * Add a keycard to already loaded ones
+     * @param keycard a keycard object from the server
+     */
+    const addKeycard = (keycard: KeycardType) => {
+        setKeycards([keycard, ...keycards]);
+    };
 
     return {
         keycards,
+        addKeycard,
     };
 };
 
@@ -73,16 +83,7 @@ const LoaderComponent = () => (
         <Grid container>
             {[0, 0].map(() => (
                 <Grid item xs={12}>
-                    <VaultCard>
-                        <List>
-                            <ListSubheader>
-                                <Skeleton />
-                            </ListSubheader>
-                            {[0, 0, 0].map(() => (
-                                <AccountItem loading />
-                            ))}
-                        </List>
-                    </VaultCard>
+                    <SafeItem loading />
                 </Grid>
             ))}
         </Grid>

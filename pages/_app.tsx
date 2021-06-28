@@ -9,6 +9,7 @@ import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
+import KeycardProvider from "@components/providers/KeycardProvider";
 
 const theme = createTheme({});
 
@@ -31,7 +32,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     <MenuProvider>
                         <AuthenticationProvider>
                             <Wrapper>
-                                <Component {...pageProps} />
+                                <KeycardProvider>
+                                    <Component {...pageProps} />
+                                </KeycardProvider>
                             </Wrapper>
                         </AuthenticationProvider>
                     </MenuProvider>

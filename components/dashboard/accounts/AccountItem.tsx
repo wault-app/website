@@ -6,6 +6,7 @@ import { Fragment  } from "react";
 import AccountMenu from "./AccountMenu";
 import { CategoryType } from "@lib/client/categories";
 import { useMenu } from "@components/providers/MenuProvider";
+import { Skeleton } from "@material-ui/lab";
 
 export type AccountType = {
     platform: string;
@@ -29,7 +30,20 @@ const AccountItem = (props: AccountItemProps) => {
     const classes = useStyles();
 
     if ("loading" in props) {
-        return <div />
+        return (
+            <ListItem>
+                <ListItemAvatar>
+                    <PlatformIcon
+                        size={48}
+                        loading
+                    />
+                </ListItemAvatar>
+                <ListItemText
+                    primary={<Skeleton />}
+                    secondary={<Skeleton />}
+                />
+            </ListItem>
+        );
     }
 
     const { account } = props;

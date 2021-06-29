@@ -37,13 +37,14 @@ export const DialogFooter = (props: DialogActionsProps) => {
 
     return (
         <DialogActions {...props}>
-            <Button autoFocus onClick={close} color="primary">
+            <Button autoFocus onClick={close}>
                 Close
             </Button>
             {props.children}
         </DialogActions>
     );
 }
+
 const DialogProvider = ({ children }: PropsWithChildren<{}>) => {
     const [open, setOpen] = useState(false);
     const [component, setComponent] = useState(<Fragment />);

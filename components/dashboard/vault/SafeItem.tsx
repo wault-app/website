@@ -32,6 +32,13 @@ const SafeItem = (props: SafeItemProps) => {
                 <ListSubheader>
                     {props.keycard.safe.name}
                 </ListSubheader>
+                {props.keycard.safe.items.map((item) => (
+                    item.type === "account" ? (
+                        <AccountItem account={item} />
+                    ) : (
+                        <div />
+                    )
+                ))}
             </List>
         </VaultCard>
     );

@@ -11,7 +11,13 @@ import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
 
-const theme = createTheme({});
+const theme = createTheme({
+    props: {
+        MuiTextField: {
+            variant: "filled",
+        },
+    },
+});
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;

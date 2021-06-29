@@ -7,14 +7,7 @@ import AccountMenu from "./AccountMenu";
 import { CategoryType } from "@lib/client/categories";
 import { useMenu } from "@components/providers/MenuProvider";
 import { Skeleton } from "@material-ui/lab";
-
-export type AccountType = {
-    platform: string;
-    categories: CategoryType[];
-    username?: string;
-    password?: string;
-    description?: string;
-};
+import { AccountType } from "@lib/client/api/Item";
 
 type AccountItemLoadedProps = {
     account: AccountType;

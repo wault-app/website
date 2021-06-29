@@ -6,12 +6,17 @@ import { Fragment, useState } from "react";
 import AddAccountScreen from "./AddItemDialog/AddAccountScreen";
 import AddCreditCardScreen from "./AddItemDialog/AddCreditCardScreen";
 import AddSafeScreen from "./AddItemDialog/AddSafeScreen";
+import { useKeycards } from "@components/providers/KeycardProvider";
 
 type ScreenType = "account" | "credit-card" | "safe";
 
 const AddItemDialog = () => {
     const classes = useStyles();
     const [selected, setSelected] = useState<ScreenType>(null);
+    const { keycards } = useKeycards();
+
+    // check if there is at least one keycard with not reader role
+    const isAvailable = keycards.filter((keycard) => ["OWNER", "WRITER"].includes(keycard.role)).length > 0;
 
     if(!selected) {
         return (
@@ -21,7 +26,10 @@ const AddItemDialog = () => {
                 </DialogTitle>
                 <DialogContent className={classes.root}>
                     <List>
-                        <ListItem button onClick={() => setSelected("safe")}>
+                        <ListItem
+                            button
+                            onClick={() => setSelected("safe")}
+                        >
                             <ListItemIcon>
                                 <SafeIcon />
                             </ListItemIcon>
@@ -29,7 +37,11 @@ const AddItemDialog = () => {
                                 primary={"Safe"}
                             />
                         </ListItem>
-                        <ListItem button onClick={() => setSelected("account")}>
+                        <ListItem
+                            button
+                            onClick={() => setSelected("account")}
+                            disabled={!isAvailable}
+                        >
                             <ListItemIcon>
                                 <AccountItem />
                             </ListItemIcon>
@@ -37,7 +49,11 @@ const AddItemDialog = () => {
                                 primary={"Account"}
                             />
                         </ListItem>
-                        <ListItem button onClick={() => setSelected("credit-card")}>
+                        <ListItem
+                            button
+                            onClick={() => setSelected("credit-card")}
+                            disabled={!isAvailable}
+                        >
                             <ListItemIcon>
                                 <CreditCardIcon />
                             </ListItemIcon>

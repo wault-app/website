@@ -29,6 +29,14 @@ export default wrapper(async (req) => {
     });
 
     return {
-        keycards,
+        keycards: keycards.reverse().map(
+            (keycard) => ({
+                ...keycard,
+                safe: {
+                    ...keycard.safe,
+                    items: keycard.safe.items.reverse(),
+                },
+            })
+        ),
     };
 });

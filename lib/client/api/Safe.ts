@@ -6,14 +6,12 @@ import AES from "../encryption/AES";
 import Device from "./Device";
 import KeyExchange from "./KeyExchange";
 import { RoleType } from "@prisma/client";
+import { EncryptedItemType, ItemType } from "./Item";
 
 export type SafeType = {
     id: string;
     name: string;
-    items: ({
-        id: string;
-        content: string;
-    })[];
+    items: ItemType[];
 };
 
 export type KeycardType = {
@@ -22,10 +20,22 @@ export type KeycardType = {
     role: RoleType;
 };
 
+type EncryptedSafeType = {
+    id: string;
+    name: string;
+    items: EncryptedItemType[];
+};
+
+type EncryptedKeycardType = {
+    id: string;
+    safe: EncryptedSafeType;
+    role: RoleType;
+};
+
 export default class Safe {
     public static async getAll(): Promise<KeycardType[]> {
         type ResponseType = {
-            keycards: KeycardType[];
+            keycards: EncryptedKeycardType[];
         };
 
         // query the safe data from the server
@@ -34,6 +44,7 @@ export default class Safe {
             KeyExchange.get(),
         ]);
 
+        // decrypt all keycard with their corresponding decryption key
         return await Promise.all(
             keycards.map(
                 async (keycard) => await this.decrypt(keycard),
@@ -41,9 +52,9 @@ export default class Safe {
         );
     }
 
-    public static async decrypt(keycard: KeycardType) {
+    private static async decrypt(keycard: EncryptedKeycardType): Promise<KeycardType> {
         const key = new AES(await EncryptionKey.get(keycard.safe.id));
-                    
+        
         return {
             ...keycard,
             safe: {
@@ -53,7 +64,7 @@ export default class Safe {
                     keycard.safe.items.map(
                         async (item) => ({
                             ...item,
-                            content: key.decrypt(item.content),
+                            ...JSON.parse(key.decrypt(item.data)),
                         })
                     )
                 ),
@@ -70,7 +81,7 @@ export default class Safe {
         const encryptedName = encryptor.encrypt(name);
 
         // create the safe on the server
-        const { keycard } = await post<{ keycard: KeycardType }>("/safe/create", {
+        const { keycard } = await post<{ keycard: EncryptedKeycardType }>("/safe/create", {
             body: JSON.stringify({
                 name: encryptedName,
             })

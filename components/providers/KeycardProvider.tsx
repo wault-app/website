@@ -2,13 +2,11 @@ import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } 
 import Safe, { KeycardType } from "@lib/client/api/Safe";
 import WrapperError from "@lib/server/error";
 import ErrorScreen from "@components/dashboard/ErrorScreen";
-import { Button, Container, Grid, List, ListSubheader } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { useContext } from "react";
 import { useEffect } from "react";
-import VaultCard from "@components/dashboard/vault/VaultCard";
-import { Skeleton } from "@material-ui/lab";
-import AccountItem from "@components/dashboard/accounts/AccountItem";
 import SafeItem from "@components/dashboard/vault/SafeItem";
+import { ItemType } from "@lib/client/api/Item";
 
 export type KeycardProviderProps = PropsWithChildren<{}>;
 
@@ -30,9 +28,30 @@ export const useKeycards = () => {
         setKeycards([keycard, ...keycards]);
     };
 
+
+    const addItem = (keycard: KeycardType, item: ItemType) => {
+        setKeycards(
+            [
+                ...keycards.map(
+                    (el) => (el.id === keycard.id ? {
+                        ...keycard,
+                        safe: {
+                            ...keycard.safe,
+                            items: [
+                                item,
+                                ...keycard.safe.items,
+                            ],
+                        },
+                    } : el)
+                )
+            ]
+        );
+    };
+
     return {
         keycards,
         addKeycard,
+        addItem,
     };
 };
 

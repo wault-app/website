@@ -1,13 +1,11 @@
-import { ListItem, ListItemAvatar, ListItemText, makeStyles } from "@material-ui/core";
+import { ListItem, ListItemAvatar, ListItemText, makeStyles, MenuProps } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import { useDialog } from "@components/providers/DialogProvider";
 import AccountDialog from "./AccountDialog";
 import { Fragment  } from "react";
 import AccountMenu from "./AccountMenu";
-import { CategoryType } from "@lib/client/categories";
-import { useMenu } from "@components/providers/MenuProvider";
 import { Skeleton } from "@material-ui/lab";
 import { AccountType } from "@lib/client/api/Item";
+import { useState } from "react";
 
 type AccountItemLoadedProps = {
     account: AccountType;
@@ -18,8 +16,9 @@ export type AccountItemProps = AccountItemLoadedProps | {
 };
 
 const AccountItem = (props: AccountItemProps) => {
-    // const { open } = useDialog();
-    // const { open: openMenu } = useMenu();
+    const [open, setOpen] = useState(false);
+    const [state, setState] = useState<MenuProps>();
+
     const classes = useStyles();
 
     if ("loading" in props) {
@@ -43,10 +42,33 @@ const AccountItem = (props: AccountItemProps) => {
 
     return (
         <Fragment>
+            <AccountDialog
+                maxWidth={"md"}
+                fullWidth
+                account={account}
+                open={open}
+                onClose={() => setOpen(false)}
+            />
+            <AccountMenu
+                {...state}
+                onClose={() => setState({ ...state, open: false })}
+                account={props.account}
+            />
             <ListItem
                 button
-                onContextMenu={(e) => {
-                    e.preventDefault();
+                onClick={() => {
+                    setOpen(true);
+                }}
+                onContextMenu={(event) => {
+                    event.preventDefault();
+                    setState({
+                        open: true,
+                        anchorReference: "anchorPosition",
+                        anchorPosition: {
+                            left: event.clientX,
+                            top: event.clientY,
+                        },
+                    });
                 }}
             >
                 <ListItemAvatar>

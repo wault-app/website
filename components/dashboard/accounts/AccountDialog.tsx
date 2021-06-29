@@ -1,23 +1,26 @@
-import { Collapse, DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import { AccountType } from "./AccountItem";import Platforms from "@lib/client/platforms";
+import Platforms from "@lib/client/platforms";
 import { Fragment } from "react";
 import CategoryBadge from "./CategoryBadge";
-import { DialogFooter } from "@components/providers/DialogProvider";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";
 import ShowDescriptionButton from "./AccountDialog/ShowDescriptionButton";
+import { AccountType } from "@lib/client/api/Item";
 
-export type AccountDialogProps = AccountType;
+export type AccountDialogProps = DialogProps & {
+    account: AccountType;
+};
 
 const AccountDialog = (props: AccountDialogProps) => {
-    const platform = Platforms.get(props.platform);
+    const { account } = props;
+    const platform = Platforms.get(account.platform);
 
-    const classes = useStyles({ color: platform?.icon.color });
+    const classes = useStyles({ color: platform?.icon?.color });
 
     return (
-        <Fragment>
+        <Dialog {...props}>
             <DialogContent className={classes.root}>
                 <Grid container>
                     <Grid item xs={12} md={5}>
@@ -26,19 +29,19 @@ const AccountDialog = (props: AccountDialogProps) => {
                         />
                         <PlatformIcon
                             className={classes.icon}
-                            hostname={props.platform}
+                            hostname={account.platform}
                         />
                         <div className={classes.leftSide}>
                             <Typography variant={"h6"} noWrap>
                                 <b>
-                                    {props.platform}
+                                    {account.platform}
                                 </b>
                             </Typography>
                             <Typography noWrap gutterBottom>
-                                {props.username}
+                                {account.username}
                             </Typography>
                             <Grid container spacing={1} justify={"center"}>
-                                {props.categories.map((category) => (
+                                {account.categories?.map((category) => (
                                     <CategoryBadge
                                         category={category}
                                     />
@@ -49,29 +52,35 @@ const AccountDialog = (props: AccountDialogProps) => {
                     <Grid item xs={12} md={7}>
                         <List>
                             <OpenPlatformButton
-                                platform={props.platform}
+                                platform={account.platform}
                             />
-                            {!!props.username && (
+                            {!!account.username && (
                                 <CopyUsernameButton
-                                    username={props.username}
+                                    username={account.username}
                                 />
                             )}
-                            {!!props.password && (
+                            {!!account.password && (
                                 <CopyPasswordButton
-                                    password={props.password}
+                                    password={account.password}
                                 />
                             )}
-                            {!!props.description && (
+                            {!!account.description && (
                                 <ShowDescriptionButton
-                                    description={props.description}
+                                    description={account.description}
                                 />
                             )}
                         </List>
                     </Grid>
                 </Grid>
             </DialogContent>
-            <DialogFooter />
-        </Fragment>
+            <DialogActions>
+                <Button
+                    onClick={() => props.onClose({}, "escapeKeyDown")}
+                >
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

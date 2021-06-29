@@ -1,16 +1,19 @@
-import { AccountType } from "./AccountItem";
 import { Fragment } from "react";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";
+import { Menu, MenuProps } from "@material-ui/core";
+import { AccountType } from "@lib/client/api/Item";
 
-export type AccountMenuProps = {
+export type AccountMenuProps = MenuProps & {
     account: AccountType;
 };
 
-const AccountMenu = ({ account: { username, password, platform } }: AccountMenuProps) => {
+const AccountMenu = (props: AccountMenuProps) => {
+    const { account: { username, password, platform } } = props;
+    
     return (
-        <Fragment>
+        <Menu {...props}>
             <OpenPlatformButton
                 platform={platform}
             />
@@ -24,7 +27,7 @@ const AccountMenu = ({ account: { username, password, platform } }: AccountMenuP
                     password={password}
                 />
             )}
-        </Fragment>
+        </Menu>
     );
 };
 

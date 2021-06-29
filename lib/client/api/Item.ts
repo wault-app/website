@@ -2,6 +2,7 @@ import post from "./fetch/post";
 import { SafeType } from "./Safe";
 import EncryptionKey from "../encryption/EncryptionKey";
 import AES from "../encryption/AES";
+import { CategoryType } from "../categories";
 
 export type EncryptedItemType = {
     id: string;
@@ -15,6 +16,7 @@ export type AccountType = {
     username?: string;
     password?: string;
     description?: string;
+    categories?: CategoryType[];
 };
 
 export type CreditCardType = {

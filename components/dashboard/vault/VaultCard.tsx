@@ -26,6 +26,7 @@ const VaultCard = (props: PropsWithChildren<{}>) => {
 const useStyles = makeStyles((theme) => ({
     card: {
         paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
     },
 }));
 

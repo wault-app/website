@@ -1,14 +1,18 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core";
+import { SVGProps } from "react";
 
-export type LogoProps = {};
+export type LogoProps = {
+    color?: string;
+} & SVGProps<SVGSVGElement>;
 
-const Logo = () => {
-    const classes = useStyles();
+const Logo = (props: LogoProps) => {
+    const classes = useStyles({ color: props.color });
 
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 672 121"
+            {...props}
         >
             <rect
                 className={classes.logo}
@@ -93,9 +97,9 @@ const Logo = () => {
     );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
     logo: {
-        fill: theme.palette.type === "dark" ? "#ffffff" : "#000000",
+        fill: props => props.color ? props.color : theme.palette.type === "dark" ? "#ffffff" : "#000000",
     },
 }));
 

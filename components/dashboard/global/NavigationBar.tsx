@@ -1,8 +1,8 @@
 import { AppBar, Box, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
 import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as MenuIcon, Router, SettingsRounded as SettingsIcon } from "@material-ui/icons";
 import { Fragment, PropsWithChildren, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import Logo from "@components/branding/Logo";
 
 export type NavigationBarProps = PropsWithChildren<{
 
@@ -20,6 +20,7 @@ const NavigationBar = (props: NavigationBarProps) => {
 
     const drawer = (
         <Fragment>
+            <Logo className={classes.logo} />
             <List>
                 <ListItem button onClick={() => navigate("/")}>
                     <ListItemIcon>
@@ -115,6 +116,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("md")]: {
             flexShrink: 0,
         },
+    },
+    logo: {
+        margin: theme.spacing(4),
+        width: 200,
+        marginLeft: "auto",
+        marginRight: "auto",
     },
 }));
 

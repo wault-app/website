@@ -10,6 +10,7 @@ import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
+import DarkModeProvider from "@components/providers/DarkModeProvider";
 
 const theme = createTheme({
     props: {
@@ -23,7 +24,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;
 
     return (
-        <ThemeProvider theme={theme}>
+        <DarkModeProvider>
             <CssBaseline />
             <Head>
                 <title>Wault</title>
@@ -48,7 +49,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     </AuthenticationProvider>
                 </NoSsr>
             </SnackbarProvider>
-        </ThemeProvider>
+        </DarkModeProvider>
     );
 };
 

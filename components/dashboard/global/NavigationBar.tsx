@@ -1,7 +1,8 @@
 import { AppBar, Box, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
-import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as MenuIcon } from "@material-ui/icons";
+import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as MenuIcon, Router, SettingsRounded as SettingsIcon } from "@material-ui/icons";
 import { Fragment, PropsWithChildren, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export type NavigationBarProps = PropsWithChildren<{
 
@@ -10,11 +11,17 @@ export type NavigationBarProps = PropsWithChildren<{
 const NavigationBar = (props: NavigationBarProps) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const router = useRouter();
+
+    const navigate = (target: string) => {
+        router.push(target);
+        setOpen(false);
+    };
 
     const drawer = (
         <Fragment>
             <List>
-                <ListItem button>
+                <ListItem button onClick={() => navigate("/")}>
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
@@ -25,6 +32,14 @@ const NavigationBar = (props: NavigationBarProps) => {
             </List>
             <Divider />
             <List>
+                <ListItem button onClick={() => navigate("/settings")}>
+                    <ListItemIcon>
+                        <SettingsIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={"Settings"}
+                    />
+                </ListItem>
                 <ListItem button>
                     <ListItemIcon>
                         <LogoutIcon />

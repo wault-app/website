@@ -1,11 +1,10 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
-import QRCode from "react-qr-code";
 import { Skeleton } from "@material-ui/lab";
 
 export type ScanQRCodeProps = {
     loading: true;
 } | {
-    value: string;
+    image: string;
 };
 
 const size = 128;
@@ -19,9 +18,9 @@ const ScanQRCode = (props: ScanQRCodeProps) => {
                 {"loading" in props ? (
                     <QRCodeLoader />
                 ) : (
-                    <QRCode
-                        value={props.value}
-                        size={size}
+                    <img
+                        src={props.image}
+                        className={classes.qr}    
                     />
                 )}
             </Grid>
@@ -61,12 +60,14 @@ const useStyles = makeStyles((theme) => ({
     },
     loader: {
         borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[8],
         marginLeft: "auto",
         marginRight: "auto",
     },
     qr: {
-        padding: theme.spacing(1),
         borderRadius: theme.shape.borderRadius,
+        boxShadow: theme.shadows[8],
+        maxWidth: "100%",
     },
 }));
 

@@ -1,13 +1,13 @@
 import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
 import ResponsiveCard from "./SigninPage/ResponsiveCard";
-import Image from "next/image";
 import ScanQRCode from "./SigninPage/ScanQRCode";
 import ShowUser from "./SigninPage/ShowUser";
 import UnwrapPromise from "@lib/client/types/UnwrapPromise";
 import Authentication from "@lib/client/api/Authentication";
 import EncryptionKey from "@lib/client/encryption/EncryptionKey"; 
 import { useSnackbar } from "notistack";
+import Logo from "@components/branding/Logo";
 
 type ProcessType = UnwrapPromise<typeof Authentication.start>
 type StateType = UnwrapPromise<typeof Authentication.check>;
@@ -27,19 +27,39 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
     const { enqueueSnackbar } = useSnackbar();
 
     const check = async (process: ProcessType) => {
-        const resp = await Authentication.check(process.id, process.secret)
-        setState(resp);
-        
-        if(resp.message === "scanned_and_verified") {
-            for(const key of resp.exchanges) {
-                EncryptionKey.save(key.safeid, key.content);
-            }
+        try {
+            // check for updates from the remote server
+            const resp = await Authentication.check(process.id, process.secret)
+            
+            // update the state for renderer
+            setState(resp);
+            
+            // if we recieved the encryption keys, then store them
+            // idea: use the KeyExchange API and depract it from the registration process
+            if(resp.message === "scanned_and_verified") {
+                for(const key of resp.exchanges) {
+                    // store the keys in local storage
+                    EncryptionKey.save(key.safeid, key.content);
+                }
 
-            enqueueSnackbar("Successful authentication!", { variant: "success" });
-            onAuth();
-        } else {
-            setTimeout(() => check(process), 3000);
+                // show a snackbar for 
+                enqueueSnackbar("Successful authentication!", { variant: "success" });
+                
+                // call given callback function
+                onAuth();
+
+                // stop checking for response after authentication was successful
+                return;
+            }
+        } catch(e) {
+            // handle error
+            enqueueSnackbar(e.message, {
+                variant: "error",
+            });
         }
+
+        // if not yet scanned, then check again after 0.5 sec
+        setTimeout(() => check(process), 500);
     };
 
     const start = async () => {
@@ -56,11 +76,7 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
         <Container maxWidth={"sm"} className={classes.container}>
             <ResponsiveCard>
                 <div className={classes.logo}>
-                    <Image
-                        src={"/img/logo.png"}
-                        width={224}
-                        height={40}
-                    />
+                    <Logo />
                 </div>
                 <Wrapper variant={"outlined"}>
                     <CardContent>
@@ -69,9 +85,9 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                                 loading
                             />
                         )}
-                        {state?.message === "not_scanned_yet" && !!process && (
+                        {(!state || state?.message === "not_scanned_yet") && !!process && (
                             <ScanQRCode 
-                                value={process.id}
+                                image={process.image}
                             />
                         )}
                         {state?.message === "scanned_but_not_verified" && (
@@ -99,6 +115,10 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
         paddingBottom: theme.spacing(2),
+        maxWidth: "100%",
+        width: 300,
+        marginLeft: "auto",
+        marginRight: "auto",
         [theme.breakpoints.down('sm')]: {
             paddingTop: theme.spacing(4),
         },

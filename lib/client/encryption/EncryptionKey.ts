@@ -9,7 +9,7 @@ export default class EncryptionKey {
         const pool = "0123456789abcdef";
 
         for(let i = 0; i < length; i++) {
-            resp += pool[Math.random() * pool.length];
+            resp += pool[Math.floor(Math.random() * pool.length)];
         }
 
         return resp;

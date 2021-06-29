@@ -1,7 +1,7 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { createMuiTheme as createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme as createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
 import DialogProvider from "@components/providers/DialogProvider";
 import FaviconList from "@components/seo/FaviconList";
 import MenuProvider from "@components/providers/MenuProvider";
@@ -34,17 +34,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <FaviconList />
             </Head>
             <SnackbarProvider>
-                <AuthenticationProvider>
-                    <Wrapper>
-                        <KeycardProvider>
-                            <DialogProvider>
-                                <MenuProvider>
-                                    <Component {...pageProps} />
-                                </MenuProvider>
-                            </DialogProvider>
-                        </KeycardProvider>
-                    </Wrapper>
-                </AuthenticationProvider>
+                <NoSsr>
+                    <AuthenticationProvider>
+                        <Wrapper>
+                            <KeycardProvider>
+                                <DialogProvider>
+                                    <MenuProvider>
+                                        <Component {...pageProps} />
+                                    </MenuProvider>
+                                </DialogProvider>
+                            </KeycardProvider>
+                        </Wrapper>
+                    </AuthenticationProvider>
+                </NoSsr>
             </SnackbarProvider>
         </ThemeProvider>
     );

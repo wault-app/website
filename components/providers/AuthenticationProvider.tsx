@@ -2,6 +2,8 @@ import User, { UserType } from "@lib/client/api/User";
 import WrapperError from "@lib/server/error";
 import SigninPage from "@components/dashboard/auth/SigninPage";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
+import ErrorScreen from "@components/dashboard/ErrorScreen";
+import FullScreenLoader from "@components/dashboard/FullScreenLoader";
 
 type StateType = UserType | null | "loading";
 
@@ -26,7 +28,7 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         (async () => {
             try {    
                 const user = await User.get();
-                setUser(user);
+                setTimeout(() => setUser(user), 1200);
             } catch(e) {
                 setError(e);
             }
@@ -37,21 +39,11 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         loadUser();
     }, []);
 
-    if(error) {
-        // todo: error
-        return (
-            <div>
-                {error}
-            </div>
-        );
-    }
+    if(error) return (<ErrorScreen error={error} />);
 
     if(user === "loading") {
-        // TODO: loading
         return (
-            <div>
-                loading...
-            </div>
+            <FullScreenLoader />
         );
     }
 

@@ -1,11 +1,16 @@
+import Icon from "@components/branding/Icon";
 import { Grid, makeStyles } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type FullScreenLoaderProps = {};
 
 const FullScreenLoader = (props: FullScreenLoaderProps) => {
     const [loaded, setLoaded] = useState(false);
     const classes = useStyles();
+
+    useEffect(() => {
+        setLoaded(true);
+    }, []);
 
     return (
         <Grid
@@ -14,9 +19,7 @@ const FullScreenLoader = (props: FullScreenLoaderProps) => {
             alignItems={"center"}
         >
             <Grid item xs={12} className={classes.center}>
-                <img 
-                    onLoad={() => setLoaded(true)}
-                    src={"/img/icon.svg"}
+                <Icon
                     className={`${classes.image} ${loaded ? classes.rotate : ""}`}
                 />
             </Grid>

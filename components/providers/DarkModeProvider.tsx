@@ -1,4 +1,5 @@
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { blue, indigo } from "@material-ui/core/colors";
 import { useEffect } from "react";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 
@@ -41,6 +42,7 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                 {
                     palette: {
                         type: theme,
+                        primary: theme === "dark" ? blue : indigo,
                     },
                     props: {
                         MuiTextField: {

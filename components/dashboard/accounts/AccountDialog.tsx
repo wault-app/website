@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
 import Platforms from "@lib/client/platforms";
-import { Fragment } from "react";
 import CategoryBadge from "./CategoryBadge";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";

@@ -1,13 +1,16 @@
 import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
+import Logo from "@components/branding/Logo";
+import dynamic from "next/dynamic";
 import ResponsiveCard from "./SigninPage/ResponsiveCard";
 import ScanQRCode from "./SigninPage/ScanQRCode";
-import ShowUser from "./SigninPage/ShowUser";
 import UnwrapPromise from "@lib/client/types/UnwrapPromise";
 import Authentication from "@lib/client/api/Authentication";
 import EncryptionKey from "@lib/client/encryption/EncryptionKey"; 
 import { useSnackbar } from "notistack";
-import Logo from "@components/branding/Logo";
+import VaultCard from "../vault/VaultCard";
+
+const ShowUser = dynamic(() => import ("./SigninPage/ShowUser"));
 
 type ProcessType = UnwrapPromise<typeof Authentication.start>
 type StateType = UnwrapPromise<typeof Authentication.check>;
@@ -20,9 +23,6 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
     const [process, setProcess] = useState<ProcessType>();
     const [state, setState] = useState<StateType>();
     const classes = useStyles();
-
-    const isLarge = useMediaQuery('(min-width:600px)');
-    const Wrapper = isLarge ? Card : Fragment;
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -78,7 +78,7 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                 <div className={classes.logo}>
                     <Logo />
                 </div>
-                <Wrapper variant={"outlined"}>
+                <VaultCard>
                     <CardContent>
                         {!process && (
                             <ScanQRCode 
@@ -103,7 +103,7 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                             />
                         )}
                     </CardContent>
-                </Wrapper>
+                </VaultCard>
             </ResponsiveCard>
         </Container>
     );

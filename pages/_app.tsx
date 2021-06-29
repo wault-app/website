@@ -1,7 +1,7 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { createMuiTheme as createTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
+import { CssBaseline, NoSsr } from "@material-ui/core";
 import DialogProvider from "@components/providers/DialogProvider";
 import FaviconList from "@components/seo/FaviconList";
 import MenuProvider from "@components/providers/MenuProvider";
@@ -12,28 +12,20 @@ import AuthenticationProvider from "@components/providers/AuthenticationProvider
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/DarkModeProvider";
 
-const theme = createTheme({
-    props: {
-        MuiTextField: {
-            variant: "filled",
-        },
-    },
-});
-
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;
 
     return (
         <DarkModeProvider>
-            <CssBaseline />
             <Head>
-                <title>Wault</title>
                 <meta charSet="utf-8" />
+                <title>Wault</title>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <link rel="stylesheet" href="/css/react-credit-card.css" />
                 <link rel="stylesheet" href="/css/fixes.css" />
                 <FaviconList />
             </Head>
+            <CssBaseline />
             <SnackbarProvider>
                 <NoSsr>
                     <AuthenticationProvider>

@@ -1,7 +1,6 @@
 import { z } from "zod";
 import PrivateRSA from "../encryption/RSA/private";
 import post from "./fetch/post";
-import QRCode from "qrcode";
 
 export default class Authentication {
     public static async start() {
@@ -25,6 +24,8 @@ export default class Authentication {
                 secret,
             }),
         });
+
+        const QRCode = (await import("qrcode")).default;
 
         return {
             id: resp.id,

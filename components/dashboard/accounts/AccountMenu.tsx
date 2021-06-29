@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";

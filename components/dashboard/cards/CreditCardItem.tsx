@@ -1,29 +1,23 @@
 import { useDialog } from "@components/providers/DialogProvider";
-import { IssuerType } from "@lib/client/credit-cards/issuers";
+import { CreditCardType } from "@lib/client/api/Item";
 import Issuers from "@lib/client/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";
 import CreditCardDialog from "./CreditCardDialog";
-
-type CreditCardType = {
-    uuid: string;
-    name: string;
-    issuer: IssuerType;
-    endsWith: string;
-};
+import Payments from "payment";
 
 export type CreditCardItemProps = {
     creditCard: CreditCardType;
 };
 
 const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
-    const issuer = Issuers.get(creditCard.issuer);
+    const issuer = Issuers.get(Payments.fns.cardType(creditCard.number));
     const classes = useStyles({ color: issuer.color });
     const { open } = useDialog();
 
     return (
         <ListItem button onClick={() => open(
-            <CreditCardDialog uuid={creditCard.uuid} />
+            <CreditCardDialog creditCard={creditCard} />
         )}>
             <ListItemAvatar>
                 <div className={classes.background}>
@@ -32,7 +26,7 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
             </ListItemAvatar>
             <ListItemText
                 primary={creditCard.name}
-                secondary={`${issuer.name} card, ending with: ${creditCard.endsWith}`}
+                secondary={issuer.name}
             />
         </ListItem>
     );

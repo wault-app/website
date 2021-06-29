@@ -3,6 +3,7 @@ import VaultCard from "./VaultCard";
 import { Skeleton } from "@material-ui/lab";
 import AccountItem from "../accounts/AccountItem";
 import { KeycardType } from "@lib/client/api/Safe";
+import CreditCardItem from "../cards/CreditCardItem";
 
 export type SafeItemProps = {
     loading: true;
@@ -35,6 +36,8 @@ const SafeItem = (props: SafeItemProps) => {
                 {props.keycard.safe.items.map((item) => (
                     item.type === "account" ? (
                         <AccountItem account={item} />
+                    ) : item.type === "credit-card" ? (
+                        <CreditCardItem creditCard={item} />
                     ) : (
                         <div />
                     )

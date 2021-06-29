@@ -22,6 +22,7 @@ export type AccountType = {
 export type CreditCardType = {
     id: string;
     type: "credit-card";
+    name: string;
     number: string;
     cardholder: string;
     expiry: string;

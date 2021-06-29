@@ -1,36 +1,14 @@
-import { IssuerType } from "@lib/client/credit-cards/issuers";
-import { useState } from "react";
+import { CreditCardType } from "@lib/client/api/Item";
 import DecryptedCreditCardScreen from "./CreditCardDialog/DecryptedCreditCardScreen";
-import EnterCVCScreen from "./CreditCardDialog/EnterCVCScreen";
 
 export type CreditCardDialogProps = {
-    uuid: string;
-};
-
-export type CreditCardType = {
-    uuid: string;
-    name: string;
-    issuer: IssuerType;
-    number: string;
-    cardHolder: string;
-    expiry: string;
-    cvc: string;
+    creditCard: CreditCardType;
 };
 
 const CreditCardDialog = (props: CreditCardDialogProps) => {
-    const [decrypted, setDecrypted] = useState<CreditCardType>();
-
-    if(!decrypted) {
-        return (
-            <EnterCVCScreen
-                onDecrypt={(decrypted) => setDecrypted(decrypted)}
-            />
-        );
-    }
-
     return (
         <DecryptedCreditCardScreen
-            creditCard={decrypted}
+            creditCard={props.creditCard}
         />
     );
 };

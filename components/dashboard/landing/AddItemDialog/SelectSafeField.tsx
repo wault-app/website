@@ -7,10 +7,11 @@ const SelectSafeField = (props: SelectSafeFieldProps) => {
     const { keycards } = useKeycards();
 
     return (
-        <FormControl variant="filled" fullWidth>
+        <FormControl variant="outlined" fullWidth>
             <InputLabel>Safe</InputLabel>
             <Select
                 {...props}
+                label={"Safe"}
             >
                 {keycards.map(
                     (keycard) => (

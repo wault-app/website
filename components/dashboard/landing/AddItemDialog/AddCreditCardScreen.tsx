@@ -1,21 +1,58 @@
 import { DialogFooter } from "@components/providers/DialogProvider";
+import { useKeycards } from "@components/providers/KeycardProvider";
+import Item from "@lib/client/api/Item";
 import { Button, CardContent, DialogContent, Grid, makeStyles, TextField } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 import { Fragment, useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";
 import CardHolderNameField from "./AddCreditCardScreen/CardHolderNameField";
 import CreditCardCVCField from "./AddCreditCardScreen/CreditCardCVCField";
 import CreditCardNumberField from "./AddCreditCardScreen/CreditCardNumberField";
 import ExpirationDateField from "./AddCreditCardScreen/ExpirationDateField";
+import SelectSafeField from "./SelectSafeField";
 
 export type AddCreditCardScreenProps = {};
 
 const AddCreditCardScreen = () => {
+    const { keycards, addItem } = useKeycards();
+    const { enqueueSnackbar } = useSnackbar();
+
     const classes = useStyles();
     const [cvc, setCVC] = useState("");
     const [expiry, setExpiry] = useState("");
     const [name, setName] = useState("");
+    const [cardholder, setCardholder] = useState("");
     const [number, setNumber] = useState("");
     const [focused, setFocused] = useState<FocusType>();
+    const [keycard, setKeycard] = useState(keycards[0]);
+    const [disabled, setDisabled] = useState(false);
+
+    const create = async () => {
+        setDisabled(true);
+
+        try {
+            const creditCard = await Item.create(keycard.safe, {
+                type: "credit-card",
+                number,
+                cardholder,
+                expiry,
+                cvc,
+                name,
+            });
+
+            addItem(keycard, creditCard);
+
+            enqueueSnackbar("Successfully added credit card!", {
+                variant: "success",
+            });
+        } catch(e) {
+            enqueueSnackbar(e.message, { 
+                variant: "error",
+            });
+        }
+    
+        setDisabled(false);
+    };
 
     return (
         <Fragment>
@@ -31,6 +68,14 @@ const AddCreditCardScreen = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label={"Card's name"}
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
                         <CreditCardNumberField
                             onChange={(e) => setNumber(e.target.value)}
                             onFocus={() => setFocused("number")}
@@ -39,9 +84,9 @@ const AddCreditCardScreen = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <CardHolderNameField
-                            value={name}
+                            value={cardholder}
                             onFocus={() => setFocused("name")}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => setCardholder(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -59,10 +104,16 @@ const AddCreditCardScreen = () => {
                             onChange={(e) => setCVC(e.target.value)}
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <SelectSafeField
+                            value={keycard.safe.id}
+                            onChange={(e) => setKeycard(keycards.find((keycard) => keycard.safe.id === e.target.value))}
+                        />
+                    </Grid>
                 </Grid>
             </DialogContent>
             <DialogFooter>
-                <Button>Add</Button>
+                <Button onClick={create} disabled={disabled}>Add</Button>
             </DialogFooter>
         </Fragment>
     );

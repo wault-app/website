@@ -1,9 +1,9 @@
 import { DialogFooter } from "@components/providers/DialogProvider";
+import { CreditCardType } from "@lib/client/api/Item";
 import { DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
-import { Visibility, VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
+import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
 import { Fragment, useState } from "react";
 import ReactCreditCard from "react-credit-cards";
-import { CreditCardType } from "../CreditCardDialog";
 
 export type DecryptedCreditCardScreenProps = {
     creditCard: CreditCardType;
@@ -16,11 +16,11 @@ const DecryptedCreditCardScreen = ({ creditCard }: DecryptedCreditCardScreenProp
     return (
         <Fragment>
             <DialogContent className={classes.root}>
-                <Grid container spacing={2}>
+                <Grid container>
                     <Grid item xs={12} md={5}>
                         <div className={classes.card}>
                             <ReactCreditCard
-                                name={creditCard.cardHolder}
+                                name={creditCard.cardholder}
                                 cvc={creditCard.cvc}
                                 number={creditCard.number}
                                 expiry={creditCard.expiry}
@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: "0 !important",
     },
     card: {
-        padding: theme.spacing(4),
         width: "100%",
+        padding: theme.spacing(4),
     }
 }));
 

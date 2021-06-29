@@ -42,6 +42,11 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                     palette: {
                         type: theme,
                     },
+                    props: {
+                        MuiTextField: {
+                            variant: "outlined",        
+                        },
+                    },
                 }
             )}>
                 {props.children}

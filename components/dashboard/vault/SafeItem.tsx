@@ -1,4 +1,4 @@
-import { List, ListSubheader } from "@material-ui/core";
+import { List, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
 import VaultCard from "./VaultCard";
 import { Skeleton } from "@material-ui/lab";
 import AccountItem from "../accounts/AccountItem";
@@ -39,6 +39,14 @@ const SafeItem = (props: SafeItemProps) => {
                         <div />
                     )
                 ))}
+                {props.keycard.safe.items.length === 0 && (
+                    <ListItem>
+                        <ListItemText
+                            primary={"This safe is empty"}
+                            secondary={"Use the plus in the bottom right corner"}
+                        />
+                    </ListItem>
+                )}
             </List>
         </VaultCard>
     );

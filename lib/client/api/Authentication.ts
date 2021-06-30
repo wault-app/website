@@ -15,7 +15,7 @@ export default class Authentication {
             }
 
             return resp;
-        })(64);
+        })(128);
 
         const resp = await post<{ id: string }>("/auth/qr/start", {
             body: JSON.stringify({

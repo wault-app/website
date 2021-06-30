@@ -2,11 +2,11 @@ import Forge from "node-forge";
 
 export default class RSA {
     public static async encrypt(text: string, publicKey: string) {
-        return await Forge.util.encode64(Forge.pki.publicKeyFromPem(publicKey).encrypt(text));
+        return await Forge.util.encode64(Forge.pki.publicKeyFromPem(publicKey).encrypt(text, "NONE"));
     }
 
     public static async decrypt(hash: string, privateKey: string) {
-        return await Forge.pki.privateKeyFromPem(privateKey).decrypt(Forge.util.decode64(hash));
+        return await Forge.pki.privateKeyFromPem(privateKey).decrypt(Forge.util.decode64(hash), "NONE");
     }
 
     public static async load() {
@@ -17,7 +17,7 @@ export default class RSA {
         return await localStorage.setItem("rsa-key", privateKey);
     }
 
-    public static async generate(bits: number = 512): Promise<{ publicKey: string; privateKey: string }> {
+    public static async generate(bits: number = 1024): Promise<{ publicKey: string; privateKey: string }> {
         return new Promise(async (resolve, reject) => {
             Forge.pki.rsa.generateKeyPair({
                 bits,

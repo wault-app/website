@@ -24,6 +24,7 @@ export default wrapper<AuthenticationScannedResponseType>(async (req) => {
     return {
         message: "successfully_scanned_authentication_code",
         rsa: auth.rsa,
+        username: user.username,
     };
 });
 

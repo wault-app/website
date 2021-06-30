@@ -37,11 +37,6 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
             // if we recieved the encryption keys, then store them
             // idea: use the KeyExchange API and depract it from the registration process
             if(resp.message === "scanned_and_verified") {
-                for(const key of resp.exchanges) {
-                    // store the keys in local storage
-                    EncryptionKey.save(key.safeid, key.content);
-                }
-
                 // show a snackbar for 
                 enqueueSnackbar("Successful authentication!", { variant: "success" });
                 

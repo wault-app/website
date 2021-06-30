@@ -41,7 +41,7 @@ export default class Safe {
         // query the safe data from the server
         const [{ keycards }] = await Promise.all([
             get<ResponseType>("/safe/get"),
-            KeyExchange.get(),
+            KeyExchange.getAll(),
         ]);
 
         // decrypt all keycard with their corresponding decryption key

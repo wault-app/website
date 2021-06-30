@@ -43,23 +43,27 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
         },
     });
 
-    await Promise.all(keys.map(async (key) =>
-        await prisma.keyExchange.create({
-            data: {
-                content: key.content,
-                safe: {
-                    connect: {
-                        id: key.safeid,
+    await Promise.all(
+        keys.map(
+            async (key) => {
+                await prisma.keyExchange.create({
+                    data: {
+                        content: key.content,
+                        safe: {
+                            connect: {
+                                id: key.safeid,
+                            },
+                        },
+                        device: {
+                            connect: {
+                                id: device.id,
+                            },
+                        },
                     },
-                },
-                device: {
-                    connect: {
-                        id: device.id,
-                    },
-                },
-            },
-        })
-    ));
+                })
+            }
+        )
+    );
 
     return {
         message: "successfully_sent_authentication_data",

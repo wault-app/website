@@ -53,10 +53,6 @@ export default class Authentication {
             }),
         })).or(z.object({
             message: z.literal("scanned_and_verified"),
-            exchanges: z.array(z.object({
-                safeid: z.string(),
-                content: z.string(),
-            })),
         }));
 
         return schema.parse(resp);

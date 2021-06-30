@@ -9,7 +9,7 @@ export type KeyExchangeType = {
 };
 
 export default class KeyExchange {
-    public static async get() {
+    public static async getAll() {
         type ResponseType = {
             exchanges: KeyExchangeType[];
         };

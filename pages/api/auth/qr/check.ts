@@ -16,28 +16,30 @@ type AuthenticationCodeCheckResponseType = {
     };
 } | {
     message: "scanned_and_verified",
-    exchanges: ({
-        safeid: string;
-        content: string;
-    })[];
 };
 
 export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => {
+    // create a schema for type checking
     const schema = z.object({
         id: z.string(),
         secret: z.string(),
         web: z.boolean(),
     });
 
+    // extract data from the body
     const { id, secret, web } = schema.parse(JSON.parse(req.body));
+    
+    // find auth process from given parameters
     const auth = await find(id, secret);
 
+    // if not yet scanned
     if (!auth.user) {
         return {
             message: "not_scanned_yet",
         };
     }
 
+    // if scanned, but not yet verified
     if (!auth.device) {
         return {
             message: "scanned_but_not_verified",        
@@ -47,17 +49,17 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
         };
     }
 
-    const exchanges = await prisma.keyExchange.findMany({
-        where: {
-            deviceid: auth.device.id,
-        },
-        select: {
-            safeid: true,
-            content: true,
-        }
-    });
+    const { secret: refreshToken, hash } = await RefreshToken.generate();
 
-    const { refreshToken, device } = await RefreshToken.create([auth.deviceName, auth.rsa, auth.user]);
+    const device = await prisma.device.update({
+        where: {
+            id: auth.deviceid,
+        },
+        data: {
+            refreshToken: hash,
+        },
+    });
+    
     const accessToken = await AccessToken.generate({
         id: auth.user.id,
         username: auth.user.username,
@@ -69,20 +71,12 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
 
         return {
             message: "scanned_and_verified",
-            exchanges: exchanges.map((exchange) => ({
-                safeid: exchange.safeid,
-                content: exchange.content,
-            })),
         };
     } else {
         return {
             message: "scanned_and_verified",
             accessToken,
             refreshToken,
-            exchanges: exchanges.map((exchange) => ({
-                safeid: exchange.safeid,
-                content: exchange.content,
-            })),
         };
     }
 

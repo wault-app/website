@@ -16,11 +16,11 @@ export default class PrivateRSA {
     }
 
     public exportKey() {
-        return this.key.exportKey("public");
+        return this.key.exportKey("pkcs1-public");
     }
 
     public save() {
-        localStorage.setItem("rsa-key", this.key.exportKey());
+        localStorage.setItem("rsa-key", this.key.exportKey("pkcs1-private"));
     }
 
     public static create(b = 2048) {

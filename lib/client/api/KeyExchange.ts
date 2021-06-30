@@ -1,7 +1,7 @@
 import get from "./fetch/get";
 import post from "./fetch/post";
-import PrivateRSA from "../encryption/RSA/private";
 import EncryptionKey from "../encryption/EncryptionKey";
+import RSA from "../encryption/RSA";
 
 export type KeyExchangeType = {
     safeid: string;
@@ -16,10 +16,10 @@ export default class KeyExchange {
 
         const { exchanges } = await get<ResponseType>("/key-exchanges/get");
     
-        const rsa = await PrivateRSA.load();
+        const privateKey = await RSA.load();
 
         for(const key of exchanges) {
-            EncryptionKey.save(key.safeid, rsa.decrypt(key.content));
+            EncryptionKey.save(key.safeid, await RSA.decrypt(key.content, privateKey));
         }
     }
 

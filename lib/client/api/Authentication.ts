@@ -1,11 +1,11 @@
 import { z } from "zod";
-import PrivateRSA from "../encryption/RSA/private";
+import RSA from "../encryption/RSA";
 import post from "./fetch/post";
 
 export default class Authentication {
     public static async start() {
-        const rsa = PrivateRSA.create();
-        rsa.save();
+        const keys = await RSA.generate();
+
         const secret = ((length: number) => {
             let resp = "";
             const pool = "0123456789abcdef";
@@ -20,7 +20,7 @@ export default class Authentication {
         const resp = await post<{ id: string }>("/auth/qr/start", {
             body: JSON.stringify({
                 deviceName: this.browserName,
-                rsa: rsa.exportKey(),
+                rsa: keys.publicKey,
                 secret,
             }),
         });
@@ -31,7 +31,7 @@ export default class Authentication {
             id: resp.id,
             image: await QRCode.toDataURL(resp.id, { version: 2 }),
             secret,
-            rsa,
+            rsa: keys.publicKey,
         };
     }
 

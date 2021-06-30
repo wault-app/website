@@ -1,12 +1,12 @@
 import post from "./fetch/post";
 import get from "./fetch/get";
 import EncryptionKey from "../encryption/EncryptionKey";
-import PublicRSA from "../encryption/RSA/public";
 import AES from "../encryption/AES";
 import Device from "./Device";
 import KeyExchange from "./KeyExchange";
 import { RoleType } from "@prisma/client";
 import { EncryptedItemType, ItemType } from "./Item";
+import RSA from "../encryption/RSA";
 
 export type SafeType = {
     id: string;
@@ -97,12 +97,10 @@ export default class Safe {
         await Promise.all(
             devices.map(
                 async (device) => {
-                    const rsa = new PublicRSA(device.rsaKey);
-
                     return await KeyExchange.send(
                         keycard.safe.id,
                         device.id,
-                        rsa.encrypt(key)
+                        await RSA.encrypt(key, device.rsaKey),
                     );
                 } 
             )

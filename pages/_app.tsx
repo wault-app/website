@@ -10,7 +10,7 @@ import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
-import DarkModeProvider from "@components/providers/DarkModeProvider";
+import DarkModeProvider from "@components/providers/ThemeProvider";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;

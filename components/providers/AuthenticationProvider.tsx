@@ -7,7 +7,7 @@ import FullScreenLoader from "@components/dashboard/FullScreenLoader";
 
 type StateType = UserType | null | "loading";
 
-const AuthenticationContext = createContext<{
+export const AuthenticationContext = createContext<{
     user: StateType;
     setUser: Dispatch<SetStateAction<StateType>>;
 }>(null);

@@ -58,6 +58,14 @@ export default class Authentication {
         return schema.parse(resp);
     }
 
+    public static async logout() {
+        type ResponseType = {
+            message: "successfully_logged_out";
+        };
+
+        return await post<ResponseType>("/auth/logout");
+    }
+
     private static get browserName() {
         // TODO
         return "Browser";

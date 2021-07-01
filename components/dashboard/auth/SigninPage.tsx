@@ -40,6 +40,10 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                 // show a snackbar for 
                 enqueueSnackbar("Successful authentication!", { variant: "success" });
                 
+                // remove previously stored data due to logout bug
+                setState(null);
+                setProcess(null);
+
                 // call given callback function
                 onAuth();
 

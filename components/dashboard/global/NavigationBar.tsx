@@ -3,6 +3,7 @@ import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as
 import { Fragment, PropsWithChildren, useState } from "react";
 import { useRouter } from "next/router";
 import Logo from "@components/branding/Logo";
+import LogoutButton from "./NavigationBar/LogoutButton";
 
 export type NavigationBarProps = PropsWithChildren<{
 
@@ -41,14 +42,7 @@ const NavigationBar = (props: NavigationBarProps) => {
                         primary={"Settings"}
                     />
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <LogoutIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={"Log out"}
-                    />
-                </ListItem>
+                <LogoutButton />
             </List>
         </Fragment>
     );

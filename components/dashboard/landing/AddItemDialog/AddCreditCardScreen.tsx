@@ -62,7 +62,7 @@ const AddCreditCardScreen = () => {
                         <CreditCard
                             cvc={cvc}
                             expiry={expiry}
-                            name={name}
+                            name={cardholder}
                             number={number}
                             focused={focused}
                         />

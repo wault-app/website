@@ -1,9 +1,10 @@
 import { DialogFooter } from "@components/providers/DialogProvider";
 import { CreditCardType } from "@lib/client/api/Item";
 import { DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
-import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
+import { PinDropSharp, VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
 import { Fragment, useState } from "react";
 import ReactCreditCard from "react-credit-cards";
+import CopyCardNumberButton from "./CreditCardDialog/CopyCardNumberButton";
 
 export type CreditCardDialogProps = {
     creditCard: CreditCardType;
@@ -42,6 +43,9 @@ const CreditCardDialog = ({ creditCard }: CreditCardDialogProps) => {
                                     primary={!show ? "Show CVC / CVV" : "Hide CVC / CVV"}
                                 />
                             </ListItem>
+                            {creditCard.number && (
+                                <CopyCardNumberButton number={creditCard.number} />
+                            )}
                         </List>
                     </Grid>
                 </Grid>

@@ -1,19 +1,20 @@
-import { DialogFooter } from "@components/providers/DialogProvider";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import Item from "@lib/client/api/Item";
-import { Button, CardContent, DialogContent, Grid, makeStyles, TextField } from "@material-ui/core";
+import { Dialog, Button, DialogActions, DialogContent, DialogProps, Grid, makeStyles, TextField } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";
-import CardHolderNameField from "./AddCreditCardScreen/CardHolderNameField";
-import CreditCardCVCField from "./AddCreditCardScreen/CreditCardCVCField";
-import CreditCardNumberField from "./AddCreditCardScreen/CreditCardNumberField";
-import ExpirationDateField from "./AddCreditCardScreen/ExpirationDateField";
+import CardHolderNameField from "./AddCreditCardDialog/CardHolderNameField";
+import CreditCardCVCField from "./AddCreditCardDialog/CreditCardCVCField";
+import CreditCardNumberField from "./AddCreditCardDialog/CreditCardNumberField";
+import ExpirationDateField from "./AddCreditCardDialog/ExpirationDateField";
 import SelectSafeField from "./SelectSafeField";
 
-export type AddCreditCardScreenProps = {};
+export type AddCreditCardDialogProps = DialogProps & {
+    onBack: () => void;
+};
 
-const AddCreditCardScreen = () => {
+const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
     const { keycards, addItem } = useKeycards();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -55,7 +56,7 @@ const AddCreditCardScreen = () => {
     };
 
     return (
-        <Fragment>
+        <Dialog {...props}>
             <DialogContent>
                 <Grid container spacing={2}>
                     <Grid item xs={12} className={classes.card}>
@@ -112,10 +113,28 @@ const AddCreditCardScreen = () => {
                     </Grid>
                 </Grid>
             </DialogContent>
-            <DialogFooter>
-                <Button onClick={create} disabled={disabled}>Add</Button>
-            </DialogFooter>
-        </Fragment>
+            <DialogActions>
+                <Button
+                    onClick={() => props.onBack()}
+                    disabled={disabled}
+                >
+                    Back
+                </Button>
+                <Button
+                    onClick={() => props.onClose({}, "backdropClick")}
+                    disabled={disabled}
+                >
+                    Close
+                </Button>
+                <Button
+                    onClick={create}
+                    disabled={disabled}
+                    color={"primary"}
+                >
+                    Add
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 
@@ -130,4 +149,4 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default AddCreditCardScreen;
+export default AddCreditCardDialog;

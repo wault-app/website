@@ -1,10 +1,10 @@
-import { useDialog } from "@components/providers/DialogProvider";
 import { CreditCardType } from "@lib/client/api/Item";
 import Issuers from "@lib/client/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";
 import CreditCardDialog from "./CreditCardDialog";
 import Payments from "payment";
+import { useState } from "react";
 
 export type CreditCardItemProps = {
     creditCard: CreditCardType;
@@ -13,12 +13,15 @@ export type CreditCardItemProps = {
 const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
     const issuer = Issuers.get(Payments.fns.cardType(creditCard.number));
     const classes = useStyles({ color: issuer.color });
-    const { open } = useDialog();
+    const [open, setOpen] = useState(false);
 
     return (
-        <ListItem button onClick={() => open(
-            <CreditCardDialog creditCard={creditCard} />
-        )}>
+        <ListItem button onClick={() => setOpen(true)}>
+            <CreditCardDialog
+                creditCard={creditCard}
+                open={open}
+                onClose={() => setOpen(false)}
+            />
             <ListItemAvatar>
                 <div className={classes.background}>
                     <CreditCardRounded className={classes.icon} />

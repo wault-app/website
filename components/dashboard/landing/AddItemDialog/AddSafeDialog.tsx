@@ -1,16 +1,18 @@
 import { useState, Fragment } from "react";
-import { Button, DialogContent, DialogTitle } from "@material-ui/core";
-import { DialogFooter, useDialog } from "@components/providers/DialogProvider";
-import SafeNameField from "./AddSafeScreen/SafeNameField";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@material-ui/core";
+import SafeNameField from "./AddSafeDialog/SafeNameField";
 import Safe from "@lib/client/api/Safe";
 import { useSnackbar } from "notistack";
 import { useKeycards } from "@components/providers/KeycardProvider";
 
-const AddSafeScreen = () => {
+type AddSafeDialogProps = DialogProps & {
+    onBack: () => void;
+};
+
+const AddSafeDialog = (props: AddSafeDialogProps) => {
     const [name, setName] = useState("");
     const [disabled, setDisabled] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
-    // const { close } = useDialog();
     const { addKeycard } = useKeycards();
 
     const create = async () => {
@@ -32,11 +34,11 @@ const AddSafeScreen = () => {
         addKeycard(keycard);
 
         // close the open dialog
-        // close();
+        props.onClose({}, "backdropClick");
     };
 
     return (
-        <Fragment>
+        <Dialog {...props}>
             <DialogTitle>
                 Create new safe
             </DialogTitle>
@@ -47,16 +49,29 @@ const AddSafeScreen = () => {
                     onChange={(e) => setName(e.target.value)}
                 />
             </DialogContent>
-            <DialogFooter>
+            <DialogActions>
+                <Button
+                    disabled={disabled}
+                    onClick={() => props.onBack()}
+                >
+                    Back
+                </Button>
+                <Button
+                    disabled={disabled}
+                    onClick={() => props.onClose({}, "backdropClick")}
+                >
+                    Close
+                </Button>
                 <Button
                     disabled={disabled}
                     onClick={create}
+                    color={"primary"}
                 >
                     Add
                 </Button>
-            </DialogFooter>
-        </Fragment>
+            </DialogActions>
+        </Dialog>
     );
 };
 
-export default AddSafeScreen;
+export default AddSafeDialog;

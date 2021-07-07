@@ -2,9 +2,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { CssBaseline, NoSsr } from "@material-ui/core";
-import DialogProvider from "@components/providers/DialogProvider";
 import FaviconList from "@components/seo/FaviconList";
-import MenuProvider from "@components/providers/MenuProvider";
 import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
 import { Fragment } from "react";
@@ -31,11 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     <AuthenticationProvider>
                         <Wrapper>
                             <KeycardProvider>
-                                <DialogProvider>
-                                    <MenuProvider>
-                                        <Component {...pageProps} />
-                                    </MenuProvider>
-                                </DialogProvider>
+                                <Component {...pageProps} />
                             </KeycardProvider>
                         </Wrapper>
                     </AuthenticationProvider>

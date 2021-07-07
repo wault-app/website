@@ -1,21 +1,21 @@
-import { DialogFooter } from "@components/providers/DialogProvider";
 import { CreditCardType } from "@lib/client/api/Item";
-import { DialogContent, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
-import { PinDropSharp, VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
-import { Fragment, useState } from "react";
+import { Button, Dialog, DialogContent, DialogActions, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, DialogProps } from "@material-ui/core";
+import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
+import { useState } from "react";
 import ReactCreditCard from "react-credit-cards";
 import CopyCardNumberButton from "./CreditCardDialog/CopyCardNumberButton";
 
-export type CreditCardDialogProps = {
+export type CreditCardDialogProps = DialogProps & {
     creditCard: CreditCardType;
 };
 
-const CreditCardDialog = ({ creditCard }: CreditCardDialogProps) => {
+const CreditCardDialog = (props: CreditCardDialogProps) => {
     const classes = useStyles();
     const [show, setShow] = useState(false);
+    const { creditCard } = props;
 
     return (
-        <Fragment>
+        <Dialog {...props}>
             <DialogContent className={classes.root}>
                 <Grid container>
                     <Grid item xs={12} md={5}>
@@ -50,8 +50,14 @@ const CreditCardDialog = ({ creditCard }: CreditCardDialogProps) => {
                     </Grid>
                 </Grid>
             </DialogContent>
-            <DialogFooter />
-        </Fragment>
+            <DialogActions>
+                <Button
+                    onClick={() => props.onClose({}, "backdropClick")}
+                >
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

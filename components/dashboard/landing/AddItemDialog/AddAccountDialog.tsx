@@ -1,22 +1,20 @@
-import { DialogFooter } from "@components/providers/DialogProvider";
-import PlatformIcon from "@components/platforms/PlatformIcon";
-import { Button, DialogContent, DialogTitle, Grid, InputAdornment, TextField, Typography } from "@material-ui/core";
-import { Fragment, useState } from "react";
-import DescriptionField from "./AddAccountScreen/DescriptionField";
-import PasswordField from "./AddAccountScreen/PasswordField";
-import PlatformField from "./AddAccountScreen/PlatformField";
-import UsernameField from "./AddAccountScreen/UsernameField";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid, InputAdornment, TextField, Typography } from "@material-ui/core";
+import { useState } from "react";
+import DescriptionField from "./AddAccountDialog/DescriptionField";
+import PasswordField from "./AddAccountDialog/PasswordField";
+import PlatformField from "./AddAccountDialog/PlatformField";
+import UsernameField from "./AddAccountDialog/UsernameField";
 import { useSnackbar } from "notistack";
 import Item from "@lib/client/api/Item";
-import { KeycardType, SafeType } from "@lib/client/api/Safe";
+import { KeycardType } from "@lib/client/api/Safe";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import SelectSafeField from "./SelectSafeField";
 
-export type AddAccountScreenProps = {
-
+export type AddAccountDialogProps = DialogProps & {
+    onBack: () => void;
 };
 
-const AddAccountScreen = (props: AddAccountScreenProps) => {
+const AddAccountDialog = (props: AddAccountDialogProps) => {
     const { enqueueSnackbar } = useSnackbar();
     const { keycards, addItem } = useKeycards();
 
@@ -72,7 +70,7 @@ const AddAccountScreen = (props: AddAccountScreenProps) => {
     };
 
     return (
-        <Fragment>
+        <Dialog {...props}>
             <DialogTitle>
                 Add new account
             </DialogTitle>
@@ -115,16 +113,29 @@ const AddAccountScreen = (props: AddAccountScreenProps) => {
                     </Grid>
                 </Grid>
             </DialogContent>
-            <DialogFooter>
+            <DialogActions>
+                <Button
+                    disabled={disabled}
+                    onClick={() => props.onBack()}
+                >
+                    Back
+                </Button>
+                <Button
+                    disabled={disabled}
+                    onClick={() => props.onClose({}, "backdropClick")}
+                >
+                    Close
+                </Button>
                 <Button
                     disabled={disabled}
                     onClick={create}
+                    color={"primary"}
                 >
                     Add
                 </Button>
-            </DialogFooter>
-        </Fragment>
+            </DialogActions>
+        </Dialog>
     );
 };
 
-export default AddAccountScreen;
+export default AddAccountDialog;

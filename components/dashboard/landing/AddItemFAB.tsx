@@ -1,24 +1,24 @@
-import { useDialog } from "@components/providers/DialogProvider";
 import { Fab, makeStyles } from "@material-ui/core";
 import { AddRounded } from "@material-ui/icons";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import AddItemDialog from "./AddItemDialog";
 
 const AddItemFAB = () => {
     const classes = useStyles();
-    const { open } = useDialog();
+    const [open, setOpen] = useState(false);
 
     return (
         <Fragment>
+            <AddItemDialog
+                fullWidth
+                maxWidth={"sm"}
+                open={open}
+                onClose={() => setOpen(false)}
+            />
             <Fab
                 className={classes.fab}
                 color={"primary"}
-                onClick={() => open(
-                    <AddItemDialog />,
-                    {
-                        maxWidth: "sm"
-                    }
-                )}
+                onClick={() => setOpen(true)}
             >
                 <AddRounded />
             </Fab>

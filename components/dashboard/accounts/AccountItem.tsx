@@ -17,7 +17,7 @@ export type AccountItemProps = AccountItemLoadedProps | {
 
 const AccountItem = (props: AccountItemProps) => {
     const [open, setOpen] = useState(false);
-    const [state, setState] = useState<MenuProps>();
+    const [menu, setMenu] = useState<MenuProps>();
 
     const classes = useStyles();
 
@@ -50,8 +50,8 @@ const AccountItem = (props: AccountItemProps) => {
                 onClose={() => setOpen(false)}
             />
             <AccountMenu
-                {...state}
-                onClose={() => setState({ ...state, open: false })}
+                {...menu}
+                onClose={() => setMenu({ ...menu, open: false })}
                 account={props.account}
             />
             <ListItem
@@ -61,7 +61,7 @@ const AccountItem = (props: AccountItemProps) => {
                 }}
                 onContextMenu={(event) => {
                     event.preventDefault();
-                    setState({
+                    setMenu({
                         open: true,
                         anchorReference: "anchorPosition",
                         anchorPosition: {

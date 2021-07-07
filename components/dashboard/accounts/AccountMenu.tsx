@@ -18,11 +18,13 @@ const AccountMenu = (props: AccountMenuProps) => {
             />
             {!!username && (
                 <CopyUsernameButton 
+                    onCopy={() => props.onClose({}, "backdropClick")}
                     username={username}
                 />
             )}
             {!!password && (
                 <CopyPasswordButton
+                    onCopy={() => props.onClose({}, "backdropClick")}
                     password={password}
                 />
             )}

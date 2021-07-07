@@ -17,21 +17,26 @@ export type AccountType = {
     password?: string;
     description?: string;
     categories?: CategoryType[];
+    url?: string;
+    totp?: string;
 };
 
 export type CreditCardType = {
     id: string;
     type: "credit-card";
     name: string;
-    number: string;
-    cardholder: string;
-    expiry: string;
-    cvc: string;
+    number?: string;
+    cardholder?: string;
+    expiry?: string;
+    cvc?: string;
+    description?: string;
 };
 
 export type ItemType = AccountType | CreditCardType;
 
-type ItemTypeWithoutID = Omit<AccountType, "id"> | Omit<CreditCardType, "id">;
+export type AccountTypeWithoutID = Omit<AccountType, "id">;
+export type CreditCardTypeWithoutID = Omit<CreditCardType, "id">;
+export type ItemTypeWithoutID = AccountTypeWithoutID | CreditCardTypeWithoutID;
 
 export default class Item {
     /**

@@ -1,4 +1,5 @@
 import DiscordIcon from "@components/platforms/DiscordIcon";
+import LastPassIcon from "@components/platforms/LastPassIcon";
 import { SvgIconProps } from "@material-ui/core";
 import { CategoryType } from "../categories";
 
@@ -9,6 +10,7 @@ type IconType = {
 
 type PlatformType = {
     name: string;
+    hostname: string;
     categories: CategoryType[];
     icon?: IconType;
 };
@@ -19,11 +21,21 @@ const platforms: {
     "discord.com": {
         name: "Discord",
         categories: ["games", "social"],
+        hostname: "discord.com",
         icon: {
             color: "#5865F2",
             badge: DiscordIcon,
         },
     },
+    "lastpass.com": {
+        name: "LastPass",
+        categories: ["work"],
+        hostname: "lastpass.com",
+        icon: {
+            color: "#D32D27",
+            badge: LastPassIcon, 
+        },
+    }
 };
 
 const aliases: {
@@ -43,6 +55,7 @@ export default class Platforms {
         const fallback = {
             name: url,
             categories,
+            hostname: url,
         };
 
         return platforms[url] || platforms[aliases[url]] || fallback;

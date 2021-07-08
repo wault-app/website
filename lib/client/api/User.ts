@@ -4,6 +4,7 @@ import get from "./fetch/get";
 export type UserType = {
     id: string,
     username: string,
+    deviceid: string;
 };
 
 export default class User {

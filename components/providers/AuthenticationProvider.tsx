@@ -5,30 +5,32 @@ import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext,
 import ErrorScreen from "@components/dashboard/ErrorScreen";
 import FullScreenLoader from "@components/dashboard/FullScreenLoader";
 
-type StateType = UserType | null | "loading";
-
 export const AuthenticationContext = createContext<{
-    user: StateType;
-    setUser: Dispatch<SetStateAction<StateType>>;
+    user: UserType;
+    setUser: Dispatch<SetStateAction<UserType>>;
 }>(null);
 
 export const useUser = () => {
     const { user, setUser } = useContext(AuthenticationContext);
 
-    return user;
+    return { user };
 };
 
 export type AuthenticationProviderProps = PropsWithChildren<{}>;
 
 const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
-    const [user, setUser] = useState<StateType>("loading");
+    const [isLoading, setLoading] = useState(true);
+    const [user, setUser] = useState<UserType>();
     const [error, setError] = useState<WrapperError>();
 
     const loadUser = () => {
         (async () => {
             try {    
                 const user = await User.get();
-                setTimeout(() => setUser(user), 1200);
+                setTimeout(() => {
+                    setUser(user);
+                    setLoading(false);
+                }, 1200);
             } catch(e) {
                 setError(e);
             }
@@ -41,13 +43,13 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
 
     if(error) return (<ErrorScreen error={error} />);
 
-    if(user === "loading") {
+    if(isLoading) {
         return (
             <FullScreenLoader />
         );
     }
 
-    if(user === null) return (
+    if(!user) return (
         <SigninPage onAuth={() => loadUser()} />
     );
 

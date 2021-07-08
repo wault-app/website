@@ -1,3 +1,4 @@
+import DeviceList from "@components/dashboard/devices/DeviceList";
 import ColorSchemaSelector from "@components/dashboard/settings/ColorSchemaSelector";
 import DarkModeSwitch from "@components/dashboard/settings/DarkModeSwitch";
 import ExportDataButton from "@components/dashboard/settings/ExportDataButton";
@@ -27,6 +28,14 @@ const SettingsPage = () => {
                     </ListSubheader>
                     <ImportDataButton />
                     <ExportDataButton />
+                </List>
+            </VaultCard>
+            <VaultCard>
+                <List>
+                    <ListSubheader>
+                        Devices
+                    </ListSubheader>
+                    <DeviceList />
                 </List>
             </VaultCard>
         </Fragment>

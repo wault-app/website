@@ -7,5 +7,6 @@ export default wrapper(async (req) => {
     return {
         id: user.id,
         username: user.username,
+        deviceid: user.deviceid,
     };
 });

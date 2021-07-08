@@ -20,6 +20,8 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
             <CreditCardDialog
                 creditCard={creditCard}
                 open={open}
+                maxWidth={"md"}
+                fullWidth
                 onClose={() => setOpen(false)}
             />
             <ListItemAvatar>

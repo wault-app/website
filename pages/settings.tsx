@@ -1,5 +1,6 @@
 import ColorSchemaSelector from "@components/dashboard/settings/ColorSchemaSelector";
 import DarkModeSwitch from "@components/dashboard/settings/DarkModeSwitch";
+import ExportDataButton from "@components/dashboard/settings/ExportDataButton";
 import ImportDataButton from "@components/dashboard/settings/ImportDataButton";
 import VaultCard from "@components/dashboard/vault/VaultCard";
 import { List, ListSubheader } from "@material-ui/core";
@@ -25,6 +26,7 @@ const SettingsPage = () => {
                         Your data
                     </ListSubheader>
                     <ImportDataButton />
+                    <ExportDataButton />
                 </List>
             </VaultCard>
         </Fragment>

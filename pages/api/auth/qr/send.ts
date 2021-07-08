@@ -28,7 +28,7 @@ export default wrapper<AuthenticationSentResponseType>(async (req) => {
      */
     if (auth.userid !== user.id) throw new WrapperError("forbidden");
 
-    const { device } = await RefreshToken.create([auth.deviceName, auth.rsa, user]);
+    const { device } = await RefreshToken.create(auth.deviceName, auth.rsa, user, auth.type);
 
     await prisma.authentication.update({
         where: {

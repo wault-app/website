@@ -100,8 +100,12 @@ const KeycardProvider = (props: KeycardProviderProps) => {
 
 const LoaderComponent = () => (
         <Grid container>
-            {[0, 0].map(() => (
-                <Grid item xs={12}>
+            {[0, 1].map((index) => (
+                <Grid
+                    item
+                    xs={12}
+                    key={`keycard-provider-loader-component-${index}`}
+                >
                     <SafeItem loading />
                 </Grid>
             ))}

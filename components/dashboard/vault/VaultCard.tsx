@@ -1,32 +1,39 @@
-import { Card, Container, makeStyles, useMediaQuery } from "@material-ui/core";
-import { Fragment, PropsWithChildren } from "react";
+import { Card, Container, makeStyles } from "@material-ui/core";
+import { PropsWithChildren } from "react";
 
+export type VaultCardProps = PropsWithChildren<{}>;
 
-const VaultCard = (props: PropsWithChildren<{}>) => {
-    const isLarge = useMediaQuery("(min-width: 600px)");
+const VaultCard = (props: VaultCardProps) => {
     const classes = useStyles();
 
-    if(isLarge) {
-        return (
-            <Container className={classes.card} maxWidth={"sm"}>
-                <Card variant={"outlined"}>
-                    {props.children}
-                </Card>
-            </Container>
-        );
-    }
-
     return (
-        <Fragment>
-            {props.children}
-        </Fragment>
+        <Container
+            className={classes.container}
+            maxWidth={"sm"}
+        >
+            <Card variant={"outlined"} className={classes.card}>
+                {props.children}
+            </Card>
+        </Container>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
-    card: {
+    container: {
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(2),
+        [theme.breakpoints.down("sm")]: {
+            paddingLeft: 0,
+            paddingRight: 0,
+            marginLeft: 0,
+            marginRight: 0,
+        },
+    },
+    card: {
+        [theme.breakpoints.down("sm")]: {
+            border: "none",
+            background: "transparent",
+        },
     },
 }));
 

@@ -41,7 +41,7 @@ const AccountItem = (props: AccountItemProps) => {
     const { account } = props;
 
     return (
-        <Fragment>
+        <div key={`account-item-${props.account.id}`}>
             <AccountDialog
                 maxWidth={"md"}
                 fullWidth
@@ -83,7 +83,7 @@ const AccountItem = (props: AccountItemProps) => {
                     secondary={account.username}
                 />
             </ListItem>
-        </Fragment>
+        </div>
     );
 };
 

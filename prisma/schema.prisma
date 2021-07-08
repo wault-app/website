@@ -29,6 +29,7 @@ model Device {
   user           User            @relation(fields: [userid], references: [id])
   keyExchanges   KeyExchange[]
   authentication Authentication?
+  type           DeviceType
 
   userid String
   @@map("devices")
@@ -76,6 +77,7 @@ model Authentication {
   rsa        String
   user       User?   @relation(fields: [userid], references: [id])
   device     Device? @relation(fields: [deviceid], references: [id])
+  type       DeviceType
 
   userid   String?
   deviceid String?
@@ -95,4 +97,10 @@ enum RoleType {
   OWNER
   WRITER
   READER
+}
+
+enum DeviceType {
+  MOBILE
+  DESKTOP
+  BROWSER
 }

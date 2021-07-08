@@ -2,6 +2,7 @@ import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { DeviceType } from "@prisma/client";
 
 export type AuthenticationStartResponseType = {
     id: string;
@@ -15,9 +16,10 @@ export default wrapper<AuthenticationStartResponseType>(async (req) => {
         deviceName: z.string(),
         secret: z.string(),
         rsa: z.string(),
+        type: z.enum(["BROWSER", "DESKTOP"]),
     });
 
-    const { deviceName, secret, rsa } = parameters.parse(JSON.parse(req.body));
+    const { deviceName, secret, rsa, type } = parameters.parse(JSON.parse(req.body));
 
     /**
      * Create authentication object
@@ -27,6 +29,7 @@ export default wrapper<AuthenticationStartResponseType>(async (req) => {
             secret: await bcrypt.hash(secret, 10),
             deviceName,
             rsa,
+            type,
         },
         select: {
             id: true,

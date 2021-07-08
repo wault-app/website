@@ -1,11 +1,13 @@
 import get from "./fetch/get";
 import post from "./fetch/post";
+import { DeviceType as DeviceVariants } from "@prisma/client";
 
 export type DeviceType = {
     id: string;
     name: string;
     loggedInAt: Date;
     rsaKey: string;
+    type: DeviceVariants;
 };
 
 export default class Device {

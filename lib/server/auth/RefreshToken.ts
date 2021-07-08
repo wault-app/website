@@ -6,9 +6,10 @@ import { z } from "zod";
 import WrapperError from "../error";
 import { User } from ".prisma/client";
 import AccessToken from "./AccessToken";
+import { DeviceType } from "@prisma/client";
 
 export default class RefreshToken {
-    public static async create([name, rsaKey, user]: [string, string, User]) {
+    public static async create(name: string, rsaKey: string, user: User, type: DeviceType) {
         const { hash, secret } = await this.generate();
 
         const device = await prisma.device.create({
@@ -21,6 +22,7 @@ export default class RefreshToken {
                     },
                 },
                 refreshToken: hash,
+                type,
             },
         });
 

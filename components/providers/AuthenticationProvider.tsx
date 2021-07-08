@@ -32,7 +32,12 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
                     setLoading(false);
                 }, 1200);
             } catch(e) {
-                setError(e);
+                if(e.message === "device_not_found" || e.message === "invalid_refresh_token") {
+                    setLoading(false);
+                    setUser(null);
+                } else {
+                    setError(e);
+                }
             }
         })();
     };

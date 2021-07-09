@@ -22,6 +22,7 @@ export default class Authentication {
                 deviceName: this.browserName,
                 rsa: keys.publicKey,
                 secret,
+                type: "BROWSER",
             }),
         });
 

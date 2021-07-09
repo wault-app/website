@@ -9,6 +9,7 @@ import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";
+import SearchProvider from "@components/dashboard/search/SearchProvider";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const Wrapper = true ? NavigationBar : Fragment;
@@ -25,15 +26,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Head>
             <CssBaseline />
             <SnackbarProvider>
-                <NoSsr>
-                    <AuthenticationProvider>
-                        <Wrapper>
-                            <KeycardProvider>
-                                <Component {...pageProps} />
-                            </KeycardProvider>
-                        </Wrapper>
-                    </AuthenticationProvider>
-                </NoSsr>
+                <SearchProvider>
+                    <NoSsr>
+                        <AuthenticationProvider>
+                            <Wrapper>
+                                <KeycardProvider>
+                                    <Component {...pageProps} />
+                                </KeycardProvider>
+                            </Wrapper>
+                        </AuthenticationProvider>
+                    </NoSsr>
+                </SearchProvider>
             </SnackbarProvider>
         </DarkModeProvider>
     );

@@ -1,10 +1,22 @@
 import { Container, InputBase, InputBaseProps, makeStyles } from "@material-ui/core";
 import { SearchRounded as SearchIcon } from "@material-ui/icons";
+import { useEffect, useState } from "react";
+import { useSearch } from "./SearchProvider";
 
 export type SearchBarProps = InputBaseProps;
 
 const SearchBar = (props: SearchBarProps) => {
     const classes = useStyles();
+    const [proxy, setProxy] = useState("");
+    const { setValue } = useSearch();
+
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            setValue(proxy);
+        }, 500)
+    
+        return () => clearTimeout(delayDebounceFn);
+      }, [proxy]);
 
     return (
         <Container maxWidth={"sm"} className={classes.container}>
@@ -19,6 +31,10 @@ const SearchBar = (props: SearchBarProps) => {
                         input: classes.inputInput,
                     }}
                     {...props}
+                    value={proxy}
+                    onChange={(e) => {
+                        setProxy(e.target.value)
+                    }}
                 />
             </div>
         </Container>
@@ -51,6 +67,7 @@ const useStyles = makeStyles((theme) => (
             paddingLeft: `calc(1em + ${theme.spacing(5)}px)`,
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(1),
+            width: "100%"
         },
         inputInput: {
             padding: theme.spacing(1, 1, 1, 0),

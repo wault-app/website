@@ -24,17 +24,16 @@ const DeviceItem = (props: DeviceItemProps) => {
         return (
             <ListItem>
                 <ListItemIcon>
-                    <Skeleton />
+                    <Skeleton
+                        variant={"circle"}
+                        width={36}
+                        height={36}
+                    />
                 </ListItemIcon>
                 <ListItemText
                     primary={<Skeleton />}
                     secondary={<Skeleton />}
                 />
-                <ListItemSecondaryAction>
-                    <IconButton>
-                        <Skeleton />
-                    </IconButton>
-                </ListItemSecondaryAction>
             </ListItem>
         );
     }

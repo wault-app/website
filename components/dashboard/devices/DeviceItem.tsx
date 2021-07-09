@@ -94,7 +94,6 @@ const DeviceItem = (props: DeviceItemProps) => {
                     ) : (
                         <DesktopIcon />
                     )}
-                    {console.log(props.device.type)}
                 </ListItemIcon>
                 <ListItemText
                     primary={props.device.name}

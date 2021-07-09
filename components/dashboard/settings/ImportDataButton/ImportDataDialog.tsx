@@ -23,6 +23,7 @@ const ImportDataDialog = (props: ImportDataDialogProps) => {
         <List>
             {providers.map((provider) => (
                 <ListItem
+                    key={`provider-option-${provider.hostname}`}
                     button
                     onClick={() => setProvider(provider)}
                 >

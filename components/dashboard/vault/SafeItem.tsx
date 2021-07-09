@@ -21,8 +21,11 @@ const SafeItem = (props: SafeItemProps) => {
                     <ListSubheader>
                         <Skeleton />
                     </ListSubheader>
-                    {Placeholder.generate(3, 2).map(() => (
-                        <AccountItem loading />
+                    {Placeholder.generate(3, 2).map((index) => (
+                        <AccountItem
+                            key={`account-item-placeholder-${index}`}
+                            loading
+                        />
                     ))}
                 </List>
             </VaultCard>
@@ -30,7 +33,7 @@ const SafeItem = (props: SafeItemProps) => {
     }
 
     return (
-        <VaultCard>
+        <VaultCard key={`safe-item-${props.keycard.id}`}>
             <List>
                 <ListSubheader>
                     {props.keycard.safe.name}
@@ -49,11 +52,9 @@ const SafeItem = (props: SafeItemProps) => {
 
                                     return (
                                         item.type === "account" ? (
-                                            <AccountItem account={item} />
-                                        ) : item.type === "credit-card" ? (
-                                            <CreditCardItem creditCard={item} />
-                                        ) : (
-                                            <div />
+                                            <AccountItem account={item} key={`account-item-${item.id}`} />
+                                        ) : item.type === "credit-card" && (
+                                            <CreditCardItem creditCard={item} key={`credit-card-item-${item.id}`} />
                                         )
                                     )
                                 }}

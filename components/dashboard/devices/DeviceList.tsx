@@ -65,8 +65,11 @@ const DeviceList = (props: DeviceListProps) => {
     if(!devices) {
         return (
             <Fragment>
-                {Placeholder.generate(3, 2).map(() => (
-                    <DeviceItem loading />
+                {Placeholder.generate(3, 2).map((index) => (
+                    <DeviceItem
+                        loading
+                        key={`device-item-placeholder-${index}`}
+                    />
                 ))}
             </Fragment>
         );
@@ -84,6 +87,7 @@ const DeviceList = (props: DeviceListProps) => {
                     rowRenderer={({ index }) => (
                         <DeviceItem
                             device={devices[index]}
+                            key={`device-item-${index}`}
                             onLogout={
                                 (device) => setDevices(
                                     [...devices].filter(

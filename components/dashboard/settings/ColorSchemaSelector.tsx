@@ -13,7 +13,10 @@ const ColorSchemaSelector = () => (
         <ListItemSecondaryAction>
             <Grid container spacing={1}>
                 {Object.keys(PaletteOptions).map((key) => (
-                    <ColorOption color={key} />
+                    <ColorOption
+                        key={`color-option-${key}`}
+                        color={key}
+                    />
                 ))}
             </Grid>
         </ListItemSecondaryAction>

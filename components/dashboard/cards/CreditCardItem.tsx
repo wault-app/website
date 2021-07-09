@@ -4,7 +4,7 @@ import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@mate
 import { CreditCardRounded } from "@material-ui/icons";
 import CreditCardDialog from "./CreditCardDialog";
 import Payments from "payment";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export type CreditCardItemProps = {
     creditCard: CreditCardType;
@@ -16,7 +16,7 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <ListItem button onClick={() => setOpen(true)}>
+        <Fragment>
             <CreditCardDialog
                 creditCard={creditCard}
                 open={open}
@@ -24,16 +24,18 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
                 fullWidth
                 onClose={() => setOpen(false)}
             />
-            <ListItemAvatar>
-                <div className={classes.background}>
-                    <CreditCardRounded className={classes.icon} />
-                </div>
-            </ListItemAvatar>
-            <ListItemText
-                primary={creditCard.name}
-                secondary={issuer.name}
-            />
-        </ListItem>
+            <ListItem button onClick={() => setOpen(true)}>
+                <ListItemAvatar>
+                    <div className={classes.background}>
+                        <CreditCardRounded className={classes.icon} />
+                    </div>
+                </ListItemAvatar>
+                <ListItemText
+                    primary={creditCard.name}
+                    secondary={issuer.name}
+                />
+            </ListItem>
+        </Fragment>
     );
 };
 

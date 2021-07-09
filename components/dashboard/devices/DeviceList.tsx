@@ -1,4 +1,5 @@
 import Device, { DeviceType } from "@lib/client/api/Device";
+import Placeholder from "@lib/client/placeholder";
 import WrapperError from "@lib/server/error";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
@@ -64,7 +65,7 @@ const DeviceList = (props: DeviceListProps) => {
     if(!devices) {
         return (
             <Fragment>
-                {[0, 0, 0, 0].map(() => (
+                {Placeholder.generate(3, 2).map(() => (
                     <DeviceItem loading />
                 ))}
             </Fragment>

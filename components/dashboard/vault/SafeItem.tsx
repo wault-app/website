@@ -5,6 +5,7 @@ import AccountItem from "../accounts/AccountItem";
 import { KeycardType } from "@lib/client/api/Safe";
 import CreditCardItem from "../cards/CreditCardItem";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
+import Placeholder from "@lib/client/placeholder";
 
 export type SafeItemProps = {
     loading: true;
@@ -20,7 +21,7 @@ const SafeItem = (props: SafeItemProps) => {
                     <ListSubheader>
                         <Skeleton />
                     </ListSubheader>
-                    {[0, 0, 0].map(() => (
+                    {Placeholder.generate(3, 2).map(() => (
                         <AccountItem loading />
                     ))}
                 </List>

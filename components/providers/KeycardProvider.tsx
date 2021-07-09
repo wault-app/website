@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import SafeItem from "@components/dashboard/vault/SafeItem";
 import { ItemType } from "@lib/client/api/Item";
+import Placeholder from "@lib/client/placeholder";
 
 export type KeycardProviderProps = PropsWithChildren<{}>;
 
@@ -100,7 +101,7 @@ const KeycardProvider = (props: KeycardProviderProps) => {
 
 const LoaderComponent = () => (
         <Grid container>
-            {[0, 1].map((index) => (
+            {Placeholder.generate(3, 1).map((val, index) => (
                 <Grid
                     item
                     xs={12}

@@ -13,7 +13,7 @@ export type ImportDataScreenProps = DialogProps & {
 };
 
 const ImportDataScreen = (props: ImportDataScreenProps) => {
-    const { keycards, addItem } = useKeycards(); 
+    const { keycards, addItems } = useKeycards(); 
     const { enqueueSnackbar } = useSnackbar();
     
     const [data, setData] = useState<ItemTypeWithoutID[]>([]);
@@ -24,13 +24,13 @@ const ImportDataScreen = (props: ImportDataScreenProps) => {
         try {
             setDisabled(true);
 
-            await Promise.all(
+            const items = await Promise.all(
                 data.map(
-                    async (row) => {
-                        addItem(keycard, await Item.create(keycard.safe, row));
-                    }
+                    async (row) => await Item.create(keycard.safe, row)
                 )
             );
+
+            addItems(keycard, items); 
 
             enqueueSnackbar("Successful import!", {
                 variant: "success",

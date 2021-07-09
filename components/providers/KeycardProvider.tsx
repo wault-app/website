@@ -49,10 +49,30 @@ export const useKeycards = () => {
         );
     };
 
+    const addItems = (keycard: KeycardType, items: ItemType[]) => {
+        setKeycards(
+            [
+                ...keycards.map(
+                    (el) => (el.id === keycard.id ? {
+                        ...keycard,
+                        safe: {
+                            ...keycard.safe,
+                            items: [
+                                ...items,
+                                ...keycard.safe.items,
+                            ],
+                        },
+                    } : el)
+                )
+            ]
+        );
+    };
+
     return {
         keycards,
         addKeycard,
         addItem,
+        addItems,
     };
 };
 

@@ -36,8 +36,6 @@ const ImportDataScreen = (props: ImportDataScreenProps) => {
                 variant: "success",
             });
 
-            console.log(data);
-
             props.onBack();
             props.onClose({}, "backdropClick");
             setData([]);
@@ -80,6 +78,7 @@ const ImportDataScreen = (props: ImportDataScreenProps) => {
                                 component="span"
                                 fullWidth
                                 disabled={data.length > 0}
+                                variant={"outlined"}
                             >
                                 {data.length > 0 ? `${data.length} row found` : "Upload file"}
                             </Button>

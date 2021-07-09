@@ -14,6 +14,7 @@ export default wrapper(async (req) => {
             name: true,
             loggedInAt: true,
             rsaKey: true,
+            type: true,
         },
     });
 

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, IconButton, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from "@material-ui/core";
-import { ExitToAppRounded as LogoutIcon } from "@material-ui/icons";
+import { DesktopWindowsRounded as DesktopIcon, ExitToAppRounded as LogoutIcon, LanguageRounded as BrowserIcon, SmartphoneRounded as MobileIcon } from "@material-ui/icons";
 import Device, { DeviceType } from "@lib/client/api/Device";
 import { Skeleton } from "@material-ui/lab";
 import { useUser } from "@components/providers/AuthenticationProvider";
@@ -23,6 +23,9 @@ const DeviceItem = (props: DeviceItemProps) => {
     if ("loading" in props) {
         return (
             <ListItem>
+                <ListItemIcon>
+                    <Skeleton />
+                </ListItemIcon>
                 <ListItemText
                     primary={<Skeleton />}
                     secondary={<Skeleton />}
@@ -83,6 +86,16 @@ const DeviceItem = (props: DeviceItemProps) => {
             </Dialog>
             
             <ListItem>
+                <ListItemIcon>
+                    {props.device.type === "BROWSER" ? (
+                        <BrowserIcon />
+                    ) : props.device.type === "MOBILE" ? (
+                        <MobileIcon />
+                    ) : (
+                        <DesktopIcon />
+                    )}
+                    {console.log(props.device.type)}
+                </ListItemIcon>
                 <ListItemText
                     primary={props.device.name}
                     secondary={`Logged in at ${new Date(props.device.loggedInAt).toLocaleDateString()}`}

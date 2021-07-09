@@ -1,6 +1,7 @@
 import { z } from "zod";
 import RSA from "../encryption/RSA";
 import post from "./fetch/post";
+import platform from "platform";
 
 export default class Authentication {
     public static async start() {
@@ -9,8 +10,8 @@ export default class Authentication {
         const secret = ((length: number) => {
             let resp = "";
             const pool = "0123456789abcdef";
-        
-            for(let i = 0; i < length; i++) {
+
+            for (let i = 0; i < length; i++) {
                 resp += pool[Math.random() * pool.length];
             }
 
@@ -67,8 +68,7 @@ export default class Authentication {
         return await post<ResponseType>("/auth/logout");
     }
 
-    private static get browserName() {
-        // TODO
-        return "Browser";
+    public static get browserName() {
+        return `${platform.name} ${platform.version} (${platform.os})`;
     }
 }

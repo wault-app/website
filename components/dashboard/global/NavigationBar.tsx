@@ -48,7 +48,7 @@ const NavigationBar = (props: NavigationBarProps) => {
     );
 
     return (
-        <Box>
+        <Fragment>
             <Hidden smDown>
                 <Drawer
                     variant="permanent"
@@ -91,7 +91,7 @@ const NavigationBar = (props: NavigationBarProps) => {
             <div className={classes.wrapper}>
                 {props.children}
             </div>
-        </Box>
+        </Fragment>
     );
 };
 

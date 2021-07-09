@@ -2,17 +2,22 @@ import AddItemFAB from "@components/dashboard/landing/AddItemFAB";
 import { Fragment } from "react";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import SafeItem from "@components/dashboard/vault/SafeItem";
+import NoSafeCreated from "@components/dashboard/placeholders/NoSafeCreated";
 
 const MainPage = () => {
     const { keycards } = useKeycards();
     
     return (
         <Fragment>
-            {keycards.map((keycard) => (
-                <SafeItem 
-                    keycard={keycard}
-                />
-            ))}
+            {keycards.length > 0 ? (
+                keycards.map((keycard) => (
+                    <SafeItem 
+                        keycard={keycard}
+                    />
+                ))
+            ) : (
+                <NoSafeCreated />
+            )}
             <AddItemFAB />
         </Fragment>
     );

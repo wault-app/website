@@ -42,7 +42,7 @@ export default wrapper(async (req) => {
         to: email,
         subject: "Registration confirmation",
         text: "Please verify, that you want to register for Wault.",
-        html: `<a href="wault-auth://?id=${registration.id}&secret=${secret}">Verify</a>`,
+        html: `<a href="https://wault.app/auth/redirect?id=${registration.id}&secret=${secret}">Verify</a>`,
     });
 
     return {

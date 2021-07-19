@@ -10,9 +10,10 @@ import AuthenticationProvider from "@components/providers/AuthenticationProvider
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";
 import SearchProvider from "@components/dashboard/search/SearchProvider";
+import { useRouter } from "next/router";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-    const Wrapper = true ? NavigationBar : Fragment;
+    const router = useRouter();
 
     return (
         <DarkModeProvider>
@@ -28,13 +29,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <SnackbarProvider>
                 <SearchProvider>
                     <NoSsr>
-                        <AuthenticationProvider>
-                            <Wrapper>
-                                <KeycardProvider>
-                                    <Component {...pageProps} />
-                                </KeycardProvider>
-                            </Wrapper>
-                        </AuthenticationProvider>
+                        {router.pathname === "/auth/redirect" ? (
+                            <Component {...pageProps} />
+                        ) : (
+                            <AuthenticationProvider>
+                                <NavigationBar>
+                                    <KeycardProvider>
+                                        <Component {...pageProps} />
+                                    </KeycardProvider>
+                                </NavigationBar>
+                            </AuthenticationProvider>
+                        )}
                     </NoSsr>
                 </SearchProvider>
             </SnackbarProvider>

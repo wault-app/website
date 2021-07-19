@@ -13,6 +13,7 @@ export default wrapper(async (req, res) => {
     const accessToken = await AccessToken.generate({
         id: user.id,
         username: user.username,
+        email: user.email,
         deviceid: device.id,
     });
     

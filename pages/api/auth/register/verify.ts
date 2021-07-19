@@ -32,6 +32,7 @@ export default wrapper(async (req) => {
     const { refreshToken, device } = await RefreshToken.create(registration.deviceName, registration.rsaKey, user, "MOBILE");
     const accessToken = await AccessToken.generate({
         id: user.id,
+        email: user.email,
         username: user.username,
         deviceid: device.id,
     });

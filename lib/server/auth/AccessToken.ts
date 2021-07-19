@@ -13,6 +13,7 @@ export default class AccessToken {
     public static async generate(instance: {
         id: string;
         username: string;
+        email: string;
         deviceid: string;
     }) {
         return await jsonwebtoken.sign(instance, config.secrets.jwt.privateKey, {

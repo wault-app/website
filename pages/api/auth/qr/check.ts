@@ -63,6 +63,7 @@ export default wrapper<AuthenticationCodeCheckResponseType>(async (req, res) => 
     const accessToken = await AccessToken.generate({
         id: auth.user.id,
         username: auth.user.username,
+        email: auth.user.email,
         deviceid: device.id
     });
 

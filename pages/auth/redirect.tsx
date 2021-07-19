@@ -8,12 +8,6 @@ const RedirectPage = () => {
 
     const { id, secret } = router.query;
 
-    useEffect(() => {
-        const link = document.createElement("a");
-        link.href = `intent://${id}:${secret}#Intent;scheme=wault-auth;package=app.wault;end`;
-        link.click();
-    }, [document]);
-
     return (
         <Grid
             container

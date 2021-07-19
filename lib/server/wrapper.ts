@@ -18,7 +18,7 @@ const wrapper = <T = {}>(endpoint: (req: NextApiRequest, res?: NextApiResponse) 
                 else if(e instanceof TokenExpiredError) throw new WrapperError("jwt_token_expired");
                 else if (e instanceof JsonWebTokenError) throw new WrapperError("jwt_token_invalid");
                 else {
-                    console.error(e);
+                    console.error(e, { depth: null });
                     throw new WrapperError("unexcepted_error");
                 }
             }

@@ -13,11 +13,40 @@ generator client {
 model User {
   id       String    @id @default(cuid()) @map("_id")
   username String    @unique
+  email    String    @unique
   devices  Device[]
   keycards Keycard[]
+  icon     Icon?
 
-  Authentication Authentication[]
+  authentications Authentication[]
   @@map("users")
+}
+
+model Icon {
+  id     String   @id @default(cuid()) @map("_id")
+  type   IconType
+  value  String
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+
+
+  @@map("icons")
+}
+
+enum IconType {
+  EMOJI
+  IMAGE
+}
+
+model Registration {
+  id         String @id @default(cuid()) @map("_id")
+  username   String
+  email      String
+  secret     String
+  rsaKey     String
+  deviceName String
+
+  @@map("registrations")
 }
 
 model Device {
@@ -71,12 +100,12 @@ model Safe {
 }
 
 model Authentication {
-  id         String  @id @default(cuid()) @map("_id")
+  id         String     @id @default(cuid()) @map("_id")
   deviceName String
   secret     String
   rsa        String
-  user       User?   @relation(fields: [userid], references: [id])
-  device     Device? @relation(fields: [deviceid], references: [id])
+  user       User?      @relation(fields: [userid], references: [id])
+  device     Device?    @relation(fields: [deviceid], references: [id])
   type       DeviceType
 
   userid   String?
@@ -86,7 +115,7 @@ model Authentication {
 
 model Item {
   id   String @id @default(cuid()) @map("_id")
-  data Json   // encrypted
+  data Json // encrypted
   safe Safe   @relation(fields: [safeid], references: [id])
 
   safeid String

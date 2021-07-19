@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@prisma/client": "2.21.2",
+    "@sendgrid/mail": "^7.4.5",
     "aes-js": "^3.1.2",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.1",

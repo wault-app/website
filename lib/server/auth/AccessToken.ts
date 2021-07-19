@@ -52,6 +52,7 @@ export default class AccessToken {
         const schema = z.object({
             id: z.string(),
             username: z.string(),
+            email: z.string(),
             deviceid: z.string(),
         });
 

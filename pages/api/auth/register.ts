@@ -1,47 +1,51 @@
+import EncryptionKey from "@lib/client/encryption/EncryptionKey";
 import AccessToken from "@lib/server/auth/AccessToken";
 import RefreshToken from "@lib/server/auth/RefreshToken";
 import WrapperError from "@lib/server/error";
 import prisma from "@lib/server/prisma";
 import wrapper from "@lib/server/wrapper";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
+import SendGrid from "@lib/server/SendGrid";
 
 export type RegistrationMessageType = "successful_registration";
 
 export default wrapper(async (req) => {
-    /**
-     * Checking given parameters for any type mismatch
-     */
+    // Create a type checking schema
     const parameters = z.object({
         username: z.string(),
+        email: z.string(),
         deviceName: z.string(),
         rsaKey: z.string(),
     });
 
-    const { username, rsaKey, deviceName } = parameters.parse(JSON.parse(req.body));
+    // Parse the given request body
+    const { username, email, rsaKey, deviceName } = parameters.parse(JSON.parse(req.body));
 
-    /**
-     * Creating user and filtering data to prevent accidental data passing
-     */
-    const user = await prisma.user.create({
+    // Generate a secret value functioning as a one time password
+    const secret = await EncryptionKey.generate();
+
+    // Create a registration object in the database for later check
+    const registration = await prisma.registration.create({
         data: {
             username,
-        },
-        select: {
-            id: true,
-            username: true,
+            email,
+            rsaKey,
+            deviceName,
+            secret: await bcrypt.hash(secret, 10),
         },
     });
 
-    const { refreshToken, device } = await RefreshToken.create(deviceName, rsaKey, user, "MOBILE");
-    const accessToken = await AccessToken.generate({
-        id: user.id,
-        username: user.username,
-        deviceid: device.id,
+    // Send the email to the given address,
+    await SendGrid.send({
+        from: "Wault <noreply@wault.app>",
+        to: email,
+        subject: "Registration confirmation",
+        text: "Please verify, that you want to register for Wault.",
+        html: `<a href="wault-auth://?id=${registration.id}&secret=${secret}">Verify</a>`,
     });
 
     return {
-        message: "successful_registration",
-        accessToken,
-        refreshToken,
+        message: "registration_email_sent",
     };
 });

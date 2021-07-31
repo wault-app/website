@@ -5,7 +5,7 @@ const get = async <T = {}>(input: RequestInfo, init?: RequestInit): Promise<T> =
     if (!resp.ok) throw new WrapperError("service_unavailable");
 
     const data = await resp.json();
-    if ("error" in data) throw new WrapperError(data.message);
+    if ("error" in data) throw new WrapperError(data.name);
 
     return data;
 };

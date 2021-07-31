@@ -23,7 +23,7 @@ const ErrorScreen = (props: ErrorScreenProps) => {
                         Something went wrong!
                     </Typography>
                     <Typography>
-                        {props.error.name}
+                        {props.error.message}
                     </Typography>
                     {props.children}
                 </Container>

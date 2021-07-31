@@ -19,7 +19,7 @@ export default class User {
         try {
             return await get<UserType>("/user/me");
         } catch(e) {
-            if(e instanceof WrapperError && e.message === "not_logged_in") return null;
+            if(e instanceof WrapperError && e.name === "not_logged_in") return null;
             else throw e; 
         }
     }

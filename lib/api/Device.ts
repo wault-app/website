@@ -1,7 +1,8 @@
 import get from "./fetch/get";
 import post from "./fetch/post";
-import { DeviceType as DeviceVariants } from "@prisma/client";
 import { UserType } from "./User";
+
+export type DeviceVariants = "MOBILE" | "WEB" | "DESKTOP" | "CLI";
 
 export type DeviceType = {
     id: string;

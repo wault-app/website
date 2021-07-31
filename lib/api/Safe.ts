@@ -4,9 +4,10 @@ import EncryptionKey from "../encryption/EncryptionKey";
 import AES from "../encryption/AES";
 import Device from "./Device";
 import KeyExchange from "./KeyExchange";
-import { RoleType } from "@prisma/client";
 import { EncryptedItemType, ItemType } from "./Item";
 import RSA from "../encryption/RSA";
+
+export type RoleType = "OWNER" | "WRITER" | "READER";
 
 export type SafeType = {
     id: string;

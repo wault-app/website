@@ -17,7 +17,7 @@ export type IconType = {
 export default class User {
     public static async get() {
         try {
-            return await get<UserType>("/user/get");
+            return await get<UserType>("/user/me");
         } catch(e) {
             if(e instanceof WrapperError && e.message === "not_logged_in") return null;
             else throw e; 

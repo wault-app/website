@@ -28,7 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <SnackbarProvider>
                 <SearchProvider>
                     <NoSsr>
-                        {router.pathname === "/auth/redirect" ? (
+                        {router.pathname === "/auth/register/confirm" ? (
                             <Component {...pageProps} />
                         ) : (
                             <AuthenticationProvider>

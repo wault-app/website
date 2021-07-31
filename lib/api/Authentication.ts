@@ -13,7 +13,7 @@ export default class Authentication {
 
         const keys = await RSA.generate();
 
-        const { id, secret } = await post<ResponseType>("/auth/qr/start", {
+        const { id, secret } = await post<ResponseType>("/auth/remote/start", {
             body: JSON.stringify({
                 rsaKey: keys.publicKey,
                 deviceName: this.browserName,

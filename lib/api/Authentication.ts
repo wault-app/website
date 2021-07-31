@@ -17,7 +17,7 @@ export default class Authentication {
             body: JSON.stringify({
                 rsaKey: keys.publicKey,
                 deviceName: this.browserName,
-                deviceType: "BROWSER",
+                deviceType: "WEB",
             }),
         });
 

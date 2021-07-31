@@ -1,7 +1,7 @@
 import DiscordIcon from "@components/platforms/DiscordIcon";
 import LastPassIcon from "@components/platforms/LastPassIcon";
 import { SvgIconProps } from "@material-ui/core";
-import { CategoryType } from "../categories";
+import { CategoryType } from "./categories";
 
 type IconType = {
     color: string;

@@ -1,4 +1,4 @@
-import { Button, createMuiTheme, Grid, IconButton, InputLabel, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, MenuItem, PaletteColorOptions, Select, Theme, ThemeProvider } from "@material-ui/core";
+import { Button, createMuiTheme, Grid, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
 import { PaletteOptions, useTheme } from "@components/providers/ThemeProvider";
 import { DoneRounded as SelectedIcon, PaletteRounded as PaletteIcon } from "@material-ui/icons";
 

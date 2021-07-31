@@ -1,5 +1,5 @@
 import { AuthenticationContext } from "@components/providers/AuthenticationProvider";
-import Authentication from "@lib/client/api/Authentication";
+import Authentication from "@lib/api/Authentication";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
 import { ExitToAppRounded as LogoutIcon } from "@material-ui/icons";
 import { useSnackbar } from "notistack";

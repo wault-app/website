@@ -1,8 +1,8 @@
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Dialog, DialogProps, DialogTitle, DialogActions, Button, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { useState } from "react";
-import Platforms from "@lib/client/platforms";
-import LastPass from "@lib/client/import/LastPass";
+import Platforms from "@lib/platforms";
+import LastPass from "@lib/import/LastPass";
 import ImportDataScreen from "./ImportDataScreen";
 
 export type ImportDataDialogProps = DialogProps & {};

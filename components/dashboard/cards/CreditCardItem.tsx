@@ -1,5 +1,5 @@
-import { CreditCardType } from "@lib/client/api/Item";
-import Issuers from "@lib/client/credit-cards/issuers/issuers";
+import { CreditCardType } from "@lib/api/Item";
+import Issuers from "@lib/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";
 import CreditCardDialog from "./CreditCardDialog";

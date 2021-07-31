@@ -2,10 +2,9 @@ import { Collapse, List, ListItem, ListItemText, ListSubheader } from "@material
 import VaultCard from "./VaultCard";
 import { Skeleton } from "@material-ui/lab";
 import AccountItem from "../accounts/AccountItem";
-import { KeycardType } from "@lib/client/api/Safe";
+import { KeycardType } from "@lib/api/Safe";
 import CreditCardItem from "../cards/CreditCardItem";
-import { AutoSizer, List as VirtualizedList } from "react-virtualized";
-import Placeholder from "@lib/client/placeholder";
+import Placeholder from "@lib/placeholder";
 import { TransitionGroup } from "react-transition-group";
 import { useSearch } from "../search/SearchProvider";
 import Fuse from "fuse.js";

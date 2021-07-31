@@ -1,10 +1,17 @@
-import WrapperError from "@lib/server/error";
+import WrapperError from "@wault/error";
 import get from "./fetch/get";
 
 export type UserType = {
-    id: string,
-    username: string,
-    deviceid: string;
+    id: string;
+    username: string;
+    email: string;
+    icon?: IconType;
+};
+
+export type IconType = {
+    id: string;
+    type: "EMOJI" | "IMAGE";
+    value: string;
 };
 
 export default class User {

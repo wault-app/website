@@ -1,8 +1,8 @@
 import SelectSafeField from "@components/dashboard/landing/AddItemDialog/SelectSafeField";
 import { useKeycards } from "@components/providers/KeycardProvider";
-import Item, { ItemTypeWithoutID } from "@lib/client/api/Item";
-import { KeycardType } from "@lib/client/api/Safe";
-import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, List, ListItem, ListItemIcon, ListItemText, Grid } from "@material-ui/core";
+import Item, { ItemTypeWithoutID } from "@lib/api/Item";
+import { KeycardType } from "@lib/api/Safe";
+import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, Grid } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { ProviderImportType } from "./ImportDataDialog";
@@ -24,13 +24,13 @@ const ImportDataScreen = (props: ImportDataScreenProps) => {
         try {
             setDisabled(true);
 
-            const items = await Promise.all(
+            const resp = await Promise.all(
                 data.map(
                     async (row) => await Item.create(keycard.safe, row)
                 )
             );
 
-            addItems(keycard, items); 
+            addItems(keycard, resp.map((row) => row.item)); 
 
             enqueueSnackbar("Successful import!", {
                 variant: "success",

@@ -1,7 +1,7 @@
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@material-ui/core";
 import SafeNameField from "./AddSafeDialog/SafeNameField";
-import Safe from "@lib/client/api/Safe";
+import Safe from "@lib/api/Safe";
 import { useSnackbar } from "notistack";
 import { useKeycards } from "@components/providers/KeycardProvider";
 
@@ -20,7 +20,7 @@ const AddSafeDialog = (props: AddSafeDialogProps) => {
         setDisabled(true);
 
         // communicate with the api to create the safe
-        const keycard = await Safe.create(name);
+        const { keycard } = await Safe.create(name);
         
         // show the user a snackbar
         enqueueSnackbar("Safe has been successfully created!", {

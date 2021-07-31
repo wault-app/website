@@ -1,6 +1,6 @@
-import Device, { DeviceType } from "@lib/client/api/Device";
-import Placeholder from "@lib/client/placeholder";
-import WrapperError from "@lib/server/error";
+import Device, { DeviceType } from "@lib/api/Device";
+import Placeholder from "@lib/placeholder";
+import WrapperError from "@wault/error";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";

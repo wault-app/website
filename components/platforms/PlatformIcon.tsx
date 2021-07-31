@@ -1,4 +1,4 @@
-import Platforms from "@lib/client/platforms";
+import Platforms from "@lib/platforms";
 import { makeStyles, Theme, Typography } from "@material-ui/core";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { Skeleton } from "@material-ui/lab";

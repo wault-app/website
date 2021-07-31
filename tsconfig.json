@@ -15,6 +15,7 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "noUnusedLocals": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "baseUrl": "./",

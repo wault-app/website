@@ -12,7 +12,16 @@ export default class AES {
         return CryptoJSAES.encrypt(text, this.key).toString();
     }
 
+    public static encrypt(text: string, key: string) {
+        return CryptoJSAES.encrypt(text, key).toString();
+    }
+
     public decrypt(hash: string) {
         return CryptoJSAES.decrypt(hash, this.key).toString(CryptoJS.enc.Utf8);
     }
+
+    public static decrypt(text: string, key: string) {
+        return CryptoJSAES.encrypt(text, key).toString();
+    }
+
 }

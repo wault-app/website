@@ -1,13 +1,13 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
-import Safe, { KeycardType } from "@lib/client/api/Safe";
-import WrapperError from "@lib/server/error";
+import Safe, { KeycardType } from "@lib/api/Safe";
+import WrapperError from "@wault/error";
 import ErrorScreen from "@components/dashboard/ErrorScreen";
 import { Button, Grid } from "@material-ui/core";
 import { useContext } from "react";
 import { useEffect } from "react";
 import SafeItem from "@components/dashboard/vault/SafeItem";
-import { ItemType } from "@lib/client/api/Item";
-import Placeholder from "@lib/client/placeholder";
+import { ItemType } from "@lib/api/Item";
+import Placeholder from "@lib/placeholder";
 
 export type KeycardProviderProps = PropsWithChildren<{}>;
 

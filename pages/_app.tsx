@@ -5,7 +5,6 @@ import { CssBaseline, NoSsr } from "@material-ui/core";
 import FaviconList from "@components/seo/FaviconList";
 import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/dashboard/global/NavigationBar";
-import { Fragment } from "react";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";

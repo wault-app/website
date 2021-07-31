@@ -9,9 +9,6 @@ module.exports = {
         // a non-locale prefixed path e.g. `/hello`
         defaultLocale: "en",
     },
-    future: {
-        webpack5: false,
-    },
     async headers() {
         return [{
             source: "/(.*)",

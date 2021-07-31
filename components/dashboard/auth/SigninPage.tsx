@@ -1,12 +1,11 @@
-import { Card, Container, CardContent, makeStyles, useMediaQuery } from "@material-ui/core";
-import { Fragment, useEffect, useState } from "react";
+import { Container, CardContent, makeStyles } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import Logo from "@components/branding/Logo";
 import dynamic from "next/dynamic";
 import ResponsiveCard from "./SigninPage/ResponsiveCard";
 import ScanQRCode from "./SigninPage/ScanQRCode";
-import UnwrapPromise from "@lib/client/types/UnwrapPromise";
-import Authentication from "@lib/client/api/Authentication";
-import EncryptionKey from "@lib/client/encryption/EncryptionKey"; 
+import UnwrapPromise from "@lib/types/UnwrapPromise";
+import Authentication from "@lib/api/Authentication";
 import { useSnackbar } from "notistack";
 import VaultCard from "../vault/VaultCard";
 
@@ -36,7 +35,7 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
             
             // if we recieved the encryption keys, then store them
             // idea: use the KeyExchange API and depract it from the registration process
-            if(resp.message === "scanned_and_verified") {
+            if(resp.message === "remote_auth_success") {
                 // show a snackbar for 
                 enqueueSnackbar("Successful authentication!", { variant: "success" });
                 
@@ -84,12 +83,12 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                                 loading
                             />
                         )}
-                        {(!state || state?.message === "not_scanned_yet") && !!process && (
+                        {(!state || state?.message === "remote_auth_not_scanned") && !!process && (
                             <ScanQRCode 
                                 image={process.image}
                             />
                         )}
-                        {state?.message === "scanned_but_not_verified" && (
+                        {state?.message === "remote_auth_scanned" && (
                             <ShowUser 
                                 onBack={async () => {
                                     setProcess(null);

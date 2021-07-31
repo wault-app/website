@@ -1,8 +1,7 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, IconButton, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from "@material-ui/core";
 import { DesktopWindowsRounded as DesktopIcon, ExitToAppRounded as LogoutIcon, LanguageRounded as BrowserIcon, SmartphoneRounded as MobileIcon } from "@material-ui/icons";
-import Device, { DeviceType } from "@lib/client/api/Device";
+import Device, { DeviceType } from "@lib/api/Device";
 import { Skeleton } from "@material-ui/lab";
-import { useUser } from "@components/providers/AuthenticationProvider";
 import { Fragment, useState } from "react";
 import { useSnackbar } from "notistack";
 
@@ -18,7 +17,6 @@ const DeviceItem = (props: DeviceItemProps) => {
     const [disabled, setDisabled] = useState(false);
 
     const { enqueueSnackbar } = useSnackbar();
-    const { user } = useUser();
 
     if ("loading" in props) {
         return (
@@ -102,7 +100,6 @@ const DeviceItem = (props: DeviceItemProps) => {
                     <Tooltip title={"Sign this device out"}>
                         <IconButton
                             onClick={() => setOpen(true)}
-                            disabled={user.deviceid === props.device.id}
                         >
                             <LogoutIcon />
                         </IconButton>

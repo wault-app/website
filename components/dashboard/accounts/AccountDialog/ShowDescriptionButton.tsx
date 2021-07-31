@@ -1,6 +1,6 @@
 import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from "@material-ui/core";
 import { Fragment, useState } from "react";
-import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon, FileCopyRounded as CopyIcon, LanguageRounded as WebsiteIcon, VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
+import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon } from "@material-ui/icons";
 
 /**
  * A button and a container to display the description of an `Account`

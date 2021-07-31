@@ -1,6 +1,5 @@
-import { Button, CircularProgress, Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const RedirectPage = () => {
     const classes = useStyles();

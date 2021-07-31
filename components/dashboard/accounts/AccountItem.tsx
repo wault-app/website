@@ -1,10 +1,9 @@
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, MenuProps } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
 import AccountDialog from "./AccountDialog";
-import { Fragment  } from "react";
 import AccountMenu from "./AccountMenu";
 import { Skeleton } from "@material-ui/lab";
-import { AccountType } from "@lib/client/api/Item";
+import { AccountType } from "@lib/api/Item";
 import { useState } from "react";
 
 type AccountItemLoadedProps = {

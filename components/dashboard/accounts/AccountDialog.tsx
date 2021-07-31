@@ -1,12 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import Platforms from "@lib/client/platforms";
+import Platforms from "@lib/platforms";
 import CategoryBadge from "./CategoryBadge";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";
 import ShowDescriptionButton from "./AccountDialog/ShowDescriptionButton";
-import { AccountType } from "@lib/client/api/Item";
+import { AccountType } from "@lib/api/Item";
 
 export type AccountDialogProps = DialogProps & {
     account: AccountType;

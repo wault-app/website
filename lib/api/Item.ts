@@ -7,6 +7,7 @@ import { CategoryType } from "../categories";
 export type EncryptedItemType = {
     id: string;
     data: string;
+    safeId: string;
 };
 
 export type AccountType = {
@@ -44,7 +45,7 @@ export default class Item {
      * @param safe {SafeType} the safe that you want to add the item to
      * @param item {ItemType} the item that you want to add
      */
-    public static async create(safe: SafeType, item: ItemTypeWithoutID): Promise<ItemType> {
+    public static async create(safe: SafeType, item: ItemTypeWithoutID): Promise<{ message: string; item: ItemType; }> {
         type ResponseType = {
             item: EncryptedItemType;
             message: "successfully_created_item";
@@ -65,8 +66,53 @@ export default class Item {
         });
 
         return {
-            id: resp.item.id,
-            ...item,
+            message: resp.message,
+            item: {
+                id: resp.item.id,
+                ...item,
+            },
         };
+    }
+
+    public static async edit(item: ItemType, safe: SafeType, newData: ItemTypeWithoutID): Promise<{ message: string; item: ItemType; }> {
+        type ResponseType = {
+            message: "item_edit_success";
+            item: EncryptedItemType;
+        };
+
+        // load the encryption key and create a new AES instance
+        const key = new AES(await EncryptionKey.get(safe.id));
+
+        // encrypt the given data
+        const data = key.encrypt(JSON.stringify(item));
+
+        const resp = await post<ResponseType>("/item/edit", {
+            method: "PUT", 
+            body: JSON.stringify({
+                id: item.id,
+                data,
+            }),
+        });
+
+        return {
+            message: resp.message,
+            item: {
+                id: resp.item.id,
+                ...newData,
+            },
+        };
+    }
+
+    public static async delete(item: ItemType) {
+        type ResponseType = {
+            message: "item_delete_success";
+        };
+
+        return await post<ResponseType>("/item/delete", {
+            body: JSON.stringify({
+                method: "DELETE", 
+                id: item.id,
+            }),
+        });
     }
 }

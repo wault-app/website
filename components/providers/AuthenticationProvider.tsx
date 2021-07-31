@@ -1,5 +1,5 @@
-import User, { UserType } from "@lib/client/api/User";
-import WrapperError from "@lib/server/error";
+import User, { UserType } from "@lib/api/User";
+import WrapperError from "@wault/error";
 import SigninPage from "@components/dashboard/auth/SigninPage";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
 import ErrorScreen from "@components/dashboard/ErrorScreen";
@@ -11,7 +11,7 @@ export const AuthenticationContext = createContext<{
 }>(null);
 
 export const useUser = () => {
-    const { user, setUser } = useContext(AuthenticationContext);
+    const { user } = useContext(AuthenticationContext);
 
     return { user };
 };

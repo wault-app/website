@@ -1,12 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid, InputAdornment, TextField, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid } from "@material-ui/core";
 import { useState } from "react";
 import DescriptionField from "./AddAccountDialog/DescriptionField";
 import PasswordField from "./AddAccountDialog/PasswordField";
 import PlatformField from "./AddAccountDialog/PlatformField";
 import UsernameField from "./AddAccountDialog/UsernameField";
 import { useSnackbar } from "notistack";
-import Item from "@lib/client/api/Item";
-import { KeycardType } from "@lib/client/api/Safe";
+import Item from "@lib/api/Item";
+import { KeycardType } from "@lib/api/Safe";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import SelectSafeField from "./SelectSafeField";
 
@@ -34,7 +34,7 @@ const AddAccountDialog = (props: AddAccountDialogProps) => {
 
         try {
             // send the item to remote server
-            const item = await Item.create(keycard.safe, {
+            const { item } = await Item.create(keycard.safe, {
                 type: "account",
                 platform,
                 username,

@@ -73,6 +73,11 @@ export default class Safe {
     }
 
     public static async create(name: string) {
+        type ResponseType = {
+            message: "keycard_create_success";
+            keycard: EncryptedKeycardType;
+        };
+
         // generate encryption key
         const key = await EncryptionKey.generate();
 
@@ -80,36 +85,38 @@ export default class Safe {
         const encryptor = new AES(key);
         const encryptedName = encryptor.encrypt(name);
 
+        // query all of our devices
+        const { devices } = await Device.getAll();
+
         // create the safe on the server
-        const { keycard } = await post<{ keycard: EncryptedKeycardType }>("/safe/create", {
+        const { keycard, message } = await post<ResponseType>("/safe/create", {
             body: JSON.stringify({
                 name: encryptedName,
+                keyExchanges: await Promise.all(
+                    devices.map(
+                        async (device) => {
+                            const value = await RSA.encrypt(key, device.rsaKey);
+                            
+                            return {
+                                deviceid: device.id,
+                                value,
+                            };
+                        }
+                    )
+                )
             })
         });
 
         // save the encryption key to local storage
         await EncryptionKey.save(keycard.safe.id, key);
 
-        // query all of our devices
-        const { devices } = await Device.getAll();
-
-        // send the new encryption key to all device
-        await Promise.all(
-            devices.map(
-                async (device) => {
-                    return await KeyExchange.send(
-                        keycard.safe.id,
-                        device.id,
-                        await RSA.encrypt(key, device.rsaKey),
-                    );
-                } 
-            )
-        );
-
         // decrypt the remote data
         const decrypted = await this.decrypt(keycard);
 
         // send back the new keycard object to be stored in a context
-        return decrypted;
+        return {
+            message,
+            keycard: decrypted,
+        };
     }
 }

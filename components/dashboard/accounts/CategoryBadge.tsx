@@ -1,4 +1,4 @@
-import Categories, { CategoryType } from "@lib/client/categories";
+import Categories, { CategoryType } from "@lib/categories";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 
 export type CategoryBadgeProps = {

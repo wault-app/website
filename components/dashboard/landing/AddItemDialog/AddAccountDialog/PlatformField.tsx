@@ -1,5 +1,5 @@
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import Platforms from "@lib/client/platforms";
+import Platforms from "@lib/platforms";
 import { InputAdornment, TextField, TextFieldProps, Tooltip } from "@material-ui/core";
 import { Fragment } from "react";
 

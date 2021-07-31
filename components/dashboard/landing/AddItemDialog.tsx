@@ -1,5 +1,5 @@
 import SafeIcon from "@components/icons/SafeIcon";
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid, Icon, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@material-ui/icons";
 import { Fragment, useState } from "react";
 import AddAccountDialog from "./AddItemDialog/AddAccountDialog";

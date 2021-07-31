@@ -1,5 +1,5 @@
-import { AppBar, Box, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
-import { ExitToAppRounded as LogoutIcon, HomeRounded as HomeIcon, MenuRounded as MenuIcon, Router, SettingsRounded as SettingsIcon } from "@material-ui/icons";
+import { AppBar, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, } from "@material-ui/core";
+import { HomeRounded as HomeIcon, MenuRounded as MenuIcon, SettingsRounded as SettingsIcon } from "@material-ui/icons";
 import { Fragment, PropsWithChildren, useState } from "react";
 import { useRouter } from "next/router";
 import Logo from "@components/branding/Logo";

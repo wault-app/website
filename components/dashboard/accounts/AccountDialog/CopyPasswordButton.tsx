@@ -1,6 +1,6 @@
 import { VpnKeyRounded as PasswordIcon } from "@material-ui/icons";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import Clipboard from "@lib/client/clipboard";
+import Clipboard from "@lib/clipboard";
 import { useSnackbar } from "notistack";
 
 export type CopyPasswordButtonProps = {

@@ -1,5 +1,5 @@
 import { useKeycards } from "@components/providers/KeycardProvider";
-import Item from "@lib/client/api/Item";
+import Item from "@lib/api/Item";
 import { Dialog, Button, DialogActions, DialogContent, DialogProps, Grid, makeStyles, TextField } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -32,7 +32,7 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
         setDisabled(true);
 
         try {
-            const creditCard = await Item.create(keycard.safe, {
+            const { item } = await Item.create(keycard.safe, {
                 type: "credit-card",
                 number,
                 cardholder,
@@ -41,7 +41,7 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
                 name,
             });
 
-            addItem(keycard, creditCard);
+            addItem(keycard, item);
 
             enqueueSnackbar("Successfully added credit card!", {
                 variant: "success",

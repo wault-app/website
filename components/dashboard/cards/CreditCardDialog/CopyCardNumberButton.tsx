@@ -1,7 +1,7 @@
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { FileCopyRounded as CopyIcon } from "@material-ui/icons";
-import Clipboard from "@lib/client/clipboard";
+import Clipboard from "@lib/clipboard";
 
 export type CopyCardNumberButtonProps = {
     number: string;

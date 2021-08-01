@@ -10,14 +10,14 @@ export type KeyExchangeType = {
 export default class KeyExchange {
     public static async getAll() {
         type ResponseType = {
-            exchanges: KeyExchangeType[];
+            keyExchanges: KeyExchangeType[];
         };
 
-        const { exchanges } = await get<ResponseType>("/key-exchanges/get");
+        const { keyExchanges } = await get<ResponseType>("/key-exchange/getAll");
     
         const privateKey = await RSA.load();
 
-        for(const key of exchanges) {
+        for(const key of keyExchanges) {
             EncryptionKey.save(key.safeId, await RSA.decrypt(key.value, privateKey));
         }
     }

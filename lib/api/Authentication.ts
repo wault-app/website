@@ -1,8 +1,8 @@
-import { z } from "zod";
 import RSA from "../encryption/RSA";
 import post from "./fetch/post";
 import platform from "platform";
 import Device from "./Device";
+import { UserType } from "./User";
 
 export default class Authentication {
     public static async start() {
@@ -32,35 +32,23 @@ export default class Authentication {
     }
 
     public static async check(id: string, secret: string) {
-        const resp = await post("/auth/remote/check", {
+        type ResponseType = {
+            message: "remote_auth_not_scanned";
+        } | {
+            message: "remote_auth_scanned";
+            user: UserType;
+        } | {
+            message: "remote_auth_success";
+            user: UserType;
+        };
+        
+        return await post<ResponseType>("/auth/remote/check", {
             body: JSON.stringify({
                 id,
                 secret,
                 web: true,
             }),
         });
-
-        const user = z.object({
-            id: z.string(),
-            username: z.string(),
-            email: z.string(),
-        });
-
-        const schema = z.union([
-            z.object({
-                message: z.literal("remote_auth_not_scanned"),
-            }),
-            z.object({
-                message: z.literal("remote_auth_scanned"),
-                user,
-            }),
-            z.object({
-                message: z.literal("remote_auth_success"),
-                user,
-            }),
-        ]);
-
-        return schema.parse(resp);
     }
 
     public static async logout() {

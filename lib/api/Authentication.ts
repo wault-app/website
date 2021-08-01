@@ -46,15 +46,19 @@ export default class Authentication {
             email: z.string(),
         });
 
-        const schema = z.object({
-            message: z.literal("remote_auth_not_scanned"),
-        }).or(z.object({
-            message: z.literal("remote_auth_scanned"),
-            user,
-        })).or(z.object({
-            message: z.literal("remote_auth_success"),
-            user,
-        }));
+        const schema = z.union([
+            z.object({
+                message: z.literal("remote_auth_not_scanned"),
+            }),
+            z.object({
+                message: z.literal("remote_auth_scanned"),
+                user,
+            }),
+            z.object({
+                message: z.literal("remote_auth_success"),
+                user,
+            }),
+        ]);
 
         return schema.parse(resp);
     }

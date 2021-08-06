@@ -1,5 +1,4 @@
 import User, { UserType } from "@lib/api/User";
-import WrapperError from "@wault/error";
 import SigninPage from "@components/dashboard/auth/SigninPage";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
 import ErrorScreen from "@components/dashboard/ErrorScreen";
@@ -21,7 +20,7 @@ export type AuthenticationProviderProps = PropsWithChildren<{}>;
 const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState<UserType>();
-    const [error, setError] = useState<WrapperError>();
+    const [error, setError] = useState<Error>();
 
     const loadUser = () => {
         (async () => {

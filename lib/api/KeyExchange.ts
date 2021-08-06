@@ -13,7 +13,7 @@ export default class KeyExchange {
             keyExchanges: KeyExchangeType[];
         };
 
-        const { keyExchanges } = await get<ResponseType>("/key-exchange/getAll");
+        const { keyExchanges } = await get<ResponseType>("/key-exchange");
     
         const privateKey = await RSA.load();
 

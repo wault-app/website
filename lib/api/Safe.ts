@@ -42,7 +42,7 @@ export default class Safe {
         await KeyExchange.getAll();
 
         // query the safe data from the server
-        const { keycards } = await get<ResponseType>("/keycard/getAll");
+        const { keycards } = await get<ResponseType>("/safe");
 
         // decrypt all keycard with their corresponding decryption key
         return await Promise.all(
@@ -89,7 +89,7 @@ export default class Safe {
         const { devices } = await Device.getAll();
 
         // create the safe on the server
-        const { keycard, message } = await post<ResponseType>("/keycard/create", {
+        const { keycard, message } = await post<ResponseType>("/safe", {
             body: JSON.stringify({
                 name: encryptedName,
                 keyExchanges: await Promise.all(

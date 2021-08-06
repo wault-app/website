@@ -1,9 +1,8 @@
 import { PropsWithChildren } from "react";
 import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
-import WrapperError from "@wault/error";
 
 export type ErrorScreenProps = PropsWithChildren<{
-    error: WrapperError;
+    error: Error;
 }>;
 
 const ErrorScreen = (props: ErrorScreenProps) => {

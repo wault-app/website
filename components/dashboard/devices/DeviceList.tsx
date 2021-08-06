@@ -1,6 +1,5 @@
 import Device, { DeviceType } from "@lib/api/Device";
 import Placeholder from "@lib/placeholder";
-import WrapperError from "@wault/error";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
@@ -12,7 +11,7 @@ const DeviceList = (props: DeviceListProps) => {
     const classes = useStyles();
 
     const [devices, setDevices] = useState<DeviceType[]>();
-    const [error, setError] = useState<WrapperError>();
+    const [error, setError] = useState<Error>();
 
     const load = async () => {
         try {

@@ -18,7 +18,7 @@ export default class Device {
             devices: DeviceType[];
         };
 
-        return await get<ResponseType>("/device/getAll");
+        return await get<ResponseType>("/device");
     }
 
     public static async get() {

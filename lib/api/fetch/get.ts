@@ -2,6 +2,11 @@ const get = async <T = {}>(input: RequestInfo, init?: RequestInit): Promise<T> =
     const resp = await fetch(`https://server.wault.app${input}`, {
         ...init,
         credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            ...init?.headers,
+        },
     });
 
     const data = await resp.json();

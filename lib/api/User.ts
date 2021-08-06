@@ -16,7 +16,7 @@ export type IconType = {
 export default class User {
     public static async get() {
         try {
-            return await get<UserType>("/user/me");
+            return await get<UserType>("/user");
         } catch(e) {
             if(e.message === "Unauthorized") return null;
             else throw e; 

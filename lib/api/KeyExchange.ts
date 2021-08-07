@@ -3,7 +3,10 @@ import EncryptionKey from "../encryption/EncryptionKey";
 import RSA from "../encryption/RSA";
 
 export type KeyExchangeType = {
-    safeId: string;
+    id: string;
+    safe: {
+        id: string;
+    };
     value: string;
 };
 
@@ -18,7 +21,7 @@ export default class KeyExchange {
         const privateKey = await RSA.load();
 
         for(const key of keyExchanges) {
-            EncryptionKey.save(key.safeId, await RSA.decrypt(key.value, privateKey));
+            EncryptionKey.save(key.safe.id, await RSA.decrypt(key.value, privateKey));
         }
     }
 }

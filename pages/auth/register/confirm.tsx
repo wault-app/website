@@ -1,11 +1,16 @@
 import { Button, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const RedirectPage = () => {
     const classes = useStyles();
     const router = useRouter();
 
     const { id, secret } = router.query;
+
+    useEffect(() => {
+        if(id && secret) window?.location.replace(`intent://${id}:${secret}#Intent;scheme=wault-auth;package=app.wault;end`);
+    }, [id, secret]);
 
     return (
         <Grid

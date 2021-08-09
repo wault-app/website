@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mdi-material-ui": "^6.22.1",
     "next": "^11.0.1",
+    "next-pwa": "^5.2.24",
     "node-forge": "^0.10.0",
     "notistack": "^1.0.9",
     "papaparse": "^5.3.1",

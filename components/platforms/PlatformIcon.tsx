@@ -1,4 +1,4 @@
-import Platforms from "@lib/platforms";
+import Platforms from "@wault/platforms";
 import { makeStyles, Theme, Typography } from "@material-ui/core";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { Skeleton } from "@material-ui/lab";
@@ -31,14 +31,18 @@ const PlatformIcon = (props: PlatformIconProps) => {
     const { hostname } = props;
     const platform = Platforms.get(hostname);
 
-    const backgroundColor = platform?.icon?.color;
-
     const Icon = () => {
-        if (platform?.icon) return (
-            <platform.icon.badge
-                className={classes.icon}
-            />
-        );
+        if (platform?.icon) {         
+            const Badge = require(`@wault/platforms/res/${platform.icon}`).default;
+                
+            return (
+                <Badge
+                    className={classes.icon}
+                    width={24}
+                    height={24}    
+                />
+            );
+        }
 
         return (
             <Typography className={classes.text}>
@@ -53,7 +57,7 @@ const PlatformIcon = (props: PlatformIconProps) => {
             {...props}
             className={`${props.className} ${classes.root}`}
             style={{
-                backgroundColor,
+                backgroundColor: platform.color,
                 ...props?.style,
             }}
         >

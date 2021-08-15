@@ -1,7 +1,7 @@
 import PlatformIcon from "@components/platforms/PlatformIcon";
 import { Dialog, DialogProps, DialogTitle, DialogActions, Button, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { useState } from "react";
-import Platforms from "@lib/platforms";
+import Platforms from "@wault/platforms";
 import LastPass from "@lib/import/LastPass";
 import ImportDataScreen from "./ImportDataScreen";
 
@@ -9,6 +9,7 @@ export type ImportDataDialogProps = DialogProps & {};
 
 const providers = [
     {
+        hostname: "lastpass.com",
         ...Platforms.get("lastpass.com"),
         converter: LastPass,
     },

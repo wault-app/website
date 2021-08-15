@@ -11,6 +11,7 @@
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "@wault/platforms": "git+https://github.com/wault-app/platforms.git",
     "aes-js": "^3.1.2",
     "crypto-js": "^4.0.0",
     "fuse.js": "^6.4.6",
@@ -33,6 +34,7 @@
     "zod": "^3.2.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/aes-js": "^3.1.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie": "^0.4.0",
@@ -50,6 +52,7 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.0",
     "next-secure-headers": "^2.2.0",
-    "typescript": "^4.3.4"
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5"
   }
 }

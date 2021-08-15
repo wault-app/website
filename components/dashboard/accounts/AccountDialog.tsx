@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, makeStyles, Theme, Typography } from "@material-ui/core";
 import PlatformIcon from "@components/platforms/PlatformIcon";
-import Platforms from "@lib/platforms";
+import Platforms from "@wault/platforms";
 import CategoryBadge from "./CategoryBadge";
 import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
@@ -16,7 +16,7 @@ const AccountDialog = (props: AccountDialogProps) => {
     const { account } = props;
     const platform = Platforms.get(account.platform);
 
-    const classes = useStyles({ color: platform?.icon?.color });
+    const classes = useStyles({ color: platform.color });
 
     return (
         <Dialog {...props}>

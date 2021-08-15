@@ -1,7 +1,7 @@
 const { createSecureHeaders } = require("next-secure-headers");
 const withPWA = require('next-pwa');
 
-module.exports = withPWA({
+module.exports = {
     i18n: {
         // These are all the locales you want to support in
         // your application
@@ -19,4 +19,21 @@ module.exports = withPWA({
             })
         }];
     },
-});
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: [{
+                loader: '@svgr/webpack',
+                options: {
+                    svgoConfig: {
+                        plugins: [
+                            { removeViewbox: false },
+                        ],
+                    },
+                },
+            }],
+        });
+
+        return config;
+    },
+};

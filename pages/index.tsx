@@ -13,7 +13,8 @@ const MainPage = () => {
             <SearchBar />
             {keycards.length > 0 ? (
                 keycards.map((keycard) => (
-                    <SafeItem 
+                    <SafeItem
+                        key={`safe-item-${keycard.safe.id}`} 
                         keycard={keycard}
                     />
                 ))

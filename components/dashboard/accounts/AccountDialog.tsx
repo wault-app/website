@@ -42,6 +42,7 @@ const AccountDialog = (props: AccountDialogProps) => {
                             <Grid container spacing={1} justify={"center"}>
                                 {account.categories?.map((category) => (
                                     <CategoryBadge
+                                        key={`category-badge-${category}`}
                                         category={category}
                                     />
                                 ))}

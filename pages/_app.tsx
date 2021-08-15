@@ -11,6 +11,9 @@ import DarkModeProvider from "@components/providers/ThemeProvider";
 import SearchProvider from "@components/dashboard/search/SearchProvider";
 import { useRouter } from "next/router";
 
+import "../public/css/react-credit-card.css";
+import "../public/css/fixes.css";
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const router = useRouter();
 
@@ -19,9 +22,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <Head>
                 <meta charSet="utf-8" />
                 <title>Wault</title>
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-                <link rel="stylesheet" href="/css/react-credit-card.css" />
-                <link rel="stylesheet" href="/css/fixes.css" />
                 <FaviconList />
             </Head>
             <CssBaseline />

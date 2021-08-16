@@ -38,8 +38,8 @@ const PlatformIcon = (props: PlatformIconProps) => {
             return (
                 <Badge
                     className={classes.icon}
-                    width={24}
-                    height={24}    
+                    width={32}
+                    height={32}    
                 />
             );
         }
@@ -80,9 +80,9 @@ const useStyles = makeStyles<Theme, { size: number }>((theme) => ({
             borderRadius: props => props.size / 4,
         },
         icon: {
-            margin: props => props.size / 4,
-            width: props => `${props.size / 2}px !important`,
-            height: props => `${props.size / 2}px !important`,
+            margin: props => (props.size - (props.size / 40 * 24)) / 2,
+            width: props => `${props.size / 40 * 24}px !important`,
+            height: props => `${props.size / 40 * 24}px !important`,
         },
         text: {
             padding: props => props.size / 4,

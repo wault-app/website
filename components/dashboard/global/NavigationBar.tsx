@@ -2,8 +2,8 @@ import { AppBar, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIc
 import { HomeRounded as HomeIcon, MenuRounded as MenuIcon, SettingsRounded as SettingsIcon } from "@material-ui/icons";
 import { Fragment, PropsWithChildren, useState } from "react";
 import { useRouter } from "next/router";
-import Logo from "@components/branding/Logo";
 import LogoutButton from "./NavigationBar/LogoutButton";
+import UserComponent from "@components/user/UserComponent";
 
 export type NavigationBarProps = PropsWithChildren<{
 
@@ -21,7 +21,7 @@ const NavigationBar = (props: NavigationBarProps) => {
 
     const drawer = (
         <Fragment>
-            <Logo className={classes.logo} />
+            <UserComponent />
             <List>
                 <ListItem button onClick={() => navigate("/")}>
                     <ListItemIcon>

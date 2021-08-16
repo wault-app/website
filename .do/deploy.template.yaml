@@ -1,0 +1,6 @@
+spec:
+  services:
+    - name: sample-nextjs
+      git:
+        branch: main
+        repo_clone_url: https://github.com/wault-app/website.git

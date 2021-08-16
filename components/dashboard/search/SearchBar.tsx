@@ -1,4 +1,4 @@
-import { Container, InputBase, InputBaseProps, makeStyles } from "@material-ui/core";
+import { Container, InputBase, InputBaseProps, makeStyles, Paper } from "@material-ui/core";
 import { SearchRounded as SearchIcon } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useSearch } from "./SearchProvider";
@@ -20,7 +20,7 @@ const SearchBar = (props: SearchBarProps) => {
 
     return (
         <Container maxWidth={"sm"} className={classes.container}>
-            <div className={classes.search}>
+            <Paper className={classes.search}>
                 <div className={classes.searchIcon}>
                     <SearchIcon />
                 </div>
@@ -36,7 +36,7 @@ const SearchBar = (props: SearchBarProps) => {
                         setProxy(e.target.value)
                     }}
                 />
-            </div>
+            </Paper>
         </Container>
     );
 };

@@ -11,7 +11,7 @@ const VaultCard = (props: VaultCardProps) => {
             className={classes.container}
             maxWidth={"sm"}
         >
-            <Card variant={"outlined"} className={classes.card}>
+            <Card className={classes.card}>
                 {props.children}
             </Card>
         </Container>

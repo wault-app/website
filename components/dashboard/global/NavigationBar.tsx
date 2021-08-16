@@ -51,7 +51,7 @@ const NavigationBar = (props: NavigationBarProps) => {
         <Fragment>
             <Hidden smDown>
                 <Drawer
-                    variant="permanent"
+                    variant={"permanent"}
                     classes={{
                       paper: classes.drawer,
                     }}

@@ -1,4 +1,4 @@
-import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { ArrowBackRounded as BackIcon } from "@material-ui/icons";
 
 export type ShowUserProps = {

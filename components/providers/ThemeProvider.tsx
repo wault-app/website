@@ -1,11 +1,10 @@
+import ProgressBar from "@components/common/ProgressBar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { blue, green, indigo, lightBlue, red, yellow } from "@material-ui/core/colors";
 import { PaletteColorOptions } from "@material-ui/core/styles/createPalette";
 import { useEffect } from "react";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
-
 export type DarkModeProviderProps = PropsWithChildren<{}>;
-
 
 type DarkModeContextType = {
     darkMode: boolean;
@@ -65,13 +64,15 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
         if(PaletteOptions[colorSchema]) setColorSchema(colorSchema);
     }, []);
 
+    const primary = PaletteOptions[colorSchema] || lightBlue;
+
     return (
         <DarkModeContext.Provider value={{ darkMode, setDarkMode, setColorSchema, colorSchema }}>
             <ThemeProvider theme={createMuiTheme(
                 {
                     palette: {
                         type: darkMode ? "dark" : "light",
-                        primary: PaletteOptions[colorSchema] || lightBlue,
+                        primary,
                     },
                     props: {
                         MuiTextField: {
@@ -80,6 +81,7 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                     },
                 }
             )}>
+                <ProgressBar />
                 {props.children}
             </ThemeProvider>
         </DarkModeContext.Provider>

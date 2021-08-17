@@ -21,6 +21,7 @@
     "mdi-material-ui": "^6.22.1",
     "next": "^11.1.0",
     "next-pwa": "^5.2.24",
+    "nextjs-progressbar": "0.0.11",
     "node-forge": "^0.10.0",
     "notistack": "^1.0.9",
     "papaparse": "^5.3.1",

@@ -1,6 +1,5 @@
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { ArrowBackRounded as BackIcon } from "@material-ui/icons";
-import Image from "next/image";
 
 export type ShowUserProps = {
     onBack: () => void;
@@ -11,8 +10,6 @@ export type ShowUserProps = {
 };
 
 const ShowUser = ({ onBack, user }: ShowUserProps) => {
-    const classes = useStyles();
-
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -34,17 +31,5 @@ const ShowUser = ({ onBack, user }: ShowUserProps) => {
         </Grid>
     );
 };
-
-const useStyles = makeStyles({
-    icon: {
-        borderRadius: 48,
-        backgroundColor: "rgba(0, 0, 0, 0.08)",
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-    wrapper: {
-        textAlign: "center",
-    },
-});
 
 export default ShowUser;

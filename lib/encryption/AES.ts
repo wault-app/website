@@ -17,10 +17,13 @@ export default class AES {
     }
 
     public decrypt(hash: string) {
+        if(!hash) return;
+
         return CryptoJSAES.decrypt(hash, this.key).toString(CryptoJS.enc.Utf8);
     }
 
     public static decrypt(text: string, key: string) {
+        if(!text || !key) return;
         return CryptoJSAES.encrypt(text, key).toString();
     }
 

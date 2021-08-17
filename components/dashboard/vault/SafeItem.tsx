@@ -52,7 +52,7 @@ const SafeItem = (props: SafeItemProps) => {
 
 
         setTags(tags);
-    }, []);
+    }, [props]);
 
     if ("loading" in props) {
         return (

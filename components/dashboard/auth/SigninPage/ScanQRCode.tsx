@@ -1,5 +1,6 @@
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
+import Image from "next/image";
 
 export type ScanQRCodeProps = {
     loading: true;
@@ -18,7 +19,8 @@ const ScanQRCode = (props: ScanQRCodeProps) => {
                 {"loading" in props ? (
                     <QRCodeLoader />
                 ) : (
-                    <img
+                    <Image
+                        alt={"QR code to be scanned"}
                         src={props.image}
                         className={classes.qr}    
                     />

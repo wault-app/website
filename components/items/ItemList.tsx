@@ -29,7 +29,7 @@ const ItemList = (props: ItemListProps) => {
                 dim.width = props.width; 
             },
         ),
-        []
+        [props.width]
     );
 
     return (

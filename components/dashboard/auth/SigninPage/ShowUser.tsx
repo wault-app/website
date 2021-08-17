@@ -15,16 +15,6 @@ const ShowUser = ({ onBack, user }: ShowUserProps) => {
 
     return (
         <Grid container spacing={2}>
-            {!!user.image && (
-                <Grid item xs={12} className={classes.wrapper}>
-                    <Image
-                        className={classes.icon}
-                        src={user.image}
-                        width={96}
-                        height={96}
-                    />
-                </Grid>
-            )}
             <Grid item xs={12}>
                 <Typography variant="h6">
                     Welcome back, {user.name}!

@@ -19,11 +19,18 @@ const ScanQRCode = (props: ScanQRCodeProps) => {
                 {"loading" in props ? (
                     <QRCodeLoader />
                 ) : (
-                    <Image
-                        alt={"QR code to be scanned"}
-                        src={props.image}
-                        className={classes.qr}    
-                    />
+                    <div
+                        className={classes.qrWrapper}
+                    >
+                        
+                        <Image
+                            width={128}
+                            height={128}
+                            alt={"QR code to be scanned"}
+                            className={classes.qr}
+                            src={props.image}
+                        />
+                        </div>
                 )}
             </Grid>
             <Grid item xs={12}>
@@ -66,10 +73,19 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
     },
-    qr: {
+    qrWrapper: {
+        display: "inline-block",
         borderRadius: theme.shape.borderRadius,
         boxShadow: theme.shadows[8],
         maxWidth: "100%",
+        width: 128,
+        height: 128,
+    },
+    qr: {
+        display: "block",
+        borderRadius: theme.shape.borderRadius,
+        width: 128,
+        height: 128,
     },
 }));
 

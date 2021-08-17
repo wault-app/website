@@ -1,7 +1,7 @@
 import SelectSafeField from "@components/dashboard/landing/AddItemDialog/SelectSafeField";
 import { useKeycards } from "@components/providers/KeycardProvider";
-import Item, { ItemTypeWithoutID } from "@lib/api/Item";
-import { KeycardType } from "@lib/api/Safe";
+import { ItemTypeWithoutID, KeycardType } from "@wault/typings";
+import Item from "@lib/api/Item";
 import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, Grid } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { useState } from "react";

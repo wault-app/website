@@ -1,9 +1,9 @@
 import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
 import { PropsWithChildren } from "react";
 
-export type ResponsiveCardProps = PropsWithChildren<{}>;
+export type VerticalCenterProps = PropsWithChildren<{}>;
 
-const ResponsiveCard = (props: ResponsiveCardProps) => {
+const VerticalCenter = (props: VerticalCenterProps) => {
     const isLarge = useMediaQuery('(min-width:600px)');
     const classes = useStyles();
 
@@ -30,4 +30,4 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default ResponsiveCard;
+export default VerticalCenter;

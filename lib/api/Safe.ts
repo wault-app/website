@@ -4,34 +4,8 @@ import EncryptionKey from "../encryption/EncryptionKey";
 import AES from "../encryption/AES";
 import Device from "./Device";
 import KeyExchange from "./KeyExchange";
-import { EncryptedItemType, ItemType } from "./Item";
 import RSA from "../encryption/RSA";
-
-export type RoleType = "OWNER" | "WRITER" | "READER";
-
-export type SafeType = {
-    id: string;
-    name: string;
-    items: ItemType[];
-};
-
-export type KeycardType = {
-    id: string;
-    safe: SafeType;
-    role: RoleType;
-};
-
-type EncryptedSafeType = {
-    id: string;
-    name: string;
-    items: EncryptedItemType[];
-};
-
-type EncryptedKeycardType = {
-    id: string;
-    safe: EncryptedSafeType;
-    role: RoleType;
-};
+import { EncryptedKeycardType, KeycardType } from "@wault/typings";
 
 export default class Safe {
     public static async getAll(): Promise<KeycardType[]> {
@@ -60,6 +34,8 @@ export default class Safe {
             safe: {
                 ...keycard.safe,
                 name: key.decrypt(keycard.safe.name),
+                description: key.decrypt(keycard.safe.description),
+                keycards: keycard.safe.keycards,
                 items: await Promise.all(
                     keycard.safe.items.map(
                         async (item) => ({
@@ -72,7 +48,7 @@ export default class Safe {
         };
     }
 
-    public static async create(name: string) {
+    public static async create(name: string, description?: string) {
         type ResponseType = {
             message: "keycard_create_success";
             keycard: EncryptedKeycardType;
@@ -85,6 +61,8 @@ export default class Safe {
         const encryptor = new AES(key);
         const encryptedName = encryptor.encrypt(name);
 
+        const encryptedDescription = description ? encryptor.encrypt(description) : undefined;
+
         // query all of our devices
         const { devices } = await Device.getAll();
 
@@ -92,6 +70,7 @@ export default class Safe {
         const { keycard, message } = await post<ResponseType>("/safe", {
             body: JSON.stringify({
                 name: encryptedName,
+                encryptedDescription,
                 keyExchanges: await Promise.all(
                     devices.map(
                         async (device) => {

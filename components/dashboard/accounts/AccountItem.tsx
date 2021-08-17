@@ -3,7 +3,7 @@ import PlatformIcon from "@components/platforms/PlatformIcon";
 import AccountDialog from "./AccountDialog";
 import AccountMenu from "./AccountMenu";
 import { Skeleton } from "@material-ui/lab";
-import { AccountType } from "@lib/api/Item";
+import { AccountType } from "@wault/typings";
 import { useState } from "react";
 
 type AccountItemLoadedProps = {

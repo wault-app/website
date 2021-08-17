@@ -1,4 +1,4 @@
-import { CreditCardType } from "@lib/api/Item";
+import { CreditCardType } from "@wault/typings";
 import Issuers from "@lib/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
 import { CreditCardRounded } from "@material-ui/icons";

@@ -1,9 +1,5 @@
+import { AccountTypeWithoutID, CategoryType, CreditCardTypeWithoutID, ItemTypeWithoutID } from "@wault/typings";
 import papa from "papaparse";
-import { AccountType, CreditCardType } from "../api/Item";
-
-type AccountTypeWithoutID = Omit<AccountType, "id">;
-type CreditCardTypeWithoutID = Omit<CreditCardType, "id">;
-type ItemTypeWithoutID = AccountTypeWithoutID | CreditCardTypeWithoutID;
 
 export default class LastPass {
     public static convert(input: string) {
@@ -65,6 +61,18 @@ export default class LastPass {
             console.info("error parsing url: ", e);
         }
 
+        const categories: { [key: string]: CategoryType[] } = {
+            "Arts": ["work"],
+            "Business": ["work"],
+            "Email": ["communication", "work"],
+            "Entertainment": ["entertainment"],
+            "Finance": ["financial"],
+            "Games": ["games", "entertainment"],
+            "Productivity Tools": ["work"],
+            "Shopping": ["shopping"],
+            "Social": ["social"],
+        };
+
         return {
             platform: data[5] || fallback,
             type: "account",
@@ -72,6 +80,7 @@ export default class LastPass {
             username: data[1],
             password: data[2],
             totp: data[3],
+            categories: categories[data[6]],
         };
     }
 }

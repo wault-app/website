@@ -6,7 +6,7 @@ import CopyUsernameButton from "./AccountDialog/CopyUsernameButton";
 import OpenPlatformButton from "./AccountDialog/OpenPlatformButton";
 import CopyPasswordButton from "./AccountDialog/CopyPasswordButton";
 import ShowDescriptionButton from "./AccountDialog/ShowDescriptionButton";
-import { AccountType } from "@lib/api/Item";
+import { AccountType } from "@wault/typings";
 
 export type AccountDialogProps = DialogProps & {
     account: AccountType;

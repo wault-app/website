@@ -1,4 +1,4 @@
-import { CreditCardType } from "@lib/api/Item";
+import { CreditCardType } from "@wault/typings";
 import { Button, Dialog, DialogContent, DialogActions, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, DialogProps } from "@material-ui/core";
 import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
 import { useState } from "react";

@@ -11,7 +11,9 @@
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "@wault/category": "git+https://github.com/wault-app/category.git",
     "@wault/platforms": "git+https://github.com/wault-app/platforms.git",
+    "@wault/typings": "git+https://github.com/wault-app/typings.git",
     "aes-js": "^3.1.2",
     "crypto-js": "^4.0.0",
     "fuse.js": "^6.4.6",
@@ -31,6 +33,7 @@
     "react-text-mask": "^5.4.3",
     "react-transition-group": "^4.4.2",
     "react-virtualized": "^9.22.3",
+    "recyclerlistview": "^3.0.5",
     "zod": "^3.2.0"
   },
   "devDependencies": {

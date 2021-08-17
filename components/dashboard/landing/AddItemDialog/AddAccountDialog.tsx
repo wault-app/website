@@ -6,7 +6,7 @@ import PlatformField from "./AddAccountDialog/PlatformField";
 import UsernameField from "./AddAccountDialog/UsernameField";
 import { useSnackbar } from "notistack";
 import Item from "@lib/api/Item";
-import { KeycardType } from "@lib/api/Safe";
+import { KeycardType } from "@wault/typings";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import SelectSafeField from "./SelectSafeField";
 

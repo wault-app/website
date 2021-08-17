@@ -1,14 +1,13 @@
-import { Collapse, List, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
-import VaultCard from "./VaultCard";
+import { Button, CardActionArea, CardActions, CardContent, Grid, List, ListSubheader, Typography } from "@material-ui/core";
+import ResponsiveCard from "../../common/ResponsiveCard";
 import { Skeleton } from "@material-ui/lab";
 import AccountItem from "../accounts/AccountItem";
-import { KeycardType } from "@lib/api/Safe";
-import CreditCardItem from "../cards/CreditCardItem";
 import Placeholder from "@lib/placeholder";
-import { TransitionGroup } from "react-transition-group";
-import { useSearch } from "../search/SearchProvider";
-import Fuse from "fuse.js";
-import { useMemo } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useEffect } from "react";
+import { KeycardType } from "@wault/typings";
+import Tag from "@components/common/Tag";
 
 export type SafeItemProps = {
     loading: true;
@@ -16,34 +15,48 @@ export type SafeItemProps = {
     keycard: KeycardType;
 };
 
+type TagType = {
+    text: string;
+    color?: any;
+};
+
 const SafeItem = (props: SafeItemProps) => {
-    const { value } = useSearch();
+    const router = useRouter();
+    const [tags, setTags] = useState<TagType[]>([]);
 
-    const fuse = useMemo(() => {
-        const arr = "keycard" in props ? props.keycard.safe.items : [];
+    useEffect(() => {
+        if ("loading" in props) return;
 
-        const fuse = new Fuse(arr, {
-            keys: [
-                "username",
-                "platform",
-                "categories",
-            ],
+        const tags: TagType[] = [];
+
+        /*
+        tags.push({
+            text: "Premium",
+            color: purple,
         });
+        */
 
-        return fuse;
-    }, [props]);
-
-    const results = useMemo(() => {
-        if (value.length > 0) {
-            return fuse.search(value).map((item) => item.item);
-        } else {
-            return "keycard" in props ? props.keycard.safe.items : [];
+        const accounts = props.keycard.safe.items.filter((item) => item.type === "account").length;
+        if (accounts) {
+            tags.push({
+                text: `${accounts} accounts`
+            });
         }
-    }, [value, fuse]);
+
+        const cards = props.keycard.safe.items.filter((item) => item.type === "credit-card").length;
+        if (accounts) {
+            tags.push({
+                text: `${cards} credit cards`
+            });
+        }
+
+
+        setTags(tags);
+    }, []);
 
     if ("loading" in props) {
         return (
-            <VaultCard>
+            <ResponsiveCard>
                 <List>
                     <ListSubheader>
                         <Skeleton />
@@ -55,41 +68,55 @@ const SafeItem = (props: SafeItemProps) => {
                         />
                     ))}
                 </List>
-            </VaultCard>
+            </ResponsiveCard>
         );
     }
 
     return (
-        <VaultCard key={`safe-item-${props.keycard.id}`}>
-            <List>
-                <ListSubheader>
-                    {props.keycard.safe.name}
-                </ListSubheader>
-                <TransitionGroup>
-                    {results.map((item) => (
-                        <Collapse key={`item-component-${item.id}`}>
-                            {
-                                item.type === "account" ? (
-                                    <AccountItem account={item} key={`account-item-${item.id}`} />
-                                ) : item.type === "credit-card" && (
-                                    <CreditCardItem creditCard={item} key={`credit-card-item-${item.id}`} />
-                                )
-                            }
-                        </Collapse>
-                    )
-                    )}
-                </TransitionGroup>
-
-                {props.keycard.safe.items.length === 0 && (
-                    <ListItem>
-                        <ListItemText
-                            primary={"This safe is empty"}
-                            secondary={"Use the plus in the bottom right corner"}
-                        />
-                    </ListItem>
-                )}
-            </List>
-        </VaultCard>
+        <ResponsiveCard key={`safe-item-${props.keycard.id}`}>
+            <CardActionArea onClick={() => router.push(`/safe/${props.keycard.safe.id}`)}>
+                <CardContent>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography variant={"h6"}>
+                                <b>
+                                    {props.keycard.safe.name}
+                                </b>
+                            </Typography>
+                        </Grid>
+                        {!!props.keycard.safe.description && (
+                            <Grid item xs={12}>
+                                <Typography>
+                                    {props.keycard.safe.description}
+                                </Typography>
+                            </Grid>
+                        )}
+                        <Grid item xs={12}>
+                            <Grid container spacing={1}>
+                                {
+                                    tags.map(
+                                        (tag) => (
+                                            <Grid
+                                                item
+                                                key={`chip-${tag.text}`}
+                                            >
+                                                <Tag
+                                                    label={tag.text}
+                                                    color={tag.color}
+                                                />
+                                            </Grid>
+                                        )
+                                    )
+                                }
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small">View</Button>
+            </CardActions>
+        </ResponsiveCard>
     );
 };
 

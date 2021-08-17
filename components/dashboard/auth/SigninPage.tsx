@@ -2,12 +2,12 @@ import { Container, CardContent, makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import Logo from "@components/branding/Logo";
 import dynamic from "next/dynamic";
-import ResponsiveCard from "./SigninPage/ResponsiveCard";
+import VerticalCenter from "@components/common/VerticalCenter";
 import ScanQRCode from "./SigninPage/ScanQRCode";
 import UnwrapPromise from "@lib/types/UnwrapPromise";
 import Authentication from "@lib/api/Authentication";
 import { useSnackbar } from "notistack";
-import VaultCard from "../vault/VaultCard";
+import ResponsiveCard from "@components/common/ResponsiveCard";
 
 const ShowUser = dynamic(() => import ("./SigninPage/ShowUser"));
 
@@ -72,11 +72,11 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
 
     return (
         <Container maxWidth={"sm"} className={classes.container}>
-            <ResponsiveCard>
+            <VerticalCenter>
                 <div className={classes.logo}>
                     <Logo />
                 </div>
-                <VaultCard>
+                <ResponsiveCard>
                     <CardContent>
                         {!process && (
                             <ScanQRCode 
@@ -101,8 +101,8 @@ const SigninPage = ({ onAuth }: SigninPageProps) => {
                             />
                         )}
                     </CardContent>
-                </VaultCard>
-            </ResponsiveCard>
+                </ResponsiveCard>
+            </VerticalCenter>
         </Container>
     );
 };

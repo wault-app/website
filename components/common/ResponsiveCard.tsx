@@ -1,9 +1,9 @@
 import { Card, Container, makeStyles } from "@material-ui/core";
 import { PropsWithChildren } from "react";
 
-export type VaultCardProps = PropsWithChildren<{}>;
+export type ResponsiveCardProps = PropsWithChildren<{}>;
 
-const VaultCard = (props: VaultCardProps) => {
+const ResponsiveCard = (props: ResponsiveCardProps) => {
     const classes = useStyles();
 
     return (
@@ -35,8 +35,10 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("sm")]: {
             border: "none",
             background: "transparent",
+            boxShadow: "none",
+            borderRadius: 0,
         },
     },
 }));
 
-export default VaultCard;
+export default ResponsiveCard;

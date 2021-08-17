@@ -1,5 +1,5 @@
-import AccountItem from "@components/dashboard/accounts/AccountItem";
-import CreditCardItem from "@components/dashboard/cards/CreditCardItem";
+import AccountItem from "@components/items/AccountItem/AccountItem";
+import CreditCardItem from "@components/items/CreditCardItem/CreditCardItem";
 import { ItemType } from "@wault/typings";
 import { useMemo } from "react";
 import { DataProvider, LayoutProvider, RecyclerListView, RecyclerListViewProps } from "recyclerlistview/web";

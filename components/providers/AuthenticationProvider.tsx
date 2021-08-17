@@ -1,19 +1,25 @@
 import User, { UserType } from "@lib/api/User";
-import SigninPage from "@components/dashboard/auth/SigninPage";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
-import ErrorScreen from "@components/dashboard/ErrorScreen";
-import FullScreenLoader from "@components/dashboard/FullScreenLoader";
+import ErrorScreen from "@components/common/ErrorScreen";
+import FullScreenLoader from "@components/common/FullScreenLoader";
+import RedirectInProgressScreen from "@components/common/RedirectInProgressScreen";
+import { useRouter } from "next/router";
 
-export const AuthenticationContext = createContext<{
+type AuthenticationContextType = {
     user: UserType;
     setUser: Dispatch<SetStateAction<UserType>>;
-}>(null);
+};
+
+export const AuthenticationContext = createContext<AuthenticationContextType>(null);
 
 export const useUser = () => {
-    const { user } = useContext(AuthenticationContext);
-
-    return { user };
+    return useContext(AuthenticationContext);
 };
+
+const CHECK_EXCLUDED = [
+    "/auth/signin",
+    "/auth/register/confirm",  
+];
 
 export type AuthenticationProviderProps = PropsWithChildren<{}>;
 
@@ -21,6 +27,8 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState<UserType>();
     const [error, setError] = useState<Error>();
+
+    const router = useRouter();
 
     const loadUser = () => {
         (async () => {
@@ -53,9 +61,13 @@ const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
         );
     }
 
-    if(!user) return (
-        <SigninPage onAuth={() => loadUser()} />
-    );
+    if(!user && !CHECK_EXCLUDED.includes(router.pathname)) {
+        router.push("/auth/signin");
+
+        return (
+            <RedirectInProgressScreen />
+        );
+    }
 
     return (
         <AuthenticationContext.Provider value={{ user, setUser }}>

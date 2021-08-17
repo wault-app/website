@@ -1,12 +1,11 @@
 import ItemList from "@components/items/ItemList";
 import { useKeycards } from "@components/providers/KeycardProvider";
-import TagList, { TagType } from "@components/tags/TagList";
+import BadgeList, { BadgeType } from "@components/common/BadgeList";
 import { Card, CardContent, Container, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
 import Category from "@wault/category";
 import { ItemType } from "@wault/typings";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const SafePage = () => {
     const router = useRouter();
@@ -28,7 +27,7 @@ const SafePage = () => {
 
     const tags = useMemo(
         () => {
-            const tags: TagType[] = [];
+            const tags: BadgeType[] = [];
 
             tags.push({
                 id: "account",
@@ -77,7 +76,7 @@ const SafePage = () => {
                 </CardContent>
 
                 <div className={classes.tags}>
-                    <TagList
+                    <BadgeList
                         tags={tags}
                         selected={selected}
                         onChange={(sel, items) => {

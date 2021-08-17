@@ -1,8 +1,8 @@
 import AddItemFAB from "@components/dashboard/landing/AddItemFAB";
 import { Fragment } from "react";
 import { useKeycards } from "@components/providers/KeycardProvider";
-import SafeItem from "@components/dashboard/vault/SafeItem";
-import NoSafeCreated from "@components/dashboard/placeholders/NoSafeCreated";
+import SafeItem from "@components/safes/SafeItem";
+import NoSafeCreated from "@components/placeholders/NoSafeCreated";
 import { Container } from "@material-ui/core";
 
 const MainPage = () => {

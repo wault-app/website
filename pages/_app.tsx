@@ -4,7 +4,7 @@ import Head from "next/head";
 import { CssBaseline, NoSsr } from "@material-ui/core";
 import FaviconList from "@components/seo/FaviconList";
 import { SnackbarProvider } from "notistack";
-import NavigationBar from "@components/dashboard/global/NavigationBar";
+import NavigationBar from "@components/common/NavigationBar";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";
@@ -12,6 +12,11 @@ import { useRouter } from "next/router";
 
 import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";
+
+const NAVBAR_EXCLUDED = [
+    "/auth/register/confirm",
+    "/auth/signin",
+];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const router = useRouter();
@@ -26,17 +31,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <CssBaseline />
             <SnackbarProvider>
                 <NoSsr>
-                    {router.pathname === "/auth/register/confirm" ? (
-                        <Component {...pageProps} />
-                    ) : (
-                        <AuthenticationProvider>
+                    <AuthenticationProvider>
+                        {NAVBAR_EXCLUDED.includes(router.pathname) ? (
+                            <Component {...pageProps} />
+                        ) : (
                             <NavigationBar>
                                 <KeycardProvider>
                                     <Component {...pageProps} />
                                 </KeycardProvider>
                             </NavigationBar>
-                        </AuthenticationProvider>
-                    )}
+                        )}
+                    </AuthenticationProvider>
                 </NoSsr>
             </SnackbarProvider>
         </DarkModeProvider>

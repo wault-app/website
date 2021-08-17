@@ -1,10 +1,10 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import Safe from "@lib/api/Safe";
-import ErrorScreen from "@components/dashboard/ErrorScreen";
+import ErrorScreen from "@components/common/ErrorScreen";
 import { Button, Grid } from "@material-ui/core";
 import { useContext } from "react";
 import { useEffect } from "react";
-import SafeItem from "@components/dashboard/vault/SafeItem";
+import SafeItem from "@components/safes/SafeItem";
 import Placeholder from "@lib/placeholder";
 import { ItemType, KeycardType } from "@wault/typings";
 

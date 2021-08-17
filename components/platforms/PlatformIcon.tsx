@@ -2,6 +2,7 @@ import Platforms from "@wault/platforms";
 import { makeStyles, Theme, Typography } from "@material-ui/core";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { Skeleton } from "@material-ui/lab";
+import { memo } from "react";
 
 export type PlatformIconProps = ({
     hostname: string;
@@ -72,11 +73,12 @@ const useStyles = makeStyles<Theme, { size: number }>((theme) => ({
             height: props => props.size,
             borderRadius: props => props.size / 4,
             backgroundColor: theme.palette.primary.main,
+            boxShadow: theme.shadows[2],
         },
         loader: {
             width: props => props.size,
             height: props => props.size,
-            boxShadow: theme.shadows[4],
+            boxShadow: theme.shadows[2],
             borderRadius: props => props.size / 4,
         },
         icon: {
@@ -97,4 +99,4 @@ const useStyles = makeStyles<Theme, { size: number }>((theme) => ({
     }
 ));
 
-export default PlatformIcon;
+export default memo(PlatformIcon);

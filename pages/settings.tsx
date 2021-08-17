@@ -1,8 +1,8 @@
-import DeviceList from "@components/dashboard/devices/DeviceList";
-import ColorSchemaSelector from "@components/dashboard/settings/ColorSchemaSelector";
-import DarkModeSwitch from "@components/dashboard/settings/DarkModeSwitch";
-import ExportDataButton from "@components/dashboard/settings/ExportDataButton";
-import ImportDataButton from "@components/dashboard/settings/ImportDataButton";
+import DeviceList from "@components/devices/DeviceList";
+import ColorSchemaSelector from "@components/settings/ColorSchemaSelector";
+import DarkModeSwitch from "@components/settings/DarkModeSwitch";
+import ExportDataButton from "@components/settings/ExportDataButton";
+import ImportDataButton from "@components/settings/ImportDataButton";
 import ResponsiveCard from "@components/common/ResponsiveCard";
 import { List, ListSubheader } from "@material-ui/core";
 import { Fragment } from "react";

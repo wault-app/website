@@ -8,7 +8,6 @@ import NavigationBar from "@components/dashboard/global/NavigationBar";
 import AuthenticationProvider from "@components/providers/AuthenticationProvider";
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";
-import SearchProvider from "@components/dashboard/search/SearchProvider";
 import { useRouter } from "next/router";
 
 import "../public/css/react-credit-card.css";
@@ -26,21 +25,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Head>
             <CssBaseline />
             <SnackbarProvider>
-                <SearchProvider>
-                    <NoSsr>
-                        {router.pathname === "/auth/register/confirm" ? (
-                            <Component {...pageProps} />
-                        ) : (
-                            <AuthenticationProvider>
-                                <NavigationBar>
-                                    <KeycardProvider>
-                                        <Component {...pageProps} />
-                                    </KeycardProvider>
-                                </NavigationBar>
-                            </AuthenticationProvider>
-                        )}
-                    </NoSsr>
-                </SearchProvider>
+                <NoSsr>
+                    {router.pathname === "/auth/register/confirm" ? (
+                        <Component {...pageProps} />
+                    ) : (
+                        <AuthenticationProvider>
+                            <NavigationBar>
+                                <KeycardProvider>
+                                    <Component {...pageProps} />
+                                </KeycardProvider>
+                            </NavigationBar>
+                        </AuthenticationProvider>
+                    )}
+                </NoSsr>
             </SnackbarProvider>
         </DarkModeProvider>
     );

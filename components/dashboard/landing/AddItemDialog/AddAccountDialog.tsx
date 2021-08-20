@@ -9,6 +9,7 @@ import Item from "@lib/api/Item";
 import { KeycardType } from "@wault/typings";
 import { useKeycards } from "@components/providers/KeycardProvider";
 import SelectSafeField from "./SelectSafeField";
+import { useRSA } from "@components/providers/RSAProvider";
 
 export type AddAccountDialogProps = DialogProps & {
     onBack: () => void;
@@ -25,6 +26,8 @@ const AddAccountDialog = (props: AddAccountDialogProps) => {
     const [keycard, setKeycard] = useState<KeycardType>(keycards[0]);
     const [disabled, setDisabled] = useState(false);
 
+    const { privateKey } = useRSA();
+
     const create = async () => {
         // if already in progress, then don't send again
         if(disabled) return;
@@ -34,13 +37,13 @@ const AddAccountDialog = (props: AddAccountDialogProps) => {
 
         try {
             // send the item to remote server
-            const { item } = await Item.create(keycard.safe, {
+            const { item } = await Item.create(keycard, {
                 type: "account",
                 platform,
                 username,
                 password,
                 description,
-            });
+            }, privateKey);
 
             // pass the new item to the keycard context
             addItem(keycard, item);

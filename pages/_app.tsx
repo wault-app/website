@@ -9,6 +9,7 @@ import AuthenticationProvider from "@components/providers/AuthenticationProvider
 import KeycardProvider from "@components/providers/KeycardProvider";
 import DarkModeProvider from "@components/providers/ThemeProvider";
 import { useRouter } from "next/router";
+import RSAProvider from "@components/providers/RSAProvider";
 
 import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";
@@ -31,17 +32,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <CssBaseline />
             <SnackbarProvider>
                 <NoSsr>
-                    <AuthenticationProvider>
-                        {NAVBAR_EXCLUDED.includes(router.pathname) ? (
-                            <Component {...pageProps} />
-                        ) : (
-                            <NavigationBar>
-                                <KeycardProvider>
-                                    <Component {...pageProps} />
-                                </KeycardProvider>
-                            </NavigationBar>
-                        )}
-                    </AuthenticationProvider>
+                    <RSAProvider>
+                        <AuthenticationProvider>
+                            {NAVBAR_EXCLUDED.includes(router.pathname) ? (
+                                <Component {...pageProps} />
+                            ) : (
+                                <NavigationBar>
+                                    <KeycardProvider>
+                                        <Component {...pageProps} />
+                                    </KeycardProvider>
+                                </NavigationBar>
+                            )}
+                        </AuthenticationProvider>
+                    </RSAProvider>
                 </NoSsr>
             </SnackbarProvider>
         </DarkModeProvider>

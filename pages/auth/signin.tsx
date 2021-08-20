@@ -1,38 +1,29 @@
-import { Container, CardContent, makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { Container, CardContent, makeStyles, Typography, Grid, TextField, Button } from "@material-ui/core";
+import { useState } from "react";
 import Logo from "@components/branding/Logo/Logo";
-import dynamic from "next/dynamic";
 import VerticalCenter from "@components/common/VerticalCenter";
-import ScanQRCode from "@components/authentication/ScanQRCode";
-import UnwrapPromise from "@lib/types/UnwrapPromise";
-import Authentication from "@lib/api/Authentication";
 import { useSnackbar } from "notistack";
 import ResponsiveCard from "@components/common/ResponsiveCard";
 import { useUser } from "@components/providers/AuthenticationProvider";
-import User from "@lib/api/User";
-import { useRouter } from "next/router";
 import RedirectInProgressScreen from "@components/common/RedirectInProgressScreen";
-
-const ShowUser = dynamic(() => import ("@components/authentication/ShowUser"));
-
-type ProcessType = UnwrapPromise<typeof Authentication.start>
-type StateType = UnwrapPromise<typeof Authentication.check>;
+import Authentication from "@lib/api/Authentication";
+import { useRouter } from "next/router";
+import { useRSA } from "@components/providers/RSAProvider";
+import User from "@lib/api/User";
 
 const SigninPage = () => {
-    const [process, setProcess] = useState<ProcessType>();
-    const [state, setState] = useState<StateType>();
-    const classes = useStyles();
-    const router = useRouter();
-
-    const { setUser, user } = useUser();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [disabled, setDisabled] = useState(false);
+    
+    const { setPrivateKey, setPublicKey, privateKey } = useRSA();
+    const { user, setUser } = useUser();
 
     const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
+    const classes = useStyles();
 
-    useEffect(() => {
-        start();    
-    }, []);
-
-    if(user) {
+    if(user && privateKey) {
         router.push("/");
         
         return (
@@ -40,48 +31,31 @@ const SigninPage = () => {
         );
     }
 
-    const check = async (process: ProcessType) => {
+    const logIn = async () => {
+        if(disabled || !password || !email) return;
+        setDisabled(true);
+
         try {
-            // check for updates from the remote server
-            const resp = await Authentication.check(process.id, process.secret)
+            const resp = await Authentication.login(email, password);
             
-            // update the state for renderer
-            setState(resp);
+            const user = await User.get();
+            setUser(user);
             
-            // if we recieved the encryption keys, then store them
-            // idea: use the KeyExchange API and depract it from the registration process
-            if(resp.message === "remote_auth_success") {
-                // show a snackbar for 
-                enqueueSnackbar("Successful authentication!", { variant: "success" });
-                
-                // remove previously stored data due to logout bug
-                setState(null);
-                setProcess(null);
+            setPublicKey(resp.rsa.public);
+            setPrivateKey(resp.rsa.private);
 
-                // load user and pass it to provider
-                const user = await User.get();
-                setUser(user);
+            enqueueSnackbar(resp.message, {
+                variant: "success",
+            });
 
-                router.push("/");
-
-                // stop checking for response after authentication was successful
-                return;
-            }
+            router.push("/");
         } catch(e) {
-            // handle error
             enqueueSnackbar(e.message, {
                 variant: "error",
             });
+
+            setDisabled(false);
         }
-
-        // if not yet scanned, then check again after 0.5 sec
-        setTimeout(() => check(process), 500);
-    };
-
-    const start = async () => {
-        const process = await Authentication.start();
-        setProcess(process);
-        await check(process);
     };
 
     return (
@@ -92,28 +66,47 @@ const SigninPage = () => {
                 </div>
                 <ResponsiveCard>
                     <CardContent>
-                        {!process && (
-                            <ScanQRCode 
-                                loading
-                            />
-                        )}
-                        {(!state || state?.message === "remote_auth_not_scanned") && !!process && (
-                            <ScanQRCode 
-                                image={process.image}
-                            />
-                        )}
-                        {state?.message === "remote_auth_scanned" && (
-                            <ShowUser 
-                                onBack={async () => {
-                                    setProcess(null);
-                                    setState(null);
-                                    await start();
-                                }}
-                                user={{
-                                    name: state.user.username || "",
-                                }}
-                            />
-                        )}
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <Typography
+                                    variant={"h5"}
+                                >
+                                    Log in
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    variant={"filled"}
+                                    value={email}
+                                    required
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    label={"Email address"}
+                                    type={"email"}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    variant={"filled"}
+                                    label={"Password"}
+                                    type={"password"}
+                                    value={password}
+                                    required
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    fullWidth
+                                    variant={"contained"}
+                                    disabled={disabled || !password || !email}
+                                    onClick={logIn}
+                                >
+                                    Login
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </CardContent>
                 </ResponsiveCard>
             </VerticalCenter>

@@ -1,7 +1,7 @@
 import post from "./fetch/post";
-import EncryptionKey from "../encryption/EncryptionKey";
 import AES from "../encryption/AES";
-import { EncryptedItemType, ItemType, ItemTypeWithoutID, SafeType } from "@wault/typings";
+import { EncryptedItemType, ItemType, ItemTypeWithoutID, KeycardType } from "@wault/typings";
+import RSA from "@lib/encryption/RSA";
 
 export default class Item {
     /**
@@ -9,23 +9,23 @@ export default class Item {
      * @param safe {SafeType} the safe that you want to add the item to
      * @param item {ItemType} the item that you want to add
      */
-    public static async create(safe: SafeType, item: ItemTypeWithoutID): Promise<{ message: string; item: ItemType; }> {
+    public static async create(keycard: KeycardType, item: ItemTypeWithoutID, privateKey: string): Promise<{ message: string; item: ItemType; }> {
         type ResponseType = {
             item: EncryptedItemType;
             message: "successfully_created_item";
         };
 
-        // load the encryption key and create a new AES instance
-        const key = new AES(await EncryptionKey.get(safe.id));
+        // decrypt keycard key using userkey
+        const key = await RSA.decrypt(keycard.secret, privateKey);
 
         // encrypt the given data
-        const data = key.encrypt(JSON.stringify(item));
+        const data = await AES.encrypt(JSON.stringify(item), key);
 
         // send the encrypted data to the server 
         const resp = await post<ResponseType>("/item", {
             method: "POST",
             body: JSON.stringify({
-                safeid: safe.id,
+                safeid: keycard.safe.id,
                 data,
             }),
         });
@@ -39,17 +39,17 @@ export default class Item {
         };
     }
 
-    public static async edit(item: ItemType, safe: SafeType, newData: ItemTypeWithoutID): Promise<{ message: string; item: ItemType; }> {
+    public static async edit(item: ItemType, keycard: KeycardType, newData: ItemTypeWithoutID, privateKey: string): Promise<{ message: string; item: ItemType; }> {
         type ResponseType = {
             message: "item_edit_success";
             item: EncryptedItemType;
         };
 
-        // load the encryption key and create a new AES instance
-        const key = new AES(await EncryptionKey.get(safe.id));
+        // load user's encryption key
+        const key = await RSA.decrypt(keycard.secret, privateKey);
 
         // encrypt the given data
-        const data = key.encrypt(JSON.stringify(item));
+        const data = await AES.encrypt(JSON.stringify(item), key);
 
         const resp = await post<ResponseType>(`/item/${item.id}`, {
             method: "PUT", 

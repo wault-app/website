@@ -7,7 +7,7 @@ import { Container } from "@material-ui/core";
 
 const MainPage = () => {
     const { keycards } = useKeycards();
-    
+
     return (
         <Fragment>
             <Container maxWidth={"md"}>

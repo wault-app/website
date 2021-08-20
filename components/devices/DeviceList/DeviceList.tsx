@@ -2,7 +2,6 @@ import Device, { DeviceType } from "@lib/api/Device";
 import Placeholder from "@lib/placeholder";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import { Fragment, useEffect, useState } from "react";
-import { AutoSizer, List as VirtualizedList } from "react-virtualized";
 import DeviceItem from "../DeviceItem";
 
 export type DeviceListProps = {};
@@ -75,30 +74,7 @@ const DeviceList = (props: DeviceListProps) => {
     }
 
     return (
-        <AutoSizer disableHeight>
-            {({ width }) => (
-                <VirtualizedList
-                    height={devices.length * 72}
-                    overscanRowCount={10}
-                    rowHeight={72}
-                    width={width}
-                    rowCount={devices.length}
-                    rowRenderer={({ index }) => (
-                        <DeviceItem
-                            device={devices[index]}
-                            key={`device-item-${index}`}
-                            onLogout={
-                                (device) => setDevices(
-                                    [...devices].filter(
-                                        (el) => el.id !== device.id
-                                    )
-                                )
-                            }
-                        />
-                    )}
-                />
-            )}
-        </AutoSizer>
+        <div />
     );
 };
 

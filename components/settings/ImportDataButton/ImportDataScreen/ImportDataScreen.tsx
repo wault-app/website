@@ -1,5 +1,6 @@
 import SelectSafeField from "@components/dashboard/landing/AddItemDialog/SelectSafeField";
 import { useKeycards } from "@components/providers/KeycardProvider";
+import { useRSA } from "@components/providers/RSAProvider";
 import { ItemTypeWithoutID, KeycardType } from "@wault/typings";
 import Item from "@lib/api/Item";
 import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, Grid } from "@material-ui/core";
@@ -15,6 +16,7 @@ export type ImportDataScreenProps = DialogProps & {
 const ImportDataScreen = (props: ImportDataScreenProps) => {
     const { keycards, addItems } = useKeycards(); 
     const { enqueueSnackbar } = useSnackbar();
+    const { privateKey } = useRSA();
     
     const [data, setData] = useState<ItemTypeWithoutID[]>([]);
     const [keycard, setKeycard] = useState<KeycardType>(keycards[0]);
@@ -26,7 +28,7 @@ const ImportDataScreen = (props: ImportDataScreenProps) => {
 
             const resp = await Promise.all(
                 data.map(
-                    async (row) => await Item.create(keycard.safe, row)
+                    async (row) => await Item.create(keycard, row, privateKey)
                 )
             );
 

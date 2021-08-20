@@ -2,53 +2,62 @@ import RSA from "../encryption/RSA";
 import post from "./fetch/post";
 import platform from "platform";
 import Device from "./Device";
-import { UserType } from "./User";
+import AES from "../encryption/AES";
+import PBKDF2 from "@lib/encryption/PBKDF2";
 
 export default class Authentication {
-    public static async start() {
+    public static async register(username: string, email: string, password: string) {
         type ResponseType = {
-            id: string;
-            secret: string;
+            message: "confirmation_email_sent";
         };
 
-        const keys = await RSA.generate();
+        const { publicKey, privateKey } = await RSA.generate();
 
-        const { id, secret } = await post<ResponseType>("/auth/remote/start", {
+        return await post<ResponseType>("/auth/register", {
             body: JSON.stringify({
-                rsaKey: keys.publicKey,
+                username,
+                email,
+                password: this.hashPassword(password, email),
+                deviceName: this.browserName,
+                deviceType: "BROWSER",
+                rsa: {
+                    public: publicKey,
+                    private: await AES.encrypt(privateKey, password),
+                },
+            }),
+        });
+    }
+
+    public static async login(email: string, password: string) {
+        type ResponseType = {
+            message: "Successful authentication!";
+            rsa: {
+                public: string;
+                private: string;
+            }
+        };
+
+        const { rsa, message } = await post<ResponseType>("/auth/login", {
+            body: JSON.stringify({
+                email,
+                password: this.hashPassword(password, email),
                 deviceName: this.browserName,
                 deviceType: "BROWSER",
             }),
         });
-
-        const QRCode = (await import("qrcode")).default;
-
+        
         return {
-            id,
-            secret,
-            image: await QRCode.toDataURL(id, { version: 2 }),
-            rsa: keys.publicKey,
+            message,
+            rsa: {
+                public: rsa.public,
+                private: await AES.decrypt(rsa.private, password),
+            },
         };
     }
 
-    public static async check(id: string, secret: string) {
-        type ResponseType = {
-            message: "remote_auth_not_scanned";
-        } | {
-            message: "remote_auth_scanned";
-            user: UserType;
-        } | {
-            message: "remote_auth_success";
-            user: UserType;
-        };
-        
-        return await post<ResponseType>("/auth/remote/check", {
-            body: JSON.stringify({
-                id,
-                secret,
-                web: true,
-            }),
-        });
+    private static hashPassword(password: string, salt?: string) {
+        // hashing must produce the same output every time, so the salt MUST be the same for both registration and authentication
+        return PBKDF2.hash(password, salt || "wault", 512, 1);
     }
 
     public static async logout() {

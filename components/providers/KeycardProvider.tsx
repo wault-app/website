@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import SafeItem from "@components/safes/SafeItem";
 import Placeholder from "@lib/placeholder";
 import { ItemType, KeycardType } from "@wault/typings";
+import { useRSA } from "./RSAProvider";
 
 export type KeycardProviderProps = PropsWithChildren<{}>;
 
@@ -78,6 +79,7 @@ export const useKeycards = () => {
 const KeycardProvider = (props: KeycardProviderProps) => {
     const [keycards, setKeycards] = useState<KeycardType[]>(null);
     const [error, setError] = useState<Error>(null);
+    const { privateKey } = useRSA();
 
     useEffect(() => {
         load();
@@ -86,7 +88,7 @@ const KeycardProvider = (props: KeycardProviderProps) => {
     const load = async () => {
         try {
             setError(null);
-            const keycards = await Safe.getAll();
+            const keycards = await Safe.getAll(privateKey);
             setKeycards(keycards);
         } catch(e) {
             setError(e);

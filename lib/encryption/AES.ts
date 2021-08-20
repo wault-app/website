@@ -23,8 +23,8 @@ export default class AES {
     }
 
     public static decrypt(text: string, key: string) {
-        if(!text || !key) return;
-        return CryptoJSAES.encrypt(text, key).toString();
+        if(!text) return;
+        return CryptoJSAES.decrypt(text, key).toString(CryptoJS.enc.Utf8);
     }
 
 }

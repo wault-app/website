@@ -1,4 +1,5 @@
 import { useKeycards } from "@components/providers/KeycardProvider";
+import { useRSA } from "@components/providers/RSAProvider";
 import Item from "@lib/api/Item";
 import { Dialog, Button, DialogActions, DialogContent, DialogProps, Grid, makeStyles, TextField } from "@material-ui/core";
 import { useSnackbar } from "notistack";
@@ -28,18 +29,20 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
     const [keycard, setKeycard] = useState(keycards[0]);
     const [disabled, setDisabled] = useState(false);
 
+    const { privateKey } = useRSA();
+
     const create = async () => {
         setDisabled(true);
 
         try {
-            const { item } = await Item.create(keycard.safe, {
+            const { item } = await Item.create(keycard, {
                 type: "credit-card",
                 number,
                 cardholder,
                 expiry,
                 cvc,
                 name,
-            });
+            }, privateKey);
 
             addItem(keycard, item);
 

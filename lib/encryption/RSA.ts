@@ -9,14 +9,6 @@ export default class RSA {
         return await Forge.pki.privateKeyFromPem(privateKey).decrypt(Forge.util.decode64(hash), "NONE");
     }
 
-    public static async load() {
-        return await localStorage.getItem("rsa-key");
-    }
-
-    private static async save(privateKey: string) {
-        return await localStorage.setItem("rsa-key", privateKey);
-    }
-
     public static async generate(bits: number = 1024): Promise<{ publicKey: string; privateKey: string }> {
         return new Promise(async (resolve, reject) => {
             Forge.pki.rsa.generateKeyPair({
@@ -29,8 +21,6 @@ export default class RSA {
                     Forge.pki.publicKeyToPem(keys.publicKey),
                     Forge.pki.privateKeyToPem(keys.privateKey), 
                 ];
-        
-                await this.save(privateKey);
         
                 resolve({
                     publicKey,

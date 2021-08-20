@@ -4,6 +4,7 @@ import SafeNameField from "./AddSafeDialog/SafeNameField";
 import Safe from "@lib/api/Safe";
 import { useSnackbar } from "notistack";
 import { useKeycards } from "@components/providers/KeycardProvider";
+import { useRSA } from "@components/providers/RSAProvider";
 
 type AddSafeDialogProps = DialogProps & {
     onBack: () => void;
@@ -14,13 +15,14 @@ const AddSafeDialog = (props: AddSafeDialogProps) => {
     const [disabled, setDisabled] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const { addKeycard } = useKeycards();
+    const { privateKey } = useRSA();
 
     const create = async () => {
         // disable button to prevent multiple sends
         setDisabled(true);
 
         // communicate with the api to create the safe
-        const { keycard } = await Safe.create(name);
+        const { keycard } = await Safe.create(privateKey, name);
         
         // show the user a snackbar
         enqueueSnackbar("Safe has been successfully created!", {

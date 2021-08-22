@@ -1,14 +1,13 @@
 import { useUser } from "@components/providers/AuthenticationProvider";
-import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { Grid, GridProps, Typography } from "@material-ui/core";
 
-export type UserComponentProps = {};
+export type UserComponentProps = GridProps;
 
 const UserComponent = (props: UserComponentProps) => {
     const { user } = useUser();
-    const classes = useStyles();
 
     return (
-        <Grid container alignItems={"center"} className={classes.root}>
+        <Grid container alignItems={"center"} {...props}>
             <Grid item>
                 <Grid container>
                     <Grid item xs={12}>
@@ -28,11 +27,5 @@ const UserComponent = (props: UserComponentProps) => {
         </Grid>
     );
 };
-
-const useStyles = makeStyles(() => ({
-    root: {
-        padding: 16,
-    },
-}));
 
 export default UserComponent;

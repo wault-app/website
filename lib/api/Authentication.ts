@@ -55,6 +55,31 @@ export default class Authentication {
         };
     }
 
+    public static async checkPassword(email: string, password: string) {
+        type ResponseType = {
+            message: string;
+            rsa: {
+                public: string;
+                private: string;
+            };
+        };
+
+        const { message, rsa } = await post<ResponseType>("/auth/checkPassword", {
+            body: JSON.stringify({
+                email,
+                password: this.hashPassword(password, email),
+            }),
+        }); 
+
+        return {
+            message,
+            rsa: {
+                public: rsa.public,
+                private: await AES.decrypt(rsa.private, password),
+            },
+        }
+    }
+
     private static hashPassword(password: string, salt?: string) {
         // hashing must produce the same output every time, so the salt MUST be the same for both registration and authentication
         return PBKDF2.hash(password, salt || "wault", 512, 1);

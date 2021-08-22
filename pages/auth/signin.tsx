@@ -10,6 +10,7 @@ import Authentication from "@lib/api/Authentication";
 import { useRouter } from "next/router";
 import { useRSA } from "@components/providers/RSAProvider";
 import User from "@lib/api/User";
+import UserComponent from "@components/user/UserComponent";
 
 const SigninPage = () => {
     const [email, setEmail] = useState("");
@@ -23,6 +24,8 @@ const SigninPage = () => {
     const router = useRouter();
     const classes = useStyles();
 
+    const isDisabled = disabled || !password || (!email && !user);
+
     if(user && privateKey) {
         router.push("/");
         
@@ -31,8 +34,41 @@ const SigninPage = () => {
         );
     }
 
+    const auth = () => {
+        if(isDisabled) return;
+
+        if(user) {
+            verifyPassword();
+        } else {
+            logIn();
+        }
+    };
+
+    const verifyPassword = async () => {
+        setDisabled(true);
+
+        try {
+            const { message, rsa } = await Authentication.checkPassword(user.email, password);
+        
+            enqueueSnackbar(message, {
+                variant: "success",
+            });
+
+            setPrivateKey(rsa.private);
+            setPublicKey(rsa.public);
+
+            router.push("/");
+        } catch(e) {
+            enqueueSnackbar(e.message, {
+                variant: "error",
+            });
+
+            setDisabled(false);
+        }
+    };
+
+
     const logIn = async () => {
-        if(disabled || !password || !email) return;
         setDisabled(true);
 
         try {
@@ -75,15 +111,19 @@ const SigninPage = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    variant={"filled"}
-                                    value={email}
-                                    required
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    label={"Email address"}
-                                    type={"email"}
-                                />
+                                {user ? (
+                                    <UserComponent />
+                                ) : (      
+                                    <TextField
+                                        fullWidth
+                                        variant={"filled"}
+                                        value={email}
+                                        required
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        label={"Email address"}
+                                        type={"email"}
+                                    />
+                                )}
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -100,8 +140,8 @@ const SigninPage = () => {
                                 <Button
                                     fullWidth
                                     variant={"contained"}
-                                    disabled={disabled || !password || !email}
-                                    onClick={logIn}
+                                    disabled={isDisabled}
+                                    onClick={auth}
                                 >
                                     Login
                                 </Button>

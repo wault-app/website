@@ -11,7 +11,7 @@ const ResponsiveCard = (props: ResponsiveCardProps) => {
             className={classes.container}
             maxWidth={"sm"}
         >
-            <Card className={classes.card}>
+            <Card>
                 {props.children}
             </Card>
         </Container>
@@ -29,14 +29,6 @@ const useStyles = makeStyles((theme) => ({
             marginRight: 0,
             maxWidth: "100%",
             width: "100%",
-        },
-    },
-    card: {
-        [theme.breakpoints.down("sm")]: {
-            border: "none",
-            background: "transparent",
-            boxShadow: "none",
-            borderRadius: 0,
         },
     },
 }));

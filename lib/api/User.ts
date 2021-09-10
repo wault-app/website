@@ -18,7 +18,7 @@ export default class User {
         try {
             return await get<UserType>("/user");
         } catch(e) {
-            if(e.message === "Unauthorized") return null;
+            if(e.message === "You are not logged in!") return null;
             else throw e; 
         }
     }

@@ -10,7 +10,7 @@ export type RemoteAuthHandlerProps = {};
 
 const RemoteAuthHandler = (props: RemoteAuthHandlerProps) => {
     const [qr, setQR] = useState<string>();
-    const [user, setUser] = useState<UserType>();
+    const [, setUser] = useState<UserType>();
     const { setPrivateKey, setPublicKey } = useRSA();
 
     useEffect(() => {

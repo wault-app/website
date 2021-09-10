@@ -2,7 +2,7 @@ import get from "./fetch/get";
 import post from "./fetch/post";
 import { UserType } from "./User";
 
-export type DeviceVariants = "MOBILE" | "WEB" | "DESKTOP" | "CLI";
+export type DeviceVariants = "MOBILE" | "BROWSER" | "DESKTOP" | "CLI";
 
 export type DeviceType = {
     id: string;

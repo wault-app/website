@@ -26,7 +26,7 @@ const DeviceList = (props: DeviceListProps) => {
         load();
     }, []);
 
-    if(error) {
+    if (error) {
         return (
             <Grid
                 container
@@ -60,7 +60,7 @@ const DeviceList = (props: DeviceListProps) => {
         );
     }
 
-    if(!devices) {
+    if (!devices) {
         return (
             <Fragment>
                 {Placeholder.generate(3, 2).map((index) => (
@@ -74,7 +74,15 @@ const DeviceList = (props: DeviceListProps) => {
     }
 
     return (
-        <div />
+        <Fragment>
+            {devices.map((device) => (
+                <DeviceItem
+                    key={`device-item-${device.id}`}
+                    device={device}
+                    onLogout={() => {}}
+                />
+            ))}
+        </Fragment>
     );
 };
 

@@ -84,7 +84,7 @@ const DeviceItem = (props: DeviceItemProps) => {
             
             <ListItem>
                 <ListItemIcon>
-                    {props.device.type === "WEB" ? (
+                    {props.device.type === "BROWSER" ? (
                         <BrowserIcon />
                     ) : props.device.type === "MOBILE" ? (
                         <MobileIcon />

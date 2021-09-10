@@ -8,12 +8,12 @@ import PBKDF2 from "@lib/encryption/PBKDF2";
 export default class Authentication {
     public static async register(username: string, email: string, password: string) {
         type ResponseType = {
-            message: "confirmation_email_sent";
+            message: string;
         };
 
         const { publicKey, privateKey } = await RSA.generate();
 
-        return await post<ResponseType>("/auth/register", {
+        const resp = await post<ResponseType>("/auth/register", {
             body: JSON.stringify({
                 username,
                 email,
@@ -21,23 +21,27 @@ export default class Authentication {
                 deviceName: this.browserName,
                 deviceType: "BROWSER",
                 rsa: {
-                    public: publicKey,
-                    private: await AES.encrypt(privateKey, password),
+                    publicKey,
+                    privateKey: await AES.encrypt(privateKey, password),
                 },
             }),
         });
+
+        return {
+            ...resp,
+            publicKey,
+            privateKey,
+        };
     }
 
     public static async login(email: string, password: string) {
         type ResponseType = {
-            message: "Successful authentication!";
-            rsa: {
-                public: string;
-                private: string;
-            }
+            message: string;
+            publicKey: string;
+            privateKey: string;
         };
 
-        const { rsa, message } = await post<ResponseType>("/auth/login", {
+        const { publicKey, privateKey, message } = await post<ResponseType>("/auth/login", {
             body: JSON.stringify({
                 email,
                 password: this.hashPassword(password, email),
@@ -48,23 +52,38 @@ export default class Authentication {
         
         return {
             message,
-            rsa: {
-                public: rsa.public,
-                private: await AES.decrypt(rsa.private, password),
-            },
+            publicKey,
+            privateKey: await AES.decrypt(privateKey, password),
         };
+    }
+
+    public static async refreshToken() {
+        return await post<ResponseType>("/auth/refresh_token");
+    }
+
+    public static async verifyEmail(id: string, secret: string) {
+        type ResponseType = {
+            message: string;
+            publicKey: string;
+            privateKey: string;
+        };
+
+        return await post<ResponseType>("/auth/register/verify", {
+            body: JSON.stringify({
+                id,
+                secret,
+            }),
+        });
     }
 
     public static async checkPassword(email: string, password: string) {
         type ResponseType = {
             message: string;
-            rsa: {
-                public: string;
-                private: string;
-            };
+            publicKey: string;
+            privateKey: string;
         };
 
-        const { message, rsa } = await post<ResponseType>("/auth/checkPassword", {
+        const { message, publicKey, privateKey } = await post<ResponseType>("/auth/checkPassword", {
             body: JSON.stringify({
                 email,
                 password: this.hashPassword(password, email),
@@ -73,11 +92,9 @@ export default class Authentication {
 
         return {
             message,
-            rsa: {
-                public: rsa.public,
-                private: await AES.decrypt(rsa.private, password),
-            },
-        }
+            publicKey,
+            privateKey: await AES.decrypt(privateKey, password),
+        };
     }
 
     private static hashPassword(password: string, salt?: string) {

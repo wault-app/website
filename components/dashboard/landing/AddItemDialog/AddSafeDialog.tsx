@@ -15,14 +15,14 @@ const AddSafeDialog = (props: AddSafeDialogProps) => {
     const [disabled, setDisabled] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const { addKeycard } = useKeycards();
-    const { privateKey } = useRSA();
+    const { publicKey } = useRSA();
 
     const create = async () => {
         // disable button to prevent multiple sends
         setDisabled(true);
 
         // communicate with the api to create the safe
-        const { keycard } = await Safe.create(privateKey, name);
+        const { keycard } = await Safe.create(publicKey, name);
         
         // show the user a snackbar
         enqueueSnackbar("Safe has been successfully created!", {

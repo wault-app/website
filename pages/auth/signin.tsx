@@ -16,7 +16,7 @@ const SigninPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState(false);
-    
+
     const { setPrivateKey, setPublicKey, privateKey } = useRSA();
     const { user, setUser } = useUser();
 
@@ -26,18 +26,18 @@ const SigninPage = () => {
 
     const isDisabled = disabled || !password || (!email && !user);
 
-    if(user && privateKey) {
+    if (user && privateKey) {
         router.push("/");
-        
+
         return (
             <RedirectInProgressScreen />
         );
     }
 
     const auth = () => {
-        if(isDisabled) return;
+        if (isDisabled) return;
 
-        if(user) {
+        if (user) {
             verifyPassword();
         } else {
             logIn();
@@ -48,17 +48,17 @@ const SigninPage = () => {
         setDisabled(true);
 
         try {
-            const { message, rsa } = await Authentication.checkPassword(user.email, password);
-        
+            const { message, publicKey, privateKey } = await Authentication.checkPassword(user.email, password);
+
             enqueueSnackbar(message, {
                 variant: "success",
             });
 
-            setPrivateKey(rsa.private);
-            setPublicKey(rsa.public);
+            setPrivateKey(privateKey);
+            setPublicKey(publicKey);
 
             router.push("/");
-        } catch(e) {
+        } catch (e) {
             enqueueSnackbar(e.message, {
                 variant: "error",
             });
@@ -72,20 +72,20 @@ const SigninPage = () => {
         setDisabled(true);
 
         try {
-            const resp = await Authentication.login(email, password);
-            
+            const { message, publicKey, privateKey } = await Authentication.login(email, password);
+
             const user = await User.get();
             setUser(user);
-            
-            setPublicKey(resp.rsa.public);
-            setPrivateKey(resp.rsa.private);
 
-            enqueueSnackbar(resp.message, {
+            setPublicKey(publicKey);
+            setPrivateKey(privateKey);
+
+            enqueueSnackbar(message, {
                 variant: "success",
             });
 
             router.push("/");
-        } catch(e) {
+        } catch (e) {
             enqueueSnackbar(e.message, {
                 variant: "error",
             });
@@ -95,7 +95,7 @@ const SigninPage = () => {
     };
 
     return (
-        <Container maxWidth={"sm"} className={classes.container}>
+        <Container className={classes.container}>
             <VerticalCenter>
                 <div className={classes.logo}>
                     <Logo />
@@ -104,47 +104,61 @@ const SigninPage = () => {
                     <CardContent>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <Typography
-                                    variant={"h5"}
-                                >
-                                    Log in
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                {user ? (
-                                    <UserComponent />
-                                ) : (      
-                                    <TextField
-                                        fullWidth
-                                        variant={"filled"}
-                                        value={email}
-                                        required
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        label={"Email address"}
-                                        type={"email"}
-                                    />
-                                )}
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    variant={"filled"}
-                                    label={"Password"}
-                                    type={"password"}
-                                    value={password}
-                                    required
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button
-                                    fullWidth
-                                    variant={"contained"}
-                                    disabled={isDisabled}
-                                    onClick={auth}
-                                >
-                                    Login
-                                </Button>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            variant={"h5"}
+                                        >
+                                            Log in
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {user ? (
+                                            <UserComponent />
+                                        ) : (
+                                            <TextField
+                                                fullWidth
+                                                variant={"filled"}
+                                                value={email}
+                                                required
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                label={"Email address"}
+                                                type={"email"}
+                                            />
+                                        )}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            variant={"filled"}
+                                            label={"Password"}
+                                            type={"password"}
+                                            value={password}
+                                            required
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            fullWidth
+                                            variant={"contained"}
+                                            disabled={isDisabled}
+                                            onClick={auth}
+                                        >
+                                            Login
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Button
+                                            fullWidth
+                                            variant={"outlined"}
+                                            disabled={isDisabled}
+                                            onClick={() => router.push("/auth/register")}
+                                        >
+                                            Register
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </CardContent>

@@ -17,6 +17,7 @@ const RSAContext = createContext<{
 }>(null);
 
 export type RSAProviderProps = PropsWithChildren<{}>;
+const EXCLUDED = ["/auth/signin", "/auth/register", "/auth/register/confirm"];
 
 const RSAProvider = (props: RSAProviderProps) => {
     const [publicKey, setPublicKey] = useState("");
@@ -24,7 +25,7 @@ const RSAProvider = (props: RSAProviderProps) => {
     
     const router = useRouter();
     
-    if((!privateKey || !publicKey) && router.pathname !== "/auth/signin") {
+    if((!privateKey || !publicKey) && !EXCLUDED.includes(router.pathname)) {
         router.push("/auth/signin");
 
         return (

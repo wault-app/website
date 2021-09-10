@@ -15,8 +15,9 @@ import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";
 
 const NAVBAR_EXCLUDED = [
-    "/auth/register/confirm",
     "/auth/signin",
+    "/auth/register",
+    "/auth/register/confirm",
 ];
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

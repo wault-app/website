@@ -11,8 +11,6 @@ export default class Safe {
             keycards: EncryptedKeycardType[];
         };
 
-        console.log(privateKey);
-
         // query the safe data from the server
         const { keycards } = await get<ResponseType>("/safe");
 
@@ -46,7 +44,7 @@ export default class Safe {
         };
     }
 
-    public static async create(privateKey: string, name: string, description?: string) {
+    public static async create(publicKey: string, name: string, description?: string): Promise<{ message: string, keycard: KeycardType }> {
         type ResponseType = {
             message: "keycard_create_success";
             keycard: EncryptedKeycardType;
@@ -63,17 +61,22 @@ export default class Safe {
                 description: AES.encrypt(description, secret),
                 
                 // keycard realted information
-                secret: await RSA.encrypt(secret, privateKey),
+                secret: await RSA.encrypt(secret, publicKey),
             })
         });
-
-        // decrypt the remote data
-        const decrypted = await this.decrypt(keycard, privateKey);
 
         // send back the new keycard object to be stored in a context
         return {
             message,
-            keycard: decrypted,
+            keycard: {
+                ...keycard,
+                safe: {
+                    ...keycard.safe,
+                    name,
+                    description,
+                    items: [],
+                },
+            },
         };
     }
 }

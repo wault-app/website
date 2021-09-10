@@ -19,6 +19,7 @@ export const useUser = () => {
 const CHECK_EXCLUDED = [
     "/auth/signin",
     "/auth/register/confirm",  
+    "/auth/register",  
 ];
 
 export type AuthenticationProviderProps = PropsWithChildren<{}>;

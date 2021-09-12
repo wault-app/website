@@ -1,4 +1,4 @@
-import { useRSA } from "@components/providers/RSAProvider";
+import { useRSA } from "@components/RSAProvider";
 import Authentication from "@lib/api/Authentication";
 import { CircularProgress, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useRouter } from "next/router";

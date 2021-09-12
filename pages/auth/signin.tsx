@@ -1,16 +1,16 @@
 import { Container, CardContent, makeStyles, Typography, Grid, TextField, Button } from "@material-ui/core";
 import { useState } from "react";
-import Logo from "@components/branding/Logo/Logo";
-import VerticalCenter from "@components/common/VerticalCenter";
+import Logo from "@components/Logo/Logo";
+import VerticalCenter from "@components/VerticalCenter";
 import { useSnackbar } from "notistack";
-import ResponsiveCard from "@components/common/ResponsiveCard";
-import { useUser } from "@components/providers/AuthenticationProvider";
-import RedirectInProgressScreen from "@components/common/RedirectInProgressScreen";
+import ResponsiveCard from "@components/ResponsiveCard";
+import { useUser } from "@components/AuthenticationProvider/AuthenticationProvider";
+import RedirectInProgressScreen from "@components/RedirectInProgressScreen";
 import Authentication from "@lib/api/Authentication";
 import { useRouter } from "next/router";
-import { useRSA } from "@components/providers/RSAProvider";
+import { useRSA } from "@components/RSAProvider";
 import User from "@lib/api/User";
-import UserComponent from "@components/user/UserComponent";
+import UserComponent from "@components/UserComponent";
 
 const SigninPage = () => {
     const [email, setEmail] = useState("");

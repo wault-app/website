@@ -1,6 +1,6 @@
-import ItemList from "@components/items/ItemList";
-import { useKeycards } from "@components/providers/KeycardProvider";
-import BadgeList, { BadgeType } from "@components/common/BadgeList";
+import ItemList from "@components/ItemList";
+import { useKeycards } from "@components/KeycardProvider";
+import BadgeList, { BadgeType } from "@components/BadgeList";
 import { Card, CardContent, Container, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
 import Category from "@wault/category";
 import { ItemType } from "@wault/typings";

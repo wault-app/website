@@ -2,14 +2,14 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { CssBaseline, NoSsr } from "@material-ui/core";
-import FaviconList from "@components/seo/FaviconList";
+import FaviconList from "@components/FaviconList";
 import { SnackbarProvider } from "notistack";
-import NavigationBar from "@components/common/NavigationBar";
-import AuthenticationProvider from "@components/providers/AuthenticationProvider";
-import KeycardProvider from "@components/providers/KeycardProvider";
-import DarkModeProvider from "@components/providers/ThemeProvider";
+import NavigationBar from "@components/NavigationBar";
+import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
+import KeycardProvider from "@components/KeycardProvider";
+import DarkModeProvider from "@components/ThemeProvider";
 import { useRouter } from "next/router";
-import RSAProvider from "@components/providers/RSAProvider";
+import RSAProvider from "@components/RSAProvider";
 
 import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";

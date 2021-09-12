@@ -152,7 +152,7 @@ const SigninPage = () => {
                                         <Button
                                             fullWidth
                                             variant={"outlined"}
-                                            disabled={isDisabled}
+                                            disabled={disabled}
                                             onClick={() => router.push("/auth/register")}
                                         >
                                             Register

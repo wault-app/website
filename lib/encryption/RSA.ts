@@ -5,16 +5,14 @@ export type KeyPairType = {
     privateKey: string;
 };
 
-export default class RSA {
-    public static async encrypt(text: string, publicKey: string) {
+const RSA = {
+    encrypt: async (text: string, publicKey: string) => {
         return await Forge.util.encode64(Forge.pki.publicKeyFromPem(publicKey).encrypt(text, "RSA-OAEP"));
-    }
-
-    public static async decrypt(hash: string, privateKey: string) {
+    },
+    decrypt: async (hash: string, privateKey: string) => {
         return await Forge.pki.privateKeyFromPem(privateKey).decrypt(Forge.util.decode64(hash), "RSA-OAEP");
-    }
-
-    public static async generate(length: number = 2048): Promise<KeyPairType> {
+    },
+    generate: async(length: number = 2048): Promise<KeyPairType> => {
         return new Promise(async (resolve, reject) => {
             Forge.pki.rsa.generateKeyPair({
                 bits: length,
@@ -32,7 +30,8 @@ export default class RSA {
                     privateKey
                 });
             });
-    
         });
-    }
-}
+    },
+};
+
+export default RSA;

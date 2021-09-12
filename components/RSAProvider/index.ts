@@ -1,4 +1,4 @@
-import KeycardProvider from "@components/KeycardProvider";
+import RSAProvider from "./RSAProvider";
 
-export default KeycardProvider;
+export default RSAProvider;
 export * from "./RSAProvider";

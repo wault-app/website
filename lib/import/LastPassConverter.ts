@@ -1,7 +1,7 @@
 import { AccountTypeWithoutID, CategoryType, CreditCardTypeWithoutID, ItemTypeWithoutID } from "@wault/typings";
 import papa from "papaparse";
 
-export default class LastPass {
+export default class LastPassConverter {
     public static convert(input: string) {
         const response: ItemTypeWithoutID[] = [];
 

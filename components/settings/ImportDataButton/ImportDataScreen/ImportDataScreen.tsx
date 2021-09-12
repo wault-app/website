@@ -1,130 +1,67 @@
-import SelectSafeField from "@components/dashboard/landing/AddItemDialog/SelectSafeField";
-import { useKeycards } from "@components/providers/KeycardProvider";
-import { useRSA } from "@components/providers/RSAProvider";
-import { ItemTypeWithoutID, KeycardType } from "@wault/typings";
-import Item from "@lib/api/Item";
-import { Dialog, DialogProps, DialogTitle, DialogContent, DialogActions, Button, Grid } from "@material-ui/core";
+import { ItemTypeWithoutID } from "@wault/typings";
+import { Button, Grid } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { ChangeEvent } from "react";
 import { ProviderImportType } from "../ImportDataDialog";
 
-export type ImportDataScreenProps = DialogProps & {
-    onBack: () => void;
+export type ImportDataScreenProps = {
+    value: ItemTypeWithoutID[];
+    onChange: (data: ItemTypeWithoutID[]) => void;
     provider: ProviderImportType;
 };
 
 const ImportDataScreen = (props: ImportDataScreenProps) => {
-    const { keycards, addItems } = useKeycards(); 
     const { enqueueSnackbar } = useSnackbar();
-    const { privateKey } = useRSA();
-    
-    const [data, setData] = useState<ItemTypeWithoutID[]>([]);
-    const [keycard, setKeycard] = useState<KeycardType>(keycards[0]);
-    const [disabled, setDisabled] = useState(false);
 
-    const upload = async () => {
+    const onImport = async (e: ChangeEvent<HTMLInputElement>) => {
         try {
-            setDisabled(true);
+            if (!("TextDecoder" in window)) throw new Error("Sorry, this browser does not support TextDecoder...");
 
-            const resp = await Promise.all(
-                data.map(
-                    async (row) => await Item.create(keycard, row, privateKey)
-                )
-            );
+            const encoder = new TextDecoder("utf-8");
+            const arr = new Uint8Array(await e.target.files[0].arrayBuffer());
+        
+            const data = props.provider.converter.convert(encoder.decode(arr));
+            props.onChange(data);
 
-            addItems(keycard, resp.map((row) => row.item)); 
-
-            enqueueSnackbar("Successful import!", {
-                variant: "success",
-            });
-
-            props.onBack();
-            props.onClose({}, "backdropClick");
-            setData([]);
+            if(data.length === 0) {
+                enqueueSnackbar("This file is empty or does not contain any importable element", {
+                    variant: "error",
+                });
+            } else {
+                enqueueSnackbar(`Found ${data.length} inside this file!`, {
+                    variant: "info",
+                });
+            }
         } catch(e) {
             enqueueSnackbar(e.message, {
                 variant: "error",
             });
         }
-
-        setDisabled(false);
     };
 
     return (
-        <Dialog {...props}>
-            <DialogTitle>
-                Import data
-            </DialogTitle>
-            <DialogContent>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <label htmlFor={"upload-file"}>
-                            <input
-                                style={{
-                                    display: "none"
-                                }}
-                                type="file"
-                                id={"upload-file"}
-                                name={"upload-file"}
-                                onChange={async (e) => {
-                                    if (!("TextDecoder" in window))
-                                        alert("Sorry, this browser does not support TextDecoder...");
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <label htmlFor={"upload-file"}>
+                    <input
+                        style={{
+                            display: "none"
+                        }}
+                        type="file"
+                        id={"upload-file"}
+                        name={"upload-file"}
+                        onChange={onImport}
+                    />
 
-                                    var enc = new TextDecoder("utf-8");
-                                    var arr = new Uint8Array(await e.target.files[0].arrayBuffer());
-                                    setData(props.provider.converter.convert(enc.decode(arr)));
-                                }}
-                            />
-
-                            <Button
-                                component="span"
-                                fullWidth
-                                disabled={data.length > 0}
-                                variant={"outlined"}
-                            >
-                                {data.length > 0 ? `${data.length} row found` : "Upload file"}
-                            </Button>
-                        </label>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SelectSafeField
-                            value={keycard.safe.id}
-                            onChange={
-                                (e) => setKeycard(
-                                    keycards.find(
-                                        (keycard) => keycard.safe.id === e.target.value
-                                    )
-                                )
-                            }
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            size={"large"}
-                            fullWidth
-                            onClick={upload}
-                            disabled={disabled || data.length === 0}
-                        >
-                            Import
-                        </Button>
-                    </Grid>
-                </Grid>
-            </DialogContent>
-            <DialogActions>
-                <Button
-                    onClick={() => props.onBack()}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={() => props.onClose({}, "backdropClick")}
-                >
-                    Close
-                </Button>
-            </DialogActions>
-        </Dialog>
+                    <Button
+                        component="span"
+                        variant={"contained"}
+                    >
+                        Upload file
+                    </Button>
+                </label>
+            </Grid>
+        </Grid>
     );
 };
 

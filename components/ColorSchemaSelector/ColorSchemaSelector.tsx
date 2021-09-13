@@ -1,6 +1,6 @@
-import { createMuiTheme, Dialog, DialogProps, DialogTitle, Grid, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, Dialog, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
 import { PaletteOptions, useTheme } from "@components/ThemeProvider";
-import { DoneRounded as SelectedIcon, PaletteRounded as PaletteIcon } from "@material-ui/icons";
+import { PaletteRounded as PaletteIcon } from "@material-ui/icons";
 import { Fragment, useState } from "react";
 
 export type ColorSchemaSelectorProps = {};
@@ -33,6 +33,7 @@ const ColorSchemaDialog = (props: DialogProps) => {
             <List>
                 {Object.keys(PaletteOptions).map((key) => (
                     <ColorOption
+                        key={`color-option-${key}`}
                         color={key}
                         onClose={() => props.onClose({}, "escapeKeyDown")}
                     />
@@ -66,7 +67,10 @@ const ColorOption = (props: { color: string; onClose: () => void }) => {
                 <ListItemIcon>
                     <div
                         className={classes.icon}
-                        style={{ backgroundColor: palette[500] }}
+                        style={{
+                            // @ts-ignore
+                            backgroundColor: palette[500]
+                        }}
                     />
                 </ListItemIcon>
                 <ListItemText

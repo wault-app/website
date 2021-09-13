@@ -1,68 +1,87 @@
-import { Button, createMuiTheme, Grid, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
+import { createMuiTheme, Dialog, DialogProps, DialogTitle, Grid, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
 import { PaletteOptions, useTheme } from "@components/ThemeProvider";
 import { DoneRounded as SelectedIcon, PaletteRounded as PaletteIcon } from "@material-ui/icons";
+import { Fragment, useState } from "react";
 
 export type ColorSchemaSelectorProps = {};
 
-const ColorSchemaSelector = () => (
-    <ListItem>
-        <ListItemIcon>
-            <PaletteIcon />
-        </ListItemIcon>
-        <ListItemText primary={"Custom color palette"} />
-        <ListItemSecondaryAction>
-            <Grid container spacing={1}>
-                {Object.keys(PaletteOptions).map((key) => (
-                    <ColorOption
-                        key={`color-option-${key}`}
-                        color={key}
-                    />
-                ))}
-            </Grid>
-        </ListItemSecondaryAction>
-    </ListItem>
-);
-
-const ColorOption = (props: { color: string }) => {
-    const { colorSchema, setColorSchema } = useTheme();
-    const classes = useStyles();
+const ColorSchemaSelector = () => {
+    const [open, setOpen] = useState(false);
 
     return (
-        <Grid item>
+        <Fragment>
+            <ColorSchemaDialog
+                open={open}
+                onClose={() => setOpen(false)}
+            />
+            <ListItem button onClick={() => setOpen(true)}>
+                <ListItemIcon>
+                    <PaletteIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Custom color palette"} />
+            </ListItem>
+        </Fragment>
+    );
+};
+
+const ColorSchemaDialog = (props: DialogProps) => {
+    return (
+        <Dialog maxWidth={"sm"} fullWidth {...props}>
+            <DialogTitle>
+                Select a color palette!
+            </DialogTitle>
+            <List>
+                {Object.keys(PaletteOptions).map((key) => (
+                    <ColorOption
+                        color={key}
+                        onClose={() => props.onClose({}, "escapeKeyDown")}
+                    />
+                ))}
+            </List>
+        </Dialog>
+    );
+};
+
+const ColorOption = (props: { color: string; onClose: () => void }) => {
+    const { setColorSchema } = useTheme();
+    const classes = useStyles();
+
+    const { palette, name } = PaletteOptions[props.color];
+
+    const setColor = () => {
+        setColorSchema(props.color);
+        props.onClose();
+    }
+
+    return (
+        <ListItem
+            button
+            onClick={() => setColor()}
+        >
             <ThemeProvider theme={createMuiTheme({
                 palette: {
-                    primary: PaletteOptions[props.color],
+                    primary: palette,
                 }
             })}>
-                <Grid item>
-                    <Button
-                        color="primary"
-                        className={classes.bubble}
-                        variant="contained"
-                        onClick={() => setColorSchema(props.color)}
-                    >
-                        {colorSchema === props.color && <SelectedIcon className={classes.icon} />}
-                    </Button>
-                </Grid>
+                <ListItemIcon>
+                    <div
+                        className={classes.icon}
+                        style={{ backgroundColor: palette[500] }}
+                    />
+                </ListItemIcon>
+                <ListItemText
+                    primary={name}
+                />
             </ThemeProvider>
-        </Grid>
+        </ListItem>
     );
 };
 
 const useStyles = makeStyles((theme) => ({
-    bubble: {
-        width: 24,
-        height: 24,
-        borderRadius: 12,
-        boxShadow: theme.shadows[2],
-        padding: 0,
-        minWidth: 0,
-    },
     icon: {
-        width: 16,
-        height: 16,
-        margin: 4,
-        fill: theme.palette.getContrastText(theme.palette.primary.main),
+        height: 32,
+        width: 32,
+        borderRadius: 16,
     },
 }));
 

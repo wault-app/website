@@ -1,7 +1,7 @@
 import ProgressBar from "@components/ProgressBar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { blue, green, indigo, lightBlue, red, yellow } from "@material-ui/core/colors";
-import { PaletteColorOptions } from "@material-ui/core/styles/createPalette";
+import { light, PaletteColorOptions } from "@material-ui/core/styles/createPalette";
 import { useEffect } from "react";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
 export type DarkModeProviderProps = PropsWithChildren<{}>;
@@ -14,14 +14,35 @@ type DarkModeContextType = {
 };
 
 export const PaletteOptions: {
-    [key: string]: PaletteColorOptions;
+    [key: string]: {
+        name: string;
+        palette: PaletteColorOptions;
+    };
 } = {
-    lightBlue,
-    blue,
-    indigo,
-    red,
-    green,
-    yellow,
+    lightBlue: {
+        name: "Light blue",
+        palette: lightBlue,
+    },
+    blue: {
+        name: "Blue",
+        palette: blue,
+    },
+    indigo: {
+        name: "Indigo",
+        palette: indigo,
+    },
+    red: {
+        name: "Red",
+        palette: red,
+    },
+    green: {
+        name: "Green",
+        palette: green,
+    },
+    yellow: {
+        name: "Yellow",
+        palette: yellow,
+    },
 };
 
 export const useTheme = () => {
@@ -64,7 +85,7 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
         if(PaletteOptions[colorSchema]) setColorSchema(colorSchema);
     }, []);
 
-    const primary = PaletteOptions[colorSchema] || lightBlue;
+    const { palette } = PaletteOptions[colorSchema || "lightBlue"];
 
     return (
         <DarkModeContext.Provider value={{ darkMode, setDarkMode, setColorSchema, colorSchema }}>
@@ -72,7 +93,7 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                 {
                     palette: {
                         type: darkMode ? "dark" : "light",
-                        primary,
+                        primary: palette,
                     },
                     props: {
                         MuiTextField: {

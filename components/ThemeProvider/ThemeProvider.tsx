@@ -106,6 +106,13 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                                 variant: "filled",
                             },
                         },
+                        MuiListSubheader: {
+                            styleOverrides: {
+                                root: {
+                                    background: "transparent",
+                                },
+                            },
+                        },
                     },
                 }
             )}>

@@ -1,7 +1,7 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import Safe from "@lib/api/Safe";
 import ErrorScreen from "@components/ErrorScreen";
-import { Button, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import { useContext } from "react";
 import { useEffect } from "react";
 import SafeItem from "@components/SafeItem";
@@ -121,7 +121,8 @@ const KeycardProvider = (props: KeycardProviderProps) => {
 };
 
 const LoaderComponent = () => (
-        <Grid container>
+    <Container maxWidth={"sm"}>
+        <Grid container spacing={2}>
             {Placeholder.generate(3, 1).map((val, index) => (
                 <Grid
                     item
@@ -132,6 +133,7 @@ const LoaderComponent = () => (
                 </Grid>
             ))}
         </Grid>
+    </Container>
 );
 
 export default KeycardProvider;

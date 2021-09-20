@@ -1,7 +1,7 @@
 import { useKeycards } from "@components/KeycardProvider";
 import { useRSA } from "@components/RSAProvider";
 import Item from "@lib/api/Item";
-import { Dialog, Button, DialogActions, DialogContent, DialogProps, Grid, makeStyles, TextField } from "@material-ui/core";
+import { Dialog, Button, DialogActions, DialogContent, DialogProps, Grid, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import CreditCard, { Focused as FocusType } from "react-credit-cards";
@@ -19,7 +19,6 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
     const { keycards, addItem } = useKeycards();
     const { enqueueSnackbar } = useSnackbar();
 
-    const classes = useStyles();
     const [cvc, setCVC] = useState("");
     const [expiry, setExpiry] = useState("");
     const [name, setName] = useState("");
@@ -62,7 +61,7 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
         <Dialog {...props}>
             <DialogContent>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} className={classes.card}>
+                    <Grid item xs={12}>
                         <CreditCard
                             cvc={cvc}
                             expiry={expiry}
@@ -140,16 +139,5 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
         </Dialog>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    center: {
-        textAlign: "center",
-    },
-    card: {
-        marginTop: theme.spacing(4),
-        marginBottom: theme.spacing(4),
-    }
-}));
-
 
 export default AddCreditCardDialog;

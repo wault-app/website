@@ -1,6 +1,4 @@
-import { CardActionArea, CardContent, Grid, List, ListSubheader, Typography } from "@material-ui/core";
-import ResponsiveCard from "@components/ResponsiveCard";
-import { Skeleton } from "@material-ui/lab";
+import { Card, CardActionArea, CardContent, Grid, List, ListSubheader, Skeleton, Typography } from "@mui/material";
 import AccountItem from "@components/AccountItem";
 import Placeholder from "@lib/placeholder";
 import { useRouter } from "next/router";
@@ -55,7 +53,7 @@ const SafeItem = (props: SafeItemProps) => {
 
     if ("loading" in props) {
         return (
-            <ResponsiveCard>
+            <Card>
                 <List>
                     <ListSubheader>
                         <Skeleton />
@@ -67,12 +65,12 @@ const SafeItem = (props: SafeItemProps) => {
                         />
                     ))}
                 </List>
-            </ResponsiveCard>
+            </Card>
         );
     }
 
     return (
-        <ResponsiveCard key={`safe-item-${props.keycard.id}`}>
+        <Card>
             <CardActionArea onClick={() => router.push(`/safe/${props.keycard.safe.id}`)}>
                 <CardContent>
                     <Grid container spacing={2}>
@@ -112,7 +110,7 @@ const SafeItem = (props: SafeItemProps) => {
                     </Grid>
                 </CardContent>
             </CardActionArea>
-        </ResponsiveCard>
+        </Card>
     );
 };
 

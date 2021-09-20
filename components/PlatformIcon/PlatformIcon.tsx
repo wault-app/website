@@ -1,8 +1,8 @@
 import Platforms from "@wault/platforms";
-import { makeStyles, Theme, Typography } from "@material-ui/core";
+import { Skeleton, Theme, Typography } from "@mui/material";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
-import { Skeleton } from "@material-ui/lab";
 import { memo } from "react";
+import { makeStyles } from "@mui/styles";
 
 export type PlatformIconProps = ({
     hostname: string;
@@ -22,7 +22,7 @@ const PlatformIcon = (props: PlatformIconProps) => {
             <Skeleton
                 width={props.size}
                 height={props.size}
-                variant={"rect"}
+                variant={"rectangular"}
                 animation={"wave"}
                 className={classes.loader}
             />

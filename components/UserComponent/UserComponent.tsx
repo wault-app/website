@@ -1,5 +1,5 @@
 import { useUser } from "@components/AuthenticationProvider/AuthenticationProvider";
-import { Grid, GridProps, Typography } from "@material-ui/core";
+import { Grid, GridProps, Typography } from "@mui/material";
 
 export type UserComponentProps = GridProps;
 

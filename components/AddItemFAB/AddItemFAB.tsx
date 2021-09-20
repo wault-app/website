@@ -1,10 +1,9 @@
-import { Fab, makeStyles } from "@material-ui/core";
-import { AddRounded } from "@material-ui/icons";
+import { Fab } from "@mui/material";
+import { AddRounded } from "@mui/icons-material";
 import { Fragment, useState } from "react";
 import AddItemDialog from "../AddItemDialog";
 
 const AddItemFAB = () => {
-    const classes = useStyles();
     const [open, setOpen] = useState(false);
 
     return (
@@ -16,23 +15,19 @@ const AddItemFAB = () => {
                 onClose={() => setOpen(false)}
             />
             <Fab
-                className={classes.fab}
                 color={"primary"}
                 onClick={() => setOpen(true)}
+                sx={{
+                    zIndex: 2,
+                    position: "fixed",
+                    right: 16,
+                    bottom: 16,
+                }}
             >
                 <AddRounded />
             </Fab>
         </Fragment>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    fab: {
-        position: "fixed",
-        bottom: theme.spacing(4),
-        right: theme.spacing(4),
-        zIndex: 2,
-    },
-}));
 
 export default AddItemFAB;

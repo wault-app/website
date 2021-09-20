@@ -1,12 +1,14 @@
-import { AppBar, Drawer, Hidden, IconButton, makeStyles, Toolbar, } from "@material-ui/core";
-import { MenuRounded as MenuIcon } from "@material-ui/icons";
+import { AppBar, Drawer, Hidden, IconButton, Toolbar, } from "@mui/material";
+import { MenuRounded as MenuIcon } from "@mui/icons-material";
 import { Fragment, PropsWithChildren, useState } from "react";
 import DrawerContent from "../Drawer";
+import { Box } from "@mui/system";
 
 export type NavigationBarProps = PropsWithChildren<{}>;
 
+const DRAWER_WIDTH = 300;
+
 const NavigationBar = (props: NavigationBarProps) => {
-    const classes = useStyles();
     const [open, setOpen] = useState(false);
 
     return (
@@ -14,12 +16,13 @@ const NavigationBar = (props: NavigationBarProps) => {
             <Hidden smDown>
                 <Drawer
                     variant={"permanent"}
-                    classes={{
-                      paper: classes.drawer,
+                    sx={{
+                        display: { xs: 'none', sm: 'block' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DRAWER_WIDTH },
                     }}
                     open
                 >
-                    <DrawerContent 
+                    <DrawerContent
                         close={() => setOpen(false)}
                     />
                 </Drawer>
@@ -45,8 +48,9 @@ const NavigationBar = (props: NavigationBarProps) => {
                     ModalProps={{
                         keepMounted: true,
                     }}
-                    classes={{
-                      paper: classes.drawer,
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DRAWER_WIDTH },
                     }}
                 >
                     <DrawerContent
@@ -54,35 +58,13 @@ const NavigationBar = (props: NavigationBarProps) => {
                     />
                 </Drawer>
             </Hidden>
-            <div className={classes.wrapper}>
+            <Box sx={{
+                marginLeft: `${DRAWER_WIDTH}px`,
+            }}>
                 {props.children}
-            </div>
+            </Box>
         </Fragment>
     );
 };
-
-const DRAWER_WIDTH = 300;
-
-const useStyles = makeStyles((theme) => ({
-    wrapper: {
-        marginLeft: DRAWER_WIDTH,
-        [theme.breakpoints.down("sm")]: {
-            paddingTop: 64,
-            marginLeft: 0,
-        },
-    },
-    drawer: {
-        width: DRAWER_WIDTH,
-        [theme.breakpoints.up("md")]: {
-            flexShrink: 0,
-        },
-    },
-    logo: {
-        margin: theme.spacing(4),
-        width: 200,
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-}));
 
 export default NavigationBar;

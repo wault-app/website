@@ -1,6 +1,6 @@
-import { createMuiTheme, Dialog, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, makeStyles, ThemeProvider } from "@material-ui/core";
+import { createTheme, Dialog, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, ThemeProvider } from "@mui/material";
 import { PaletteOptions, useTheme } from "@components/ThemeProvider";
-import { PaletteRounded as PaletteIcon } from "@material-ui/icons";
+import { PaletteRounded as PaletteIcon } from "@mui/icons-material";
 import { Fragment, useState } from "react";
 
 export type ColorSchemaSelectorProps = {};
@@ -45,7 +45,6 @@ const ColorSchemaDialog = (props: DialogProps) => {
 
 const ColorOption = (props: { color: string; onClose: () => void }) => {
     const { setColorSchema } = useTheme();
-    const classes = useStyles();
 
     const { palette, name } = PaletteOptions[props.color];
 
@@ -59,20 +58,11 @@ const ColorOption = (props: { color: string; onClose: () => void }) => {
             button
             onClick={() => setColor()}
         >
-            <ThemeProvider theme={createMuiTheme({
+            <ThemeProvider theme={createTheme({
                 palette: {
                     primary: palette,
                 }
             })}>
-                <ListItemIcon>
-                    <div
-                        className={classes.icon}
-                        style={{
-                            // @ts-ignore
-                            backgroundColor: palette[500]
-                        }}
-                    />
-                </ListItemIcon>
                 <ListItemText
                     primary={name}
                 />
@@ -80,13 +70,5 @@ const ColorOption = (props: { color: string; onClose: () => void }) => {
         </ListItem>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    icon: {
-        height: 32,
-        width: 32,
-        borderRadius: 16,
-    },
-}));
 
 export default ColorSchemaSelector;

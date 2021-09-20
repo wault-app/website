@@ -1,14 +1,12 @@
 import Device, { DeviceType } from "@lib/api/Device";
 import Placeholder from "@lib/placeholder";
-import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import DeviceItem from "../DeviceItem";
 
 export type DeviceListProps = {};
 
 const DeviceList = (props: DeviceListProps) => {
-    const classes = useStyles();
-
     const [devices, setDevices] = useState<DeviceType[]>();
     const [error, setError] = useState<Error>();
 
@@ -31,7 +29,7 @@ const DeviceList = (props: DeviceListProps) => {
             <Grid
                 container
                 spacing={2}
-                className={classes.root}
+                sx={{ margin: 2 }}
             >
                 <Grid item xs={12}>
                     <Typography variant={"h5"}>
@@ -44,7 +42,7 @@ const DeviceList = (props: DeviceListProps) => {
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container justify={"center"}>
+                    <Grid container justifyContent={"center"}>
                         <Grid item>
                             <Button
                                 onClick={() => load()}
@@ -85,11 +83,5 @@ const DeviceList = (props: DeviceListProps) => {
         </Fragment>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: theme.spacing(2)
-    },
-}));
 
 export default DeviceList;

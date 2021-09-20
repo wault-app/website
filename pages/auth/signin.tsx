@@ -1,9 +1,8 @@
-import { Container, CardContent, makeStyles, Typography, Grid, TextField, Button } from "@material-ui/core";
+import { Container, CardContent, Typography, Grid, TextField, Button, Card } from "@mui/material";
 import { useState } from "react";
 import Logo from "@components/Logo/Logo";
 import VerticalCenter from "@components/VerticalCenter";
 import { useSnackbar } from "notistack";
-import ResponsiveCard from "@components/ResponsiveCard";
 import { useUser } from "@components/AuthenticationProvider/AuthenticationProvider";
 import RedirectInProgressScreen from "@components/RedirectInProgressScreen";
 import Authentication from "@lib/api/Authentication";
@@ -22,7 +21,6 @@ const SigninPage = () => {
 
     const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
-    const classes = useStyles();
 
     const isDisabled = disabled || !password || (!email && !user);
 
@@ -95,21 +93,37 @@ const SigninPage = () => {
     };
 
     return (
-        <Container className={classes.container}>
+        <Container maxWidth={"xs"} sx={{ height: "100%" }}>
             <VerticalCenter>
-                <div className={classes.logo}>
-                    <Logo />
-                </div>
-                <ResponsiveCard>
+                <Card>
                     <CardContent>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <Grid container spacing={2}>
+                                    <Grid
+                                        sx={{
+                                            mt: 4,
+                                            mb: 2,
+                                        }}
+                                        item
+                                        xs={12}
+                                        textAlign={"center"}
+                                    >
+                                        <Logo
+                                            height={32}    
+                                        />
+                                    </Grid>
                                     <Grid item xs={12}>
                                         <Typography
+                                            textAlign={"center"}
                                             variant={"h5"}
                                         >
-                                            Log in
+                                            Authentication
+                                        </Typography>
+                                        <Typography
+                                            textAlign={"center"}
+                                        >
+                                            Use your Wault account to log in.
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -140,18 +154,14 @@ const SigninPage = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Button
-                                            fullWidth
                                             variant={"contained"}
                                             disabled={isDisabled}
                                             onClick={auth}
+                                            sx={{ float: "right" }}
                                         >
-                                            Login
+                                            Sign in
                                         </Button>
-                                    </Grid>
-                                    <Grid item xs={12}>
                                         <Button
-                                            fullWidth
-                                            variant={"outlined"}
                                             disabled={disabled}
                                             onClick={() => router.push("/auth/register")}
                                         >
@@ -162,29 +172,10 @@ const SigninPage = () => {
                             </Grid>
                         </Grid>
                     </CardContent>
-                </ResponsiveCard>
+                </Card>
             </VerticalCenter>
         </Container>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    logo: {
-        textAlign: "center",
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-        maxWidth: "100%",
-        width: 300,
-        marginLeft: "auto",
-        marginRight: "auto",
-        [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(4),
-        },
-    },
-    container: {
-        height: "100%",
-    },
-}));
 
 export default SigninPage;

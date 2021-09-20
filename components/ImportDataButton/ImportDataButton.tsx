@@ -1,5 +1,5 @@
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { DatabaseImportOutline } from "mdi-material-ui";
+import DatabaseImportIcon from "@components/DatabaseImportIcon";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Fragment, useState } from "react";
 import ImportDataDialog from "../ImportDataDialog";
 
@@ -18,7 +18,7 @@ const ImportDataButton = (props: ImportDataButtonProps) => {
             />
             <ListItem button onClick={() => setOpen(true)}>
                 <ListItemIcon>
-                    <DatabaseImportOutline />
+                    <DatabaseImportIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Import data"} />
             </ListItem>

@@ -1,11 +1,12 @@
 import ItemList from "@components/ItemList";
 import { useKeycards } from "@components/KeycardProvider";
 import BadgeList, { BadgeType } from "@components/BadgeList";
-import { Card, CardContent, Container, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
+import { Card, CardContent, Container, Typography, useMediaQuery } from "@mui/material";
 import Category from "@wault/category";
 import { ItemType } from "@wault/typings";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
+import { Box } from "@mui/system";
 
 const SafePage = () => {
     const router = useRouter();
@@ -15,7 +16,6 @@ const SafePage = () => {
     const keycard = keycards.find((keycard) => keycard.safe.id === id);
 
     const isSmall = useMediaQuery('(max-width:600px)');
-    const classes = useStyles();
 
     const [shownItems, setShownItems] = useState<ItemType[]>(keycard.safe.items);
     const [selected, setSelected] = useState<string[]>([]);
@@ -62,7 +62,10 @@ const SafePage = () => {
     }
 
     return (
-        <Container maxWidth={"sm"} className={classes.root}>
+        <Container
+            maxWidth={"sm"}
+            sx={{ pt: 2 }}
+        >
             <Card>
                 <CardContent>
                     <Typography variant={"h6"}>
@@ -75,7 +78,12 @@ const SafePage = () => {
                     )}
                 </CardContent>
 
-                <div className={classes.tags}>
+                <Box sx={{ 
+                    pt: 0,
+                    pr: 2,
+                    pb: 2,
+                    pl: 2,
+                }}>
                     <BadgeList
                         tags={tags}
                         selected={selected}
@@ -89,7 +97,7 @@ const SafePage = () => {
                             setSelected(sel);
                         }}
                     />
-                </div>
+                </Box>
 
                 {keycard.safe.items.length > 0 && Object.keys(shownItems).length > 0 && (
                     <ItemList
@@ -102,16 +110,5 @@ const SafePage = () => {
         </Container>
     );
 };
-
-const useStyles = makeStyles((theme) => (
-    {
-        root: {
-            paddingTop: theme.spacing(2),
-        },
-        tags: {
-            padding: theme.spacing(0, 2, 2, 2),
-        },
-    }
-));
 
 export default SafePage;

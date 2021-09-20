@@ -1,6 +1,6 @@
 import PlatformIcon from "@components/PlatformIcon";
 import Platforms from "@wault/platforms";
-import { InputAdornment, TextField, TextFieldProps, Tooltip } from "@material-ui/core";
+import { InputAdornment, TextField, TextFieldProps, Tooltip } from "@mui/material";
 import { Fragment } from "react";
 
 const PlatformTextField = (props: TextFieldProps) => {

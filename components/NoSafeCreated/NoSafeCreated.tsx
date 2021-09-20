@@ -1,16 +1,17 @@
-import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@mui/material";
 import EmptyCanvasIllustration from "@components/EmptyCanvasIllustration";
+import { makeStyles } from "@mui/styles";
 
 const NoSafeCreated = () => {
     const classes = useStyles();
 
     return (
-        <Container maxWidth={"sm"} className={classes.container}>
+        <Container maxWidth={"sm"} sx={{ pt: 8, pb: 8 }}>
             <Grid container alignItems={"center"} className={classes.fullHeight}>
                 <Grid item>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Grid container justify={"center"}>
+                            <Grid container justifyContent={"center"}>
                                 <Grid item>
                                     <EmptyCanvasIllustration className={classes.emptyCanvas} />
                                 </Grid>
@@ -38,9 +39,6 @@ const useStyles = makeStyles((theme) => ({
     },
     fullHeight: {
         minHeight: "100%",
-    },
-    container: {
-        padding: theme.spacing(8, 0, 8, 0),
     },
 }));
 

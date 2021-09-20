@@ -1,7 +1,7 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import Safe from "@lib/api/Safe";
 import ErrorScreen from "@components/ErrorScreen";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@mui/material";
 import { useContext } from "react";
 import { useEffect } from "react";
 import SafeItem from "@components/SafeItem";

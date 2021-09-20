@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@mui/material";
 import SafeNameTextField from "../SafeNameTextField/SafeNameTextField";
 import Safe from "@lib/api/Safe";
 import { useSnackbar } from "notistack";

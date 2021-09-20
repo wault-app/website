@@ -1,6 +1,7 @@
-import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from "@material-ui/core";
+import { Collapse, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from "@mui/material";
 import { Fragment, useState } from "react";
-import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon } from "@material-ui/icons";
+import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon } from "@mui/icons-material";
+import { Box } from "@mui/system";
 
 /**
  * A button and a container to display the description of an `Account`
@@ -8,7 +9,7 @@ import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIco
  */
 const ShowDescriptionButton = ({ description }: { description: string }) => {
     const [open, setOpen] = useState(false);
-    const classes = useStyles();
+    const theme = useTheme();
 
     return (
         <Fragment>
@@ -20,23 +21,19 @@ const ShowDescriptionButton = ({ description }: { description: string }) => {
                 {open ? <DecreaseIcon /> : <ExpandIcon />}
             </ListItem>
             <Collapse in={open} timeout={"auto"} unmountOnExit>
-                <div className={classes.box}>
+                <Box sx={{
+                    p: 2,
+                    m: 2,
+                    borderRadius: theme.shape.borderRadius,
+                    backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
+                }}>
                     <Typography>
                         {description}
                     </Typography>
-                </div>
+                </Box>
             </Collapse>
         </Fragment>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    box: {
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: theme.palette.type === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
-        margin: theme.spacing(2),
-        padding: theme.spacing(2),
-    },
-}));
 
 export default ShowDescriptionButton;

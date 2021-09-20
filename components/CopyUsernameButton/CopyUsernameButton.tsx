@@ -1,7 +1,7 @@
 import Clipboard from "@lib/clipboard";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { FileCopyRounded as CopyIcon } from "@material-ui/icons";
+import { FileCopyRounded as CopyIcon } from "@mui/icons-material";
 
 export type CopyUsernameButtonProps = {
     username: string;

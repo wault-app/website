@@ -1,5 +1,5 @@
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { HomeRounded as HomeIcon } from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { HomeRounded as HomeIcon } from "@mui/icons-material";
 
 export type HomeButtonProps = {
     onClick: () => void;

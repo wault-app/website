@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, makeStyles, Theme, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, Theme, Typography } from "@mui/material";
 import PlatformIcon from "@components/PlatformIcon";
 import Platforms from "@wault/platforms";
 import CategoryBadge from "@components/CategoryBadge";
@@ -7,6 +7,7 @@ import OpenPlatformButton from "../OpenPlatformButton";
 import CopyPasswordButton from "../CopyPasswordButton";
 import ShowDescriptionButton from "../ShowDescriptionButton";
 import { AccountType } from "@wault/typings";
+import { makeStyles } from "@mui/styles";
 
 export type AccountDialogProps = DialogProps & {
     account: AccountType;
@@ -20,7 +21,7 @@ const AccountDialog = (props: AccountDialogProps) => {
 
     return (
         <Dialog {...props}>
-            <DialogContent className={classes.root}>
+            <DialogContent sx={{ p: 0 }}>
                 <Grid container>
                     <Grid item xs={12} md={5}>
                         <div
@@ -39,7 +40,7 @@ const AccountDialog = (props: AccountDialogProps) => {
                             <Typography noWrap gutterBottom>
                                 {account.username}
                             </Typography>
-                            <Grid container spacing={1} justify={"center"}>
+                            <Grid container spacing={1} justifyContent={"center"}>
                                 {account.categories?.map((category) => (
                                     <CategoryBadge
                                         key={`category-badge-${category}`}
@@ -85,10 +86,6 @@ const AccountDialog = (props: AccountDialogProps) => {
 };
 
 const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
-    root: {
-        padding: 0,
-        paddingTop: "0 !important",
-    },
     icon: {
         marginTop: -32,
         marginBottom: 24,

@@ -1,8 +1,8 @@
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Fragment } from "react";
-import { DatabaseExportOutline } from "mdi-material-ui";
 import { useKeycards } from "@components/KeycardProvider";
 import { useUser } from "@components/AuthenticationProvider/AuthenticationProvider";
+import DatabaseExportIcon from "@components/DatabaseExportIcon";
 
 export type ExportDataButtonProps = {};
 
@@ -30,7 +30,7 @@ const ExportDataButton = (props: ExportDataButtonProps) => {
         <Fragment>
             <ListItem button onClick={() => download()}>
                 <ListItemIcon>
-                    <DatabaseExportOutline />
+                    <DatabaseExportIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Export data"} />
             </ListItem>

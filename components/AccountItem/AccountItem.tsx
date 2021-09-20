@@ -1,8 +1,7 @@
-import { ListItem, ListItemAvatar, ListItemText, makeStyles, MenuProps } from "@material-ui/core";
+import { ListItem, ListItemAvatar, ListItemText, MenuProps, Skeleton } from "@mui/material";
 import PlatformIcon from "@components/PlatformIcon";
 import AccountDialog from "../AccountDialog/AccountDialog";
 import AccountMenu from "../AccountMenu/AccountMenu";
-import { Skeleton } from "@material-ui/lab";
 import { AccountType } from "@wault/typings";
 import { useState } from "react";
 
@@ -17,8 +16,6 @@ export type AccountItemProps = AccountItemLoadedProps | {
 const AccountItem = (props: AccountItemProps) => {
     const [open, setOpen] = useState(false);
     const [menu, setMenu] = useState<MenuProps>();
-
-    const classes = useStyles();
 
     if ("loading" in props) {
         return (
@@ -70,11 +67,10 @@ const AccountItem = (props: AccountItemProps) => {
                     });
                 }}
             >
-                <ListItemAvatar>
+                <ListItemAvatar sx={{ mr: 1 }}>
                     <PlatformIcon
                         size={48}
                         hostname={account.platform}
-                        className={classes.icon}
                     />
                 </ListItemAvatar>
                 <ListItemText
@@ -85,11 +81,5 @@ const AccountItem = (props: AccountItemProps) => {
         </div>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    icon: {
-        marginRight: theme.spacing(2),
-    },
-}));
 
 export default AccountItem;

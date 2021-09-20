@@ -1,5 +1,6 @@
 import UserComponent from "@components/UserComponent/UserComponent";
-import { Divider, DrawerProps as MUIDrawerProps, List, makeStyles } from "@material-ui/core";
+import { Divider, DrawerProps as MUIDrawerProps, List } from "@mui/material";
+import { Box } from "@mui/system";
 import { useRouter } from "next/router";
 import { Fragment } from "react";
 import HomeButton from "../HomeButton";
@@ -12,7 +13,6 @@ export type DrawerProps = {
 
 const Drawer = (props: DrawerProps) => {
     const router = useRouter();
-    const classes = useStyles();
 
     const navigate = (target: string) => {
         router.push(target);
@@ -21,7 +21,9 @@ const Drawer = (props: DrawerProps) => {
 
     return (
         <Fragment>
-            <UserComponent className={classes.user} />
+            <Box sx={{ p: 2 }}>
+                <UserComponent />
+            </Box>    
             <List>
                 <HomeButton onClick={() => navigate("/")} />
             </List>
@@ -33,11 +35,5 @@ const Drawer = (props: DrawerProps) => {
         </Fragment>
     );
 };
-
-const useStyles = makeStyles(() => ({
-    user: {
-        padding: 16,
-    },
-}));
 
 export default Drawer;

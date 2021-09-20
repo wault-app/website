@@ -1,5 +1,5 @@
-import { Brightness2Rounded as DarkModeIcon } from "@material-ui/icons";
-import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Switch } from "@material-ui/core";
+import { Brightness2Rounded as DarkModeIcon } from "@mui/icons-material";
+import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Switch } from "@mui/material";
 import { useTheme } from "@components/ThemeProvider";
 
 export type DarkModeSwitch = {};

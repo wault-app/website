@@ -1,6 +1,6 @@
 import SafeIcon from "@components/SafeIcon";
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
-import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@material-ui/icons";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@mui/icons-material";
 import { Fragment, useState } from "react";
 import AddAccountDialog from "../AddAccountDialog";
 import AddCreditCardDialog from "../AddCreditCardDialog";
@@ -12,7 +12,6 @@ type ScreenType = "account" | "credit-card" | "safe";
 export type AddItemDialogProps = DialogProps;
 
 const AddItemDialog = (props: AddItemDialogProps) => {
-    const classes = useStyles();
     const [selected, setSelected] = useState<ScreenType>(null);
     const { keycards } = useKeycards();
 
@@ -32,7 +31,7 @@ const AddItemDialog = (props: AddItemDialogProps) => {
                 <DialogTitle>
                     Select what do you want to add!
                 </DialogTitle>
-                <DialogContent className={classes.root}>
+                <DialogContent sx={{ p: 0 }}>
                     <List>
                         <ListItem
                             button
@@ -96,12 +95,5 @@ const AddItemDialog = (props: AddItemDialogProps) => {
         </Fragment>
     );
 };
-
-const useStyles = makeStyles({
-    root: {
-        padding: 0,
-        paddingTop: "0 !important",
-    },
-});
 
 export default AddItemDialog;

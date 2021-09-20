@@ -1,4 +1,4 @@
-import { Chip, ChipProps, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { Chip, ChipProps, createMuiTheme, ThemeProvider } from "@mui/material";
 
 export type TagProps = ChipProps & {
     color?: any;

@@ -3,21 +3,27 @@ import { Fragment } from "react";
 import { useKeycards } from "@components/KeycardProvider";
 import SafeItem from "@components/SafeItem";
 import NoSafeCreated from "@components/NoSafeCreated";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@mui/material";
 
 const MainPage = () => {
     const { keycards } = useKeycards();
 
     return (
         <Fragment>
-            <Container maxWidth={"md"}>
+            <Container maxWidth={"sm"} sx={{ pt: 2, pb: 2 }}>
                 {keycards.length > 0 ? (
-                    keycards.map((keycard) => (
-                        <SafeItem
-                            key={`safe-item-${keycard.safe.id}`} 
-                            keycard={keycard}
-                        />
-                    ))
+                    <Grid container spacing={2}>
+                        {keycards.map(
+                            (keycard) => (
+                                <Grid item xs={12} key={`safe-item-${keycard.safe.id}`} >
+                                    <SafeItem
+                                        keycard={keycard}
+                                    />
+                                </Grid>
+                            )
+                        )}
+
+                    </Grid>
                 ) : (
                     <NoSafeCreated />
                 )}

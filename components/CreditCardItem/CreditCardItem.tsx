@@ -1,10 +1,11 @@
 import { CreditCardType } from "@wault/typings";
 import Issuers from "@lib/credit-cards/issuers/issuers";
-import { ListItem, ListItemAvatar, ListItemText, makeStyles, Theme } from "@material-ui/core";
-import { CreditCardRounded } from "@material-ui/icons";
+import { ListItem, ListItemAvatar, ListItemText, useTheme } from "@mui/material";
+import { CreditCardRounded } from "@mui/icons-material";
 import CreditCardDialog from "../CreditCardDialog/CreditCardDialog";
 import Payments from "payment";
 import { Fragment, useState } from "react";
+import { Box } from "@mui/system";
 
 export type CreditCardItemProps = {
     creditCard: CreditCardType;
@@ -12,8 +13,8 @@ export type CreditCardItemProps = {
 
 const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
     const issuer = Issuers.get(Payments.fns.cardType(creditCard.number));
-    const classes = useStyles({ color: issuer.color });
     const [open, setOpen] = useState(false);
+    const theme = useTheme();
 
     return (
         <Fragment>
@@ -25,10 +26,22 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
                 onClose={() => setOpen(false)}
             />
             <ListItem button onClick={() => setOpen(true)}>
-                <ListItemAvatar>
-                    <div className={classes.background}>
-                        <CreditCardRounded className={classes.icon} />
-                    </div>
+                <ListItemAvatar sx={{ mr: 1 }}>
+                    <Box sx={{
+                        background: issuer.color,
+                        width: 48,
+                        height: 48,
+                        borderRadius: "12px",
+                        boxShadow: theme.shadows[2],
+                    }}>
+                        <CreditCardRounded
+                            style={{
+                                width: 24,
+                                height: 24,
+                                margin: 12,
+                            }} 
+                        />
+                    </Box>
                 </ListItemAvatar>
                 <ListItemText
                     primary={creditCard.name}
@@ -38,21 +51,5 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
         </Fragment>
     );
 };
-
-const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
-    background: {
-        background: props => props.color,
-        width: 48,
-        height: 48,
-        borderRadius: 12,
-        marginRight: 16,
-        boxShadow: theme.shadows[2],
-    },
-    icon: {
-        width: 24,
-        height: 24,
-        margin: 12,
-    },
-}));
 
 export default CreditCardItem;

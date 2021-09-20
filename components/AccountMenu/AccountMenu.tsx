@@ -1,7 +1,7 @@
 import OpenPlatformButton from "../OpenPlatformButton";
 import CopyUsernameButton from "../CopyUsernameButton";
 import CopyPasswordButton from "../CopyPasswordButton";
-import { Menu, MenuProps } from "@material-ui/core";
+import { Menu, MenuProps } from "@mui/material";
 import { AccountType } from "@wault/typings";
 
 export type AccountMenuProps = MenuProps & {

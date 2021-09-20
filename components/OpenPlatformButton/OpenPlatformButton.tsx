@@ -1,5 +1,5 @@
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { LanguageRounded as WebsiteIcon } from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { LanguageRounded as WebsiteIcon } from "@mui/icons-material";
 
 /**
  * A button used to open the website of a platform

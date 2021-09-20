@@ -1,7 +1,6 @@
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, IconButton, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from "@material-ui/core";
-import { DesktopWindowsRounded as DesktopIcon, ExitToAppRounded as LogoutIcon, LanguageRounded as BrowserIcon, SmartphoneRounded as MobileIcon } from "@material-ui/icons";
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, IconButton, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, Skeleton } from "@mui/material";
+import { DesktopWindowsRounded as DesktopIcon, ExitToAppRounded as LogoutIcon, LanguageRounded as BrowserIcon, SmartphoneRounded as MobileIcon } from "@mui/icons-material";
 import Device, { DeviceType } from "@lib/api/Device";
-import { Skeleton } from "@material-ui/lab";
 import { Fragment, useState } from "react";
 import { useSnackbar } from "notistack";
 
@@ -23,7 +22,7 @@ const DeviceItem = (props: DeviceItemProps) => {
             <ListItem>
                 <ListItemIcon>
                     <Skeleton
-                        variant={"circle"}
+                        variant={"circular"}
                         width={36}
                         height={36}
                     />

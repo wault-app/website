@@ -1,25 +1,33 @@
 import { CreditCardType } from "@wault/typings";
-import { Button, Dialog, DialogContent, DialogActions, Grid, List, ListItem, ListItemIcon, ListItemText, makeStyles, DialogProps } from "@material-ui/core";
-import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@material-ui/icons";
+import { Button, Dialog, DialogContent, DialogActions, Grid, List, ListItem, ListItemIcon, ListItemText, DialogProps } from "@mui/material";
+import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@mui/icons-material";
 import { useState } from "react";
 import ReactCreditCard from "react-credit-cards";
 import CopyCardNumberButton from "../CopyCardNumberButton";
+import { Box } from "@mui/system";
 
 export type CreditCardDialogProps = DialogProps & {
     creditCard: CreditCardType;
 };
 
 const CreditCardDialog = (props: CreditCardDialogProps) => {
-    const classes = useStyles();
     const [show, setShow] = useState(false);
     const { creditCard } = props;
 
     return (
         <Dialog {...props}>
-            <DialogContent className={classes.root}>
+            <DialogContent
+                sx={{
+                    minHeight: 300,
+                    p: 0,
+                }}
+            >
                 <Grid container>
                     <Grid item xs={12} md={5}>
-                        <div className={classes.card}>
+                        <Box sx={{
+                            width: "100%",
+                            p: 4,
+                        }}>
                             <ReactCreditCard
                                 name={creditCard.cardholder}
                                 cvc={creditCard.cvc}
@@ -27,7 +35,7 @@ const CreditCardDialog = (props: CreditCardDialogProps) => {
                                 expiry={creditCard.expiry}
                                 focused={show ? "cvc" : null}
                             />
-                        </div>
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={7}>
                         <List>
@@ -60,17 +68,5 @@ const CreditCardDialog = (props: CreditCardDialogProps) => {
         </Dialog>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        minHeight: 300,
-        padding: 0,
-        paddingTop: "0 !important",
-    },
-    card: {
-        width: "100%",
-        padding: theme.spacing(4),
-    }
-}));
 
 export default CreditCardDialog;

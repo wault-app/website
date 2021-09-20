@@ -1,9 +1,10 @@
 import { useRSA } from "@components/RSAProvider";
 import Authentication from "@lib/api/Authentication";
-import { CircularProgress, Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { makeStyles } from "@mui/styles";
 
 const RedirectPage = () => {
     const classes = useStyles();

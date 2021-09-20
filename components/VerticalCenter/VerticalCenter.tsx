@@ -1,5 +1,6 @@
-import { Grid, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Grid, useMediaQuery } from "@mui/material";
 import { PropsWithChildren } from "react";
+import { makeStyles } from "@mui/styles";
 
 export type VerticalCenterProps = PropsWithChildren<{}>;
 
@@ -16,7 +17,7 @@ const VerticalCenter = (props: VerticalCenterProps) => {
     }
 
     return (
-        <Grid className={classes.fullHeight} container alignItems={"center"} justify={"center"}>
+        <Grid className={classes.fullHeight} container alignItems={"center"} justifyContent={"center"}>
             <Grid item>
                 {props.children}
             </Grid>

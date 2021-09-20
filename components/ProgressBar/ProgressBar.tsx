@@ -1,4 +1,4 @@
-import { useTheme } from "@material-ui/core";
+import { useTheme } from "@mui/material";
 import NextNprogress from "nextjs-progressbar";
 
 export type ProgressBarProps = {};

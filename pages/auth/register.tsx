@@ -1,10 +1,9 @@
 import EmailTextField from "@components/EmailTextField";
 import PasswordTextField from "@components/PasswordTextField";
 import UsernameTextField from "@components/UsernameTextField";
-import ResponsiveCard from "@components/ResponsiveCard";
 import VerticalCenter from "@components/VerticalCenter";
 import Authentication from "@lib/api/Authentication";
-import { Button, CardContent, Container, Grid, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -47,10 +46,9 @@ const RegistrationPage = () => {
     };
 
     return (
-    
-        <Container>
+        <Container maxWidth={"sm"}>
             <VerticalCenter>
-                <ResponsiveCard>
+                <Card>
                     <CardContent>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -111,7 +109,7 @@ const RegistrationPage = () => {
                             </Grid>
                         </Grid>
                     </CardContent>
-                </ResponsiveCard>
+                </Card>
             </VerticalCenter>
         </Container>
     );

@@ -1,5 +1,5 @@
 import { ItemTypeWithoutID } from "@wault/typings";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { ChangeEvent } from "react";
 import { ProviderImportType } from "../ImportDataDialog";

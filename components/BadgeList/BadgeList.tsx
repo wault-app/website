@@ -1,5 +1,5 @@
-import { Avatar, Chip, Grid, Grow } from "@material-ui/core";
-import { DoneRounded } from "@material-ui/icons";
+import { Avatar, Chip, Grid, Grow } from "@mui/material";
+import { DoneRounded } from "@mui/icons-material";
 import { useMemo } from "react";
 import { TransitionGroup } from "react-transition-group";
 

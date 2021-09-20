@@ -1,7 +1,7 @@
 import { AuthenticationContext } from "@components/AuthenticationProvider/AuthenticationProvider";
 import Authentication from "@lib/api/Authentication";
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
-import { ExitToAppRounded as LogoutIcon } from "@material-ui/icons";
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { ExitToAppRounded as LogoutIcon } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import { Fragment, useContext, useState } from "react";
 

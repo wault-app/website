@@ -1,7 +1,7 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { CssBaseline, NoSsr } from "@material-ui/core";
+import { CssBaseline, NoSsr } from "@mui/material";
 import FaviconList from "@components/FaviconList";
 import { SnackbarProvider } from "notistack";
 import NavigationBar from "@components/NavigationBar";

@@ -1,8 +1,12 @@
-import { makeStyles } from "@material-ui/core";
+import { useTheme } from "@mui/material";
 import { SVGProps } from "react";
 
 const Icon = (props: SVGProps<SVGSVGElement>) => {
-    const classes = useStyles();
+    const theme = useTheme();
+
+    const arm = {
+        fill: theme.palette.mode === "dark" ? "#ffffff" : "#000000",
+    };
 
     return (
         <svg
@@ -11,23 +15,28 @@ const Icon = (props: SVGProps<SVGSVGElement>) => {
             {...props}
         >
             <path
-                className={classes.arm}
+                style={arm}
                 d="M87.77,351.23,15.06,423.89a51.34,51.34,0,0,0,0,72.65h0a51.43,51.43,0,0,0,72.71,0l72.72-72.65a51.35,51.35,0,0,0,0-72.66h0A51.46,51.46,0,0,0,87.77,351.23Z"
             />
             <path
-                className={classes.arm}
+                style={arm}
                 d="M424.23,15.26,351.09,88.33a51.35,51.35,0,0,0,0,72.66h0a51.46,51.46,0,0,0,72.72,0l73.13-73.08a51.34,51.34,0,0,0,0-72.65h0A51.43,51.43,0,0,0,424.23,15.26Z"
             />
             <path
-                className={classes.arm}
+                style={arm}
                 d="M496.94,497h0a51.44,51.44,0,0,1-72.72,0L351.1,423.89a51.35,51.35,0,0,1,0-72.66h0a51.45,51.45,0,0,1,72.71,0l73.13,73.07A51.36,51.36,0,0,1,496.94,497Z"
             />
             <path
-                className={classes.arm}
+                style={arm}
                 d="M160.49,160.78h0a51.46,51.46,0,0,1-72.72,0L15.06,88.12a51.34,51.34,0,0,1,0-72.65h0a51.43,51.43,0,0,1,72.71,0l72.72,72.65A51.35,51.35,0,0,1,160.49,160.78Z"
             />
             <rect
-                className={classes.circle}
+                style={{
+                    fill: "none",
+                    strokeMiterlimit: 10,
+                    strokeWidth: 102,
+                    stroke: theme.palette.mode === "dark" ? "#ffffff" : "#000000",
+                }}
                 x="101.67"
                 y="101.75"
                 width="308.25"
@@ -39,17 +48,5 @@ const Icon = (props: SVGProps<SVGSVGElement>) => {
 
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    arm: {
-        fill: theme.palette.type === "dark" ? "#ffffff" : "#000000",
-    },
-    circle: {
-        fill: "none",
-        strokeMiterlimit: 10,
-        strokeWidth: 102,
-        stroke: theme.palette.type === "dark" ? "#ffffff" : "#000000",
-    },
-}));
 
 export default Icon;

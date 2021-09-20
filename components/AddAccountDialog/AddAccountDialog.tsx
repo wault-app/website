@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid } from "@mui/material";
 import { useState } from "react";
 import DescriptionField from "@components/DescriptionTextField";
 import PasswordField from "@components/PasswordTextField";

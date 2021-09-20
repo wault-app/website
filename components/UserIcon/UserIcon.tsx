@@ -1,4 +1,4 @@
-import { Avatar, AvatarProps } from "@material-ui/core";
+import { Avatar, AvatarProps } from "@mui/material";
 import { UserType } from "@wault/typings";
 
 export type UserIconProps = {

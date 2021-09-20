@@ -1,5 +1,5 @@
 import { useKeycards } from "@components/KeycardProvider";
-import { FormControl, InputLabel, Select, MenuItem, SelectProps } from "@material-ui/core";
+import { FormControl, InputLabel, Select, MenuItem, SelectProps } from "@mui/material";
 
 export type SafeSelectorProps = SelectProps;
 

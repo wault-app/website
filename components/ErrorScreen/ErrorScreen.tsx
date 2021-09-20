@@ -1,20 +1,18 @@
 import { PropsWithChildren } from "react";
-import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@mui/material";
 
 export type ErrorScreenProps = PropsWithChildren<{
     error: Error;
 }>;
 
 const ErrorScreen = (props: ErrorScreenProps) => {
-    const classes = useStyles();
-    
     console.error(props.error);
 
     return (
         <Grid
             container
             alignItems={"center"}
-            className={classes.root}
+            sx={{ height: "100%" }}
         >
             <Grid item xs={12}>
                 <Container>
@@ -30,11 +28,5 @@ const ErrorScreen = (props: ErrorScreenProps) => {
         </Grid>
     );
 };
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        height: "100%",
-    },
-}));
 
 export default ErrorScreen;

@@ -8,7 +8,6 @@ const SafeSelector = (props: SafeSelectorProps) => {
 
     return (
         <FormControl
-            variant="outlined"
             fullWidth
         >
             <InputLabel>Safe</InputLabel>

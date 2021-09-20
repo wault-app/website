@@ -123,12 +123,6 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
                     Back
                 </Button>
                 <Button
-                    onClick={() => props.onClose({}, "backdropClick")}
-                    disabled={disabled}
-                >
-                    Close
-                </Button>
-                <Button
                     onClick={create}
                     disabled={disabled}
                     color={"primary"}

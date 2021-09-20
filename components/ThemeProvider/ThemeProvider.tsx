@@ -101,6 +101,11 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                                 variant: "filled",
                             },
                         },
+                        MuiFormControl: {
+                            defaultProps: {
+                                variant: "filled",
+                            },
+                        },
                     },
                 }
             )}>

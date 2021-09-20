@@ -125,12 +125,6 @@ const AddAccountDialog = (props: AddAccountDialogProps) => {
                 </Button>
                 <Button
                     disabled={disabled}
-                    onClick={() => props.onClose({}, "backdropClick")}
-                >
-                    Close
-                </Button>
-                <Button
-                    disabled={disabled}
                     onClick={create}
                     color={"primary"}
                 >

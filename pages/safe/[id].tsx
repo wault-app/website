@@ -77,19 +77,13 @@ const SafePage = () => {
                         </Typography>
                     )}
                 </CardContent>
-
-                <Box sx={{ 
-                    pt: 0,
-                    pr: 2,
-                    pb: 2,
-                    pl: 2,
-                }}>
+                <Box sx={{ pb: 1 }}>
                     <BadgeList
                         tags={tags}
                         selected={selected}
                         onChange={(sel, items) => {
                             const map = new Map();
-                            for(const item of items) {
+                            for (const item of items) {
                                 map.set(item, true);
                             }
 
@@ -98,7 +92,6 @@ const SafePage = () => {
                         }}
                     />
                 </Box>
-
                 {keycard.safe.items.length > 0 && Object.keys(shownItems).length > 0 && (
                     <ItemList
                         width={width}

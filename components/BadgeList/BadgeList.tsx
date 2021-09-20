@@ -59,7 +59,7 @@ const BadgeList = (props: BadgeListProps) => {
             const booleanToInt = (b: boolean) => b ? 1 : 0;
             const firstLevel = booleanToInt(props.selected.includes(b.id)) - booleanToInt(props.selected.includes(a.id));
 
-            if(firstLevel) return firstLevel;
+            if (firstLevel) return firstLevel;
 
             return b.items.length - a.items.length;
         });
@@ -71,9 +71,20 @@ const BadgeList = (props: BadgeListProps) => {
     );
 
     return (
-            <Grid container spacing={1}>
-                <TransitionGroup component={null}>
-                    
+        <Grid
+            container
+            spacing={1}
+            sx={{
+                pl: 2,
+                pr: 2,
+                flexWrap: {
+                    xs: "nowrap",
+                    sm: "wrap",
+                },
+                overflowY: "auto",
+            }}
+        >
+            <TransitionGroup component={null}>
                 {filtered.filter((el) => el.items.length > 0).map(
                     (tag) => (
                         <Grow key={`tag-${tag.id}`}>
@@ -87,7 +98,7 @@ const BadgeList = (props: BadgeListProps) => {
                                         const items = filterBadges(newSelected).map((tag) => tag.items).flat();
 
                                         props.onChange(newSelected, items);
-                                        
+
                                     }}
                                     disabled={tag.items.length === 0}
                                     avatar={
@@ -107,8 +118,8 @@ const BadgeList = (props: BadgeListProps) => {
                         </Grow>
                     )
                 )}
-                </TransitionGroup>
-            </Grid>
+            </TransitionGroup>
+        </Grid>
     );
 };
 

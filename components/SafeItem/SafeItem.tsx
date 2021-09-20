@@ -1,11 +1,10 @@
-import { Card, CardActionArea, CardContent, Grid, List, ListSubheader, Skeleton, Typography } from "@mui/material";
+import { Card, CardActionArea, CardActions, CardContent, Chip, Grid, List, ListSubheader, Skeleton, Typography } from "@mui/material";
 import AccountItem from "@components/AccountItem";
 import Placeholder from "@lib/placeholder";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
 import { KeycardType } from "@wault/typings";
-import Tag from "@components/Tag";
 
 export type SafeItemProps = {
     loading: true;
@@ -14,8 +13,8 @@ export type SafeItemProps = {
 };
 
 type TagType = {
-    text: string;
-    color?: any;
+    label: string;
+    color?: "primary";
 };
 
 const SafeItem = (props: SafeItemProps) => {
@@ -30,20 +29,21 @@ const SafeItem = (props: SafeItemProps) => {
         const firstCharUpperCase = (s: string) => s[0].toUpperCase() + s.substring(1).toLowerCase()
 
         tags.push({
-            text: firstCharUpperCase(props.keycard.role),
+            label: firstCharUpperCase(props.keycard.role),
+            color: "primary",
         });
 
         const accounts = props.keycard.safe.items.filter((item) => item.type === "account").length;
         if (accounts) {
             tags.push({
-                text: `${accounts} accounts`
+                label: `${accounts} accounts`
             });
         }
 
         const cards = props.keycard.safe.items.filter((item) => item.type === "credit-card").length;
         if (accounts) {
             tags.push({
-                text: `${cards} credit cards`
+                label: `${cards} credit cards`
             });
         }
 
@@ -88,28 +88,25 @@ const SafeItem = (props: SafeItemProps) => {
                                 </Typography>
                             </Grid>
                         )}
-                        <Grid item xs={12}>
-                            <Grid container spacing={1}>
-                                {
-                                    tags.map(
-                                        (tag) => (
-                                            <Grid
-                                                item
-                                                key={`chip-${tag.text}`}
-                                            >
-                                                <Tag
-                                                    label={tag.text}
-                                                    color={tag.color}
-                                                />
-                                            </Grid>
-                                        )
-                                    )
-                                }
-                            </Grid>
-                        </Grid>
                     </Grid>
                 </CardContent>
             </CardActionArea>
+            <CardActions sx={{ p: 2 }}>
+                <Grid container spacing={1}>
+                    {
+                        tags.map(
+                            (tag) => (
+                                <Grid item key={`chip-${tag.label}`}>
+                                    <Chip
+                                        label={tag.label}
+                                        color={tag.color}
+                                    />
+                                </Grid>
+                            )
+                        )
+                    }
+                </Grid>
+            </CardActions>
         </Card>
     );
 };

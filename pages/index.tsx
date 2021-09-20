@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { useKeycards } from "@components/KeycardProvider";
 import SafeItem from "@components/SafeItem";
 import NoSafeCreated from "@components/NoSafeCreated";
-import { Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 
 const MainPage = () => {

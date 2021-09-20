@@ -48,6 +48,15 @@ const AddCreditCardDialog = (props: AddCreditCardDialogProps) => {
             enqueueSnackbar("Successfully added credit card!", {
                 variant: "success",
             });
+
+            setNumber("");
+            setCVC(""),
+            setExpiry("");
+            setCardholder("");
+            setName("");
+            setKeycard(keycards[0]);
+            
+            props.onClose({}, "escapeKeyDown");
         } catch(e) {
             enqueueSnackbar(e.message, { 
                 variant: "error",

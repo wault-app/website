@@ -35,6 +35,8 @@ const AddSafeDialog = (props: AddSafeDialogProps) => {
         // add the keycard to already loaded ones
         addKeycard(keycard);
 
+        setName("");
+
         // close the open dialog
         props.onClose({}, "backdropClick");
     };
@@ -57,12 +59,6 @@ const AddSafeDialog = (props: AddSafeDialogProps) => {
                     onClick={() => props.onBack()}
                 >
                     Back
-                </Button>
-                <Button
-                    disabled={disabled}
-                    onClick={() => props.onClose({}, "backdropClick")}
-                >
-                    Close
                 </Button>
                 <Button
                     disabled={disabled}

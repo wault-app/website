@@ -61,6 +61,8 @@ const AddAccountDialog = (props: AddAccountDialogProps) => {
             setUsername("");
             setPassword("");
             setDescription("");
+
+            props.onClose({}, "escapeKeyDown");
         } catch(e) {
             // show the user a snackbar to tell about the error
             enqueueSnackbar(e.message, {

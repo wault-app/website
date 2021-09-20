@@ -27,7 +27,7 @@ const NavigationBar = (props: NavigationBarProps) => {
                     />
                 </Drawer>
             </Hidden>
-            <Hidden mdUp>
+            <Hidden smUp>
                 <AppBar color={"default"}>
                     <Toolbar>
                         <IconButton
@@ -59,7 +59,14 @@ const NavigationBar = (props: NavigationBarProps) => {
                 </Drawer>
             </Hidden>
             <Box sx={{
-                marginLeft: `${DRAWER_WIDTH}px`,
+                marginLeft: {
+                    xs: 0,
+                    sm: `${DRAWER_WIDTH}px`,
+                },
+                marginTop: {
+                    xs: "56px",
+                    sm: 0,
+                },
             }}>
                 {props.children}
             </Box>

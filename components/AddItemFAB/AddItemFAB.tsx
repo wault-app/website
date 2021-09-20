@@ -20,8 +20,10 @@ const AddItemFAB = () => {
                 sx={{
                     zIndex: 2,
                     position: "fixed",
-                    right: 16,
-                    bottom: 16,
+                    right: 0,
+                    bottom: 0,
+                    mr: 4,
+                    mb: 4,
                 }}
             >
                 <AddRounded />

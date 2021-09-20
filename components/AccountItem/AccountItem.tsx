@@ -4,6 +4,7 @@ import AccountDialog from "../AccountDialog/AccountDialog";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import { AccountType } from "@wault/typings";
 import { useState } from "react";
+import { Box } from "@mui/system";
 
 type AccountItemLoadedProps = {
     account: AccountType;
@@ -37,7 +38,7 @@ const AccountItem = (props: AccountItemProps) => {
     const { account } = props;
 
     return (
-        <div key={`account-item-${props.account.id}`}>
+        <Box>
             <AccountDialog
                 maxWidth={"md"}
                 fullWidth
@@ -78,7 +79,7 @@ const AccountItem = (props: AccountItemProps) => {
                     secondary={account.username}
                 />
             </ListItem>
-        </div>
+        </Box>
     );
 };
 

@@ -1,12 +1,13 @@
-import ItemList from "@components/ItemList";
 import { useKeycards } from "@components/KeycardProvider";
 import BadgeList, { BadgeType } from "@components/BadgeList";
-import { Card, CardContent, Container, Typography, useMediaQuery } from "@mui/material";
+import { Card, CardContent, Container, Typography } from "@mui/material";
 import Category from "@wault/category";
 import { ItemType } from "@wault/typings";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { Box } from "@mui/system";
+import AccountItem from "@components/AccountItem";
+import CreditCardItem from "@components/CreditCardItem";
 
 const SafePage = () => {
     const router = useRouter();
@@ -15,15 +16,8 @@ const SafePage = () => {
     const { id } = router.query;
     const keycard = keycards.find((keycard) => keycard.safe.id === id);
 
-    const isSmall = useMediaQuery('(max-width:600px)');
-
     const [shownItems, setShownItems] = useState<ItemType[]>(keycard.safe.items);
     const [selected, setSelected] = useState<string[]>([]);
-
-    const width = useMemo(
-        () => isSmall ? window.innerWidth : 552,
-        [isSmall]
-    );
 
     const tags = useMemo(
         () => {
@@ -64,7 +58,7 @@ const SafePage = () => {
     return (
         <Container
             maxWidth={"sm"}
-            sx={{ pt: 2 }}
+            sx={{ pt: 2, pb: 2 }}
         >
             <Card>
                 <CardContent>
@@ -93,11 +87,17 @@ const SafePage = () => {
                     />
                 </Box>
                 {keycard.safe.items.length > 0 && Object.keys(shownItems).length > 0 && (
-                    <ItemList
-                        width={width}
-                        height={500}
-                        items={shownItems}
-                    />
+                    shownItems.map((item) => (
+                        item.type === "account" ? (
+                            <AccountItem
+                                account={item}
+                            />
+                        ) : item.type === "credit-card" && (
+                            <CreditCardItem
+                                creditCard={item}
+                            />
+                        )
+                    ))
                 )}
             </Card>
         </Container>

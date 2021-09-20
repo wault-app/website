@@ -7,43 +7,45 @@ import { Card, Container, Grid, List, ListSubheader } from "@mui/material";
 
 export type SettingsPageProps = {};
 
-// todo: move options to an array for cleaner code
+const categories = [
+    {
+        title: "Display settings",
+        items: [
+            <DarkModeSwitch key={"dark-mode-switch"} />,
+            <ColorSchemaSelector key={"color-schema-selector"} />,
+        ],
+    },
+    {
+        title: "Your data",
+        items: [
+            <ImportDataButton key={"import-data-button"} />,
+            <ExportDataButton key={"export-data-button"} />
+        ],
+    },
+    {
+        title: "Devices",
+        items: [
+            <DeviceList key={"device-list"} />
+        ],
+    }
+];
+
 const SettingsPage = () => {
     return (
         <Container maxWidth={"sm"} sx={{ pt: 2, pb: 2 }}>
             <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Card>
-                        <List>
-                            <ListSubheader>
-                                Display settings
-                            </ListSubheader>
-                            <DarkModeSwitch />
-                            <ColorSchemaSelector />
-                        </List>
-                    </Card>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <List>
-                            <ListSubheader>
-                                Your data
-                            </ListSubheader>
-                            <ImportDataButton />
-                            <ExportDataButton />
-                        </List>
-                    </Card>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <List>
-                            <ListSubheader>
-                                Devices
-                            </ListSubheader>
-                            <DeviceList />
-                        </List>
-                    </Card>
-                </Grid>
+                {categories.map((category) => (
+                    <Grid item xs={12} key={`category-${category.title}`}>
+                        <Card>
+                            <List>
+                                <ListSubheader>
+                                    {category.title}
+                                </ListSubheader>
+                                {category.items}
+                            </List>
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
         </Container>
     );

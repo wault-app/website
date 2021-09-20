@@ -90,10 +90,12 @@ const SafePage = () => {
                     shownItems.map((item) => (
                         item.type === "account" ? (
                             <AccountItem
+                                key={`account-item-${item.id}`}
                                 account={item}
                             />
                         ) : item.type === "credit-card" && (
                             <CreditCardItem
+                                key={`credit-card-item-${item.id}`}
                                 creditCard={item}
                             />
                         )

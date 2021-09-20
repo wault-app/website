@@ -3,7 +3,7 @@ import PlatformIcon from "@components/PlatformIcon";
 import AccountDialog from "../AccountDialog/AccountDialog";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import { AccountType } from "@wault/typings";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Box } from "@mui/system";
 
 type AccountItemLoadedProps = {
@@ -83,4 +83,8 @@ const AccountItem = (props: AccountItemProps) => {
     );
 };
 
-export default AccountItem;
+export default memo(AccountItem, (prev, next) => {
+    if("loading" in prev) return "loading" in next;
+    if("loading" in next) return false;
+    return prev.account.id === next.account.id; 
+});

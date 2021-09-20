@@ -46,7 +46,7 @@ const RegistrationPage = () => {
     };
 
     return (
-        <Container maxWidth={"sm"}>
+        <Container maxWidth={"xs"} sx={{ height: "100%" }}>
             <VerticalCenter>
                 <Card>
                     <CardContent>
@@ -54,8 +54,14 @@ const RegistrationPage = () => {
                             <Grid item xs={12}>
                                 <Typography
                                     variant={"h5"}
+                                    textAlign={"center"}
                                 >
                                     Registration
+                                </Typography>
+                                <Typography
+                                    textAlign={"center"}
+                                >
+                                    Create a new Wault account.
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
@@ -89,18 +95,14 @@ const RegistrationPage = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Button
-                                    fullWidth
+                                    sx={{ float: "right" }}
                                     variant={"contained"}
                                     disabled={disabled || !username || !password || !email || !passwordAgain || passwordAgain !== password}
                                     onClick={register}
                                 >
                                     Register
                                 </Button>
-                            </Grid>
-                            <Grid item xs={12}>
                                 <Button
-                                    fullWidth
-                                    variant={"outlined"}
                                     disabled={disabled}
                                     onClick={() => router.push("/auth/signin")}
                                 >

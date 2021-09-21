@@ -1,8 +1,7 @@
 import Platforms from "@wault/platforms";
-import { Skeleton, Theme, Typography } from "@mui/material";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { Skeleton, Typography, useTheme } from "@mui/material";
 import { memo } from "react";
-import { makeStyles } from "@mui/styles";
+import { Box, BoxProps } from "@mui/system";
 
 export type PlatformIconProps = ({
     hostname: string;
@@ -10,12 +9,13 @@ export type PlatformIconProps = ({
 } | {
     loading: true;
     size?: number;
-}) & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+}) & BoxProps;
 
-const size = 72;
+const DEFAULT_SIZE = 72;
 
 const PlatformIcon = (props: PlatformIconProps) => {
-    const classes = useStyles({ size: props.size || size });
+    const theme = useTheme();
+    const size = props.size || DEFAULT_SIZE;
 
     if ("loading" in props) {
         return (
@@ -24,13 +24,17 @@ const PlatformIcon = (props: PlatformIconProps) => {
                 height={props.size}
                 variant={"rectangular"}
                 animation={"wave"}
-                className={classes.loader}
+                sx={{
+                    width: size,
+                    height: size,
+                    boxShadow: theme.shadows[2],
+                    borderRadius: `${size / 4}px`,
+                }}
             />
         );
     }
 
-    const { hostname } = props;
-    const platform = Platforms.get(hostname);
+    const platform = Platforms.get(props.hostname);
 
     const Icon = () => {
         if (platform?.icon) {         
@@ -38,15 +42,27 @@ const PlatformIcon = (props: PlatformIconProps) => {
                 
             return (
                 <Badge
-                    className={classes.icon}
-                    width={32}
-                    height={32}    
+                    style={{
+                        width: size / 1.75,
+                        height: size / 1.75,
+                        margin: (size - (size / 1.75)) / 2,
+                    }}
                 />
             );
         }
 
         return (
-            <Typography className={classes.text}>
+            <Typography
+                sx={{
+                    color: theme.palette.primary.contrastText,
+                    padding: (size - (size / 3)) / 16,
+                    height: size,
+                    width: size,
+                    textAlign: "center",
+                    fontSize: size / 3,
+                    lineHeight: 1,
+                }}
+            >
                 {platform.name.trim().charAt(0).toUpperCase()}
             </Typography>
         );
@@ -54,49 +70,20 @@ const PlatformIcon = (props: PlatformIconProps) => {
 
 
     return (
-        <div
+        <Box
             {...props}
-            className={`${props.className} ${classes.root}`}
-            style={{
-                backgroundColor: platform.color,
-                ...props?.style,
+            sx={{
+                background: platform.color || `linear-gradient(45deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                width: size,
+                height: size,
+                borderRadius: size / 16,
+                boxShadow: theme.shadows[2],
+                ...props.sx,
             }}
         >
             <Icon />
-        </div>
+        </Box>
     );
 };
-
-const useStyles = makeStyles<Theme, { size: number }>((theme) => ({
-        root: {
-            width: props => props.size,
-            height: props => props.size,
-            borderRadius: props => props.size / 4,
-            backgroundColor: theme.palette.primary.main,
-            boxShadow: theme.shadows[2],
-        },
-        loader: {
-            width: props => props.size,
-            height: props => props.size,
-            boxShadow: theme.shadows[2],
-            borderRadius: props => props.size / 4,
-        },
-        icon: {
-            margin: props => (props.size - (props.size / 40 * 24)) / 2,
-            width: props => `${props.size / 40 * 24}px !important`,
-            height: props => `${props.size / 40 * 24}px !important`,
-        },
-        text: {
-            padding: props => props.size / 4,
-            height: props => props.size,
-            width: props => props.size,
-            textAlign: "center",
-            fontSize: props => `${props.size / 3}px !important`,
-            lineHeight: props => `${props.size / 2}px !important`,
-            margin: "auto",
-            color: theme.palette.primary.contrastText,
-        },
-    }
-));
 
 export default memo(PlatformIcon);

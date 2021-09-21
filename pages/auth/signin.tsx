@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { useRSA } from "@components/RSAProvider";
 import User from "@lib/api/User";
 import UserComponent from "@components/UserComponent";
+import Background from "@components/Background";
 
 const SigninPage = () => {
     const [email, setEmail] = useState("");
@@ -93,7 +94,22 @@ const SigninPage = () => {
     };
 
     return (
-        <Container maxWidth={"xs"} sx={{ height: "100%" }}>
+        <Container
+            maxWidth={"xs"}
+            sx={{
+                height: "100%",
+            }}
+        >
+            <Background
+                sx={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: -1,
+                }}
+            />
             <VerticalCenter>
                 <Card>
                     <CardContent>
@@ -110,7 +126,7 @@ const SigninPage = () => {
                                         textAlign={"center"}
                                     >
                                         <Logo
-                                            height={32}    
+                                            height={32}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>

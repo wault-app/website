@@ -46,7 +46,7 @@ const ColorSchemaDialog = (props: DialogProps) => {
 const ColorOption = (props: { color: string; onClose: () => void }) => {
     const { setColorSchema } = useTheme();
 
-    const { palette, name } = PaletteOptions[props.color];
+    const { primary, name } = PaletteOptions[props.color];
 
     const setColor = () => {
         setColorSchema(props.color);
@@ -60,7 +60,7 @@ const ColorOption = (props: { color: string; onClose: () => void }) => {
         >
             <ThemeProvider theme={createTheme({
                 palette: {
-                    primary: palette,
+                    primary,
                 }
             })}>
                 <ListItemText

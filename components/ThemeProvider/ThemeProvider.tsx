@@ -1,6 +1,6 @@
 import ProgressBar from "@components/ProgressBar";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { blue, green, indigo, lightBlue, red, yellow } from "@mui/material/colors";
+import { amber, blue, deepPurple, green, indigo, lightBlue, lightGreen, orange, purple, red, yellow } from "@mui/material/colors";
 import { PaletteColorOptions } from "@mui/material/styles/createPalette";
 import { useEffect } from "react";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from "react";
@@ -16,32 +16,39 @@ type DarkModeContextType = {
 export const PaletteOptions: {
     [key: string]: {
         name: string;
-        palette: PaletteColorOptions;
+        primary: PaletteColorOptions;
+        secondary: PaletteColorOptions;
     };
 } = {
     lightBlue: {
         name: "Light blue",
-        palette: lightBlue,
+        primary: lightBlue,
+        secondary: indigo,
     },
     blue: {
         name: "Blue",
-        palette: blue,
+        primary: blue,
+        secondary: purple,
     },
     indigo: {
         name: "Indigo",
-        palette: indigo,
+        primary: indigo,
+        secondary: deepPurple,
     },
     red: {
         name: "Red",
-        palette: red,
+        primary: red,
+        secondary: amber,
     },
     green: {
         name: "Green",
-        palette: green,
+        primary: green,
+        secondary: lightGreen,
     },
     yellow: {
         name: "Yellow",
-        palette: yellow,
+        primary: yellow,
+        secondary: orange,
     },
 };
 
@@ -85,7 +92,7 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
         if(PaletteOptions[colorSchema]) setColorSchema(colorSchema);
     }, []);
 
-    const { palette } = PaletteOptions[colorSchema || "lightBlue"];
+    const { primary, secondary } = PaletteOptions[colorSchema || "lightBlue"];
 
     return (
         <DarkModeContext.Provider value={{ darkMode, setDarkMode, setColorSchema, colorSchema }}>
@@ -93,7 +100,8 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                 {
                     palette: {
                         mode: darkMode ? "dark" : "light",
-                        primary: palette,
+                        primary,
+                        secondary,
                     },
                     components: {
                         MuiTextField: {

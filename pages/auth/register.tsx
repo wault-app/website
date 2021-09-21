@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useRSA } from "@components/RSAProvider";
+import Background from "@components/Background";
 
 const RegistrationPage = () => {
     const [email, setEmail] = useState("");
@@ -47,6 +48,16 @@ const RegistrationPage = () => {
 
     return (
         <Container maxWidth={"xs"} sx={{ height: "100%" }}>
+            <Background
+                sx={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: -1,
+                }}
+            />
             <VerticalCenter>
                 <Card>
                     <CardContent>

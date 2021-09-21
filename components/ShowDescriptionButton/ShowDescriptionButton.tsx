@@ -24,7 +24,7 @@ const ShowDescriptionButton = ({ description }: { description: string }) => {
                 <Box sx={{
                     p: 2,
                     m: 2,
-                    borderRadius: theme.shape.borderRadius,
+                    borderRadius: `${theme.shape.borderRadius}px`,
                     backgroundColor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
                 }}>
                     <Typography>

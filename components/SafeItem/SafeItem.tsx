@@ -1,10 +1,15 @@
-import { Card, CardActionArea, CardActions, CardContent, Chip, Grid, List, ListSubheader, Skeleton, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Chip, Grid, List, ListSubheader, Skeleton, Typography, useTheme } from "@mui/material";
 import AccountItem from "@components/AccountItem";
 import Placeholder from "@lib/placeholder";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
-import { KeycardType } from "@wault/typings";
+import { ItemType, KeycardType } from "@wault/typings";
+import PlatformIcon from "@components/PlatformIcon";
+import { Box } from "@mui/system";
+import { CreditCardRounded } from "@mui/icons-material";
+import Issuers from "@lib/credit-cards/issuers/issuers";
+import Payment from "payment";
 
 export type SafeItemProps = {
     loading: true;
@@ -72,42 +77,69 @@ const SafeItem = (props: SafeItemProps) => {
     return (
         <Card>
             <CardActionArea onClick={() => router.push(`/safe/${props.keycard.safe.id}`)}>
-                <CardContent>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
+                <Grid container spacing={2} sx={{ pb: 2 }}>
+                    <Grid item xs={12}>
+                        <CardContent sx={{ pb: "0 !important" }}>
                             <Typography variant={"h6"}>
                                 <b>
                                     {props.keycard.safe.name}
                                 </b>
                             </Typography>
-                        </Grid>
-                        {!!props.keycard.safe.description && (
-                            <Grid item xs={12}>
-                                <Typography>
-                                    {props.keycard.safe.description}
-                                </Typography>
-                            </Grid>
-                        )}
+                        </CardContent>
                     </Grid>
-                </CardContent>
-            </CardActionArea>
-            <CardActions sx={{ p: 2 }}>
-                <Grid container spacing={1}>
-                    {
-                        tags.map(
-                            (tag) => (
-                                <Grid item key={`chip-${tag.label}`}>
-                                    <Chip
-                                        label={tag.label}
-                                        color={tag.color}
-                                    />
-                                </Grid>
-                            )
-                        )
-                    }
+                    <Grid item xs={12} sx={{ ml: 2 }}>
+                        <ItemList items={props.keycard.safe.items} />
+                    </Grid>
                 </Grid>
-            </CardActions>
+            </CardActionArea>
         </Card>
+    );
+};
+
+const ItemList = ({ items }: { items: ItemType[] }) => {
+    const theme = useTheme();
+    
+    return (
+        <Grid container spacing={1} sx={{ maxHeight: 36, pb: 1, overflow: "hidden", flexWrap: "nowrap" }}>
+            {items.map((item) => (
+                item.type === "account" ? (
+                    <Grid item>
+                        <PlatformIcon
+                            size={24}
+                            hostname={item.platform}
+                        />
+                    </Grid>
+                ) : item.type === "credit-card" && (
+                    <Grid item>
+                        <Box sx={{
+                            background: Issuers.get(Payment.fns.cardType(item.number)).color,
+                            width: 24,
+                            height: 24,
+                            borderRadius: "6px",
+                            boxShadow: theme.shadows[2],
+                        }}>
+                            <CreditCardRounded
+                                style={{
+                                    width: 12,
+                                    height: 12,
+                                    margin: 6,
+                                }} 
+                            />
+                        </Box>
+                    </Grid>
+                )
+            ))}
+            <Box
+                sx={{
+                    position: "absolute",
+                    right: 0,
+                    width: 40,
+                    height: 40,
+                    filter: "brightness(1.7222)",
+                    background: `linear-gradient(90deg, rgba(0, 0, 0, 0), ${theme.palette.background.paper})`,
+                }}
+            />
+        </Grid>
     );
 };
 

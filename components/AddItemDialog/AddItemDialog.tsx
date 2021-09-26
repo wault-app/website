@@ -5,9 +5,10 @@ import { Fragment, useState } from "react";
 import AddAccountDialog from "../AddAccountDialog";
 import AddCreditCardDialog from "../AddCreditCardDialog";
 import AddSafeDialog from "@components/AddSafeDialog";
+import AddEthereumWalletDialog from "@components/AddEthereumWalletDialog";
 import { useKeycards } from "@components/KeycardProvider";
 
-type ScreenType = "account" | "credit-card" | "safe";
+type ScreenType = "account" | "credit-card" | "safe" | "ethereum";
 
 export type AddItemDialogProps = DialogProps;
 
@@ -68,6 +69,18 @@ const AddItemDialog = (props: AddItemDialogProps) => {
                                 primary={"Credit card"}
                             />
                         </ListItem>
+                        <ListItem
+                            button
+                            onClick={() => setSelected("ethereum")}
+                            disabled={!isAvailable}
+                        >
+                            <ListItemIcon>
+                                <CreditCardIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={"Ethereum wallet"}
+                            />
+                        </ListItem>
                     </List>
                 </DialogContent>
                 <DialogActions>
@@ -83,14 +96,14 @@ const AddItemDialog = (props: AddItemDialogProps) => {
 
     return (
         <Fragment>
-            {selected === "safe" && (
+            {selected === "safe" ? (
                 <AddSafeDialog {...props} onClose={close} onBack={back} />
-            )}
-            {selected === "account" && (
+            ) : selected === "account" ? (
                 <AddAccountDialog {...props} onClose={close} onBack={back} />
-            )}
-            {selected === "credit-card" && (
+            ) : selected === "credit-card" ? (
                 <AddCreditCardDialog {...props} onClose={close} onBack={back} />
+            ) : selected === "ethereum" && (
+                <AddEthereumWalletDialog {...props} onClose={close} onBack={back} />
             )}
         </Fragment>
     );

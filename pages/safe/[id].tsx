@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import AccountItem from "@components/AccountItem";
 import CreditCardItem from "@components/CreditCardItem";
+import WalletItem from "@components/WalletItem";
 
 const SafePage = () => {
     const router = useRouter();
@@ -33,6 +34,13 @@ const SafePage = () => {
                 id: "credit-card",
                 text: "Credit cards",
                 items: keycard.safe.items.filter((el) => el.type === "credit-card").map((el) => el.id),
+            });
+
+
+            tags.push({
+                id: "wallet",
+                text: "Cryptocurrency wallets",
+                items: keycard.safe.items.filter((el) => el.type === "wallet").map((el) => el.id),
             });
 
             Category.getAll().map(
@@ -93,10 +101,15 @@ const SafePage = () => {
                                 key={`account-item-${item.id}`}
                                 account={item}
                             />
-                        ) : item.type === "credit-card" && (
+                        ) : item.type === "credit-card" ? (
                             <CreditCardItem
                                 key={`credit-card-item-${item.id}`}
                                 creditCard={item}
+                            />
+                        ) : item.type === "wallet" && (
+                            <WalletItem
+                                key={`wallet-item-${item.id}`}
+                                wallet={item}
                             />
                         )
                     ))

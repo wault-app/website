@@ -1,4 +1,4 @@
-import { Avatar, Chip, Grid, Grow } from "@mui/material";
+import { Avatar, Chip, Collapse, Grid } from "@mui/material";
 import { DoneRounded } from "@mui/icons-material";
 import { useMemo } from "react";
 import { TransitionGroup } from "react-transition-group";
@@ -87,8 +87,8 @@ const BadgeList = (props: BadgeListProps) => {
             <TransitionGroup component={null}>
                 {filtered.filter((el) => el.items.length > 0).map(
                     (tag) => (
-                        <Grow key={`tag-${tag.id}`}>
-                            <Grid item>
+                        <Collapse orientation="horizontal" key={`tag-${tag.id}`}>
+                            <Grid item sx={{ mr: 1, mb: 1 }}>
                                 <Chip
                                     onClick={() => {
                                         const newSelected = props.selected.includes(tag.id)
@@ -115,7 +115,7 @@ const BadgeList = (props: BadgeListProps) => {
                                     label={tag.text}
                                 />
                             </Grid>
-                        </Grow>
+                        </Collapse>
                     )
                 )}
             </TransitionGroup>

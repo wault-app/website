@@ -7,7 +7,6 @@ const CreditCardNumberField = (props: CreditCardNumberTextFieldProps) => (
     <TextField
         fullWidth
         autoComplete={"cc-number"}
-        variant={"outlined"}
         label={"Credit card number"}
         type={"tel"}
         inputProps={{

@@ -7,7 +7,6 @@ const CreditCardExperiationDateTextField = (props: CreditCardExperiationDateText
         type={"tel"}
         fullWidth
         autoComplete={"cc-exp"}
-        variant={"outlined"}
         label={"Expiration date"}
         {...props}
         value={formatExpirationDate(typeof props.value === "string" ? props.value : "")}

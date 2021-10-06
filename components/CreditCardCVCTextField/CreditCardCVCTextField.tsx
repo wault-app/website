@@ -12,7 +12,6 @@ const CreditCardCVCTextField = (props: CreditCardCVCTextFieldProps) => {
     return (
         <TextField
             fullWidth
-            variant={"outlined"}
             label={"CVC / CVV"}
             autoComplete={"cc-csc"}
             {...props}

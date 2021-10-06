@@ -9,23 +9,47 @@ import UserComponent from "@components/UserComponent";
 import VerticalCenter from "@components/VerticalCenter";
 import Authentication from "@lib/api/Authentication";
 import User from "@lib/api/User";
-import { Button, Container, Grid, Paper, Typography } from "@mui/material";
+import { CreditCardRounded as CreditCardIcon, LocalAtmRounded as CryptoRounded, LockRounded as TwoFactorAuthenticationIcon, PersonRounded as AccountIcon } from "@mui/icons-material";
+import { Button, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography, useTheme } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 
 export type SigninPageProps = {};
 
+const features = [
+    {
+        title: "Store your accounts",
+        description: "Save unlimited number of accounts",
+        icon: AccountIcon,
+    },
+    {
+        title: "Two factor authentication",
+        description: "You won't need your phone to log in ever again",
+        icon: TwoFactorAuthenticationIcon,
+    },
+    {
+        title: "Cryptocurrencies go brrrr",
+        description: "Store your Ethereum wallet and check the value of it",
+        icon: CryptoRounded,
+    },
+    {
+        title: "Faster shopping",
+        description: "We can autofill your credit card details",
+        icon: CreditCardIcon,
+    },
+];
+
 const SigninPage = (props: SigninPageProps) => {
     const router = useRouter();
     const { user, setUser } = useUser();
     const { privateKey, setPublicKey, setPrivateKey } = useRSA();
+    const { enqueueSnackbar } = useSnackbar();
+    const theme = useTheme();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [disabled, setDisabled] = useState(false);
-
-    const { enqueueSnackbar } = useSnackbar();
 
     if (user && privateKey) {
         router.push("/");
@@ -141,7 +165,35 @@ const SigninPage = (props: SigninPageProps) => {
                 </Paper>
             </Grid>
             <Grid item sx={{ display: { xs: "none", md: "block" } }} md={8}>
-                <Background sx={{ width: "100%", height: "100%" }} />
+                {theme.palette.mode === "dark" ? (
+                    <VerticalCenter>
+                        <Container>
+                            <List>
+                                {features.map(({ title, description, icon: Icon }, index) => (
+                                    <ListItem key={`feature-list-item-${index}`}>
+                                        <ListItemIcon >
+                                            <Icon fontSize={"large"} />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={(
+                                                <Typography variant={"h6"}>
+                                                    {title}
+                                                </Typography>
+                                            )}
+                                            secondary={(
+                                                <Typography variant={"body1"}>
+                                                    {description}
+                                                </Typography>
+                                            )}
+                                        />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Container>
+                    </VerticalCenter>
+                ) : (
+                    <Background sx={{ width: "100%", height: "100%" }} />
+                )}
             </Grid>
         </Grid>
     );

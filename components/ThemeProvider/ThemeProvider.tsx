@@ -121,6 +121,22 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
                                 },
                             },
                         },
+                        MuiButton: {
+                            styleOverrides: {
+                                contained: {
+                                    // @ts-ignore
+                                    background: `linear-gradient(45deg, ${primary[500] || primary.main} 0%, ${secondary[500] || secondary.main} 100%)`
+                                },
+                            }
+                        },
+                        MuiFab: {
+                            styleOverrides: {
+                                circular: {
+                                    // @ts-ignore
+                                    background: `linear-gradient(45deg, ${primary[500] || primary.main} 0%, ${secondary[500] || secondary.main} 100%)`
+                                },
+                            }
+                        },
                     },
                 }
             )}>

@@ -21,7 +21,7 @@ const Drawer = (props: DrawerProps) => {
 
     return (
         <Fragment>
-            <Box sx={{ p: 2 }}>
+            <Box sx={{ p: 2, mt: 1 }}>
                 <UserComponent />
             </Box>    
             <List>

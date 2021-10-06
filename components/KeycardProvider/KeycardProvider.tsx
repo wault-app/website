@@ -121,9 +121,9 @@ const KeycardProvider = (props: KeycardProviderProps) => {
 };
 
 const LoaderComponent = () => (
-    <Container maxWidth={"sm"} sx={{ pt: 2, pb: 2 }}>
+    <Container maxWidth={"sm"} sx={{ pt: 2, pb: 2, overflowY: "hidden", maxHeight: "100vh" }}>
         <Grid container spacing={2}>
-            {Placeholder.generate(3, 1).map((val, index) => (
+            {Placeholder.generate(10, 5).map((val, index) => (
                 <Grid
                     item
                     xs={12}

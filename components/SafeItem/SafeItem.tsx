@@ -1,9 +1,7 @@
-import { Card, CardActionArea, CardContent, Chip, Grid, List, ListSubheader, Skeleton, Typography, useTheme } from "@mui/material";
+import { Card, CardActionArea, CardContent, Grid, List, ListSubheader, Skeleton, Typography, useTheme } from "@mui/material";
 import AccountItem from "@components/AccountItem";
 import Placeholder from "@lib/placeholder";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
 import { ItemType, KeycardType } from "@wault/typings";
 import PlatformIcon from "@components/PlatformIcon";
 import { Box } from "@mui/system";
@@ -17,44 +15,8 @@ export type SafeItemProps = {
     keycard: KeycardType;
 };
 
-type TagType = {
-    label: string;
-    color?: "primary";
-};
-
 const SafeItem = (props: SafeItemProps) => {
     const router = useRouter();
-    const [tags, setTags] = useState<TagType[]>([]);
-
-    useEffect(() => {
-        if ("loading" in props) return;
-
-        const tags: TagType[] = [];
-
-        const firstCharUpperCase = (s: string) => s[0].toUpperCase() + s.substring(1).toLowerCase()
-
-        tags.push({
-            label: firstCharUpperCase(props.keycard.role),
-            color: "primary",
-        });
-
-        const accounts = props.keycard.safe.items.filter((item) => item.type === "account").length;
-        if (accounts) {
-            tags.push({
-                label: `${accounts} accounts`
-            });
-        }
-
-        const cards = props.keycard.safe.items.filter((item) => item.type === "credit-card").length;
-        if (accounts) {
-            tags.push({
-                label: `${cards} credit cards`
-            });
-        }
-
-
-        setTags(tags);
-    }, [props]);
 
     if ("loading" in props) {
         return (

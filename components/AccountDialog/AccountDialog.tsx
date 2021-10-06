@@ -1,13 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, Theme, Typography } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, Grid, List, Typography, useTheme } from "@mui/material";
 import PlatformIcon from "@components/PlatformIcon";
-import Platforms from "@wault/platforms";
 import CategoryBadge from "@components/CategoryBadge";
 import CopyUsernameButton from "../CopyUsernameButton";
 import OpenPlatformButton from "../OpenPlatformButton";
 import CopyPasswordButton from "../CopyPasswordButton";
 import ShowDescriptionButton from "../ShowDescriptionButton";
 import { AccountType } from "@wault/typings";
-import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
 
 export type AccountDialogProps = DialogProps & {
     account: AccountType;
@@ -15,23 +14,36 @@ export type AccountDialogProps = DialogProps & {
 
 const AccountDialog = (props: AccountDialogProps) => {
     const { account } = props;
-    const platform = Platforms.get(account.platform);
-
-    const classes = useStyles({ color: platform.color });
+    const theme = useTheme();
 
     return (
         <Dialog {...props}>
             <DialogContent sx={{ p: 0 }}>
                 <Grid container>
                     <Grid item xs={12} md={5}>
-                        <div
-                            className={classes.gradient}
+                        <Box
+                            sx={{
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 64,
+                                background: `linear-gradient(${props.color || theme.palette.primary.main}, transparent)`,
+                            }}
                         />
                         <PlatformIcon
-                            className={classes.icon}
+                            sx={{
+                                marginTop: -4,
+                                marginBottom: 2,
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                            }}
                             hostname={account.platform}
                         />
-                        <div className={classes.leftSide}>
+                        <Box sx={{
+                            pl: 4,
+                            pr: 4,
+                            mb: 6,
+                            textAlign: "center",
+                        }}>
                             <Typography variant={"h6"} noWrap>
                                 <b>
                                     {account.platform}
@@ -48,7 +60,7 @@ const AccountDialog = (props: AccountDialogProps) => {
                                     />
                                 ))}
                             </Grid>
-                        </div>
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={7}>
                         <List>
@@ -84,27 +96,5 @@ const AccountDialog = (props: AccountDialogProps) => {
         </Dialog>
     );
 };
-
-const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
-    icon: {
-        marginTop: -32,
-        marginBottom: 24,
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
-    leftSide: {
-        paddingLeft: 16,
-        paddingRight: 16,
-        textAlign: "center",
-        marginBottom: 24,
-    },
-    gradient: {
-        backgroundSize: "cover",
-        width: "100%",
-        height: 64,
-        background: props => `linear-gradient(${props.color || theme.palette.primary.main}, transparent)`
-    },
-}));
-
 
 export default AccountDialog;

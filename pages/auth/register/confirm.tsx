@@ -4,10 +4,8 @@ import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
 
 const RedirectPage = () => {
-    const classes = useStyles();
     const router = useRouter();
     const { enqueueSnackbar } = useSnackbar();
     const { setPublicKey, setPrivateKey } = useRSA();
@@ -53,7 +51,9 @@ const RedirectPage = () => {
         <Grid
             container
             alignItems={"center"}
-            className={classes.root}
+            sx={{
+                height: "100%",
+            }}
         >
             <Grid item xs={12}>
                 <Container maxWidth={"sm"}>
@@ -63,7 +63,7 @@ const RedirectPage = () => {
                                 Please wait!
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} className={classes.center}>
+                        <Grid item xs={12} sx={{ textAlign: "center" }}>
                             <CircularProgress />
                         </Grid>
                     </Grid>
@@ -72,14 +72,5 @@ const RedirectPage = () => {
         </Grid>
     );
 };
-
-const useStyles = makeStyles(() => ({
-    root: {
-        height: "100%",
-    },
-    center: {
-        textAlign: "center",
-    },
-}));
 
 export default RedirectPage;

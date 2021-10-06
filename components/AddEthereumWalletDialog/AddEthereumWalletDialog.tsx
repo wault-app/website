@@ -20,8 +20,9 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
 
     const [mode, setMode] = useState<"generate" | "import">();
     const [name, setName] = useState("");
-    const [disabled, setDisabled] = useState(false);
-    const [keycard, setKeycard] = useState(keycards[0]);
+    // todo: disabled and setKeycard update
+    const [, setDisabled] = useState(false);
+    const [keycard] = useState(keycards[0]);
     
     const generate = async () => {
         const web3 = new Web3();

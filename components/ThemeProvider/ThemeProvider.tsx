@@ -85,10 +85,8 @@ const DarkModeProvider = (props: DarkModeProviderProps) => {
     const [colorSchema, setColorSchema] = useState<string>("lightBlue");
     
     useEffect(() => {
-        const browserDefault = window?.matchMedia('(prefers-color-scheme: dark)')?.matches;
-        const userPrefered = localStorage.getItem("theme") ? localStorage.getItem("theme") === "dark" : undefined;
-
-        setDarkMode(userPrefered || browserDefault || true);
+        const darkMode = localStorage.getItem("theme") === "dark";
+        setDarkMode(darkMode);
 
         const colorSchema = localStorage.getItem("colorSchema");
         if(PaletteOptions[colorSchema]) setColorSchema(colorSchema);

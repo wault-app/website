@@ -7,6 +7,7 @@ import AddCreditCardDialog from "../AddCreditCardDialog";
 import AddSafeDialog from "@components/AddSafeDialog";
 import AddEthereumWalletDialog from "@components/AddEthereumWalletDialog";
 import { useKeycards } from "@components/KeycardProvider";
+import EthereumIcon from "@components/EthereumIcon";
 
 type ScreenType = "account" | "credit-card" | "safe" | "ethereum";
 
@@ -75,7 +76,7 @@ const AddItemDialog = (props: AddItemDialogProps) => {
                             disabled={!isAvailable}
                         >
                             <ListItemIcon>
-                                <CreditCardIcon />
+                                <EthereumIcon />
                             </ListItemIcon>
                             <ListItemText
                                 primary={"Ethereum wallet"}

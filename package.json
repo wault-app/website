@@ -20,6 +20,7 @@
     "@wault/typings": "git+https://github.com/wault-app/typings.git",
     "coingecko-api-v3": "0.0.12",
     "crypto-js": "^4.0.0",
+    "ethers": "^5.5.1",
     "fuse.js": "^6.4.6",
     "next": "^11.1.0",
     "next-pwa": "^5.2.24",
@@ -35,7 +36,6 @@
     "react-dom": "^17.0.2",
     "react-transition-group": "^4.4.2",
     "socket.io-client": "^4.1.3",
-    "web3": "^1.5.2",
     "zod": "^3.2.0"
   },
   "devDependencies": {

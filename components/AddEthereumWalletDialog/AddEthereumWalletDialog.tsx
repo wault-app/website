@@ -5,9 +5,9 @@ import Item from "@lib/api/Item";
 import { AddRounded, UploadRounded as ImportIcon } from "@mui/icons-material";
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { ItemTypeWithoutID } from "@wault/typings";
+import { Wallet } from "ethers";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
-import Web3 from "web3";
 
 export type AddEthereumWalletDialogProps = DialogProps & {
     onBack: () => void;
@@ -25,14 +25,13 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
     const [keycard] = useState(keycards[0]);
     
     const generate = async () => {
-        const web3 = new Web3();
         setDisabled(true);
 
         const data: ItemTypeWithoutID = {
             type: "wallet",
             name,
             blockchain: "ethereum",
-            privateKey: web3.eth.accounts.create().privateKey,
+            privateKey: Wallet.createRandom().privateKey,
         };
 
         const { item, message } = await Item.create(keycard, data, privateKey);

@@ -3,10 +3,11 @@ import { useKeycards } from "@components/KeycardProvider";
 import { useRSA } from "@components/RSAProvider";
 import Item from "@lib/api/Item";
 import { AddRounded, UploadRounded as ImportIcon } from "@mui/icons-material";
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { ItemTypeWithoutID } from "@wault/typings";
 import { Wallet } from "ethers";
 import { useSnackbar } from "notistack";
+import SafeSelector from "../SafeSelector";
 import { useState } from "react";
 
 export type AddEthereumWalletDialogProps = DialogProps & {
@@ -22,8 +23,8 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
     const [name, setName] = useState("");
     // todo: disabled and setKeycard update
     const [, setDisabled] = useState(false);
-    const [keycard] = useState(keycards[0]);
-    
+    const [keycard, setKeycard] = useState(keycards[0]);
+
     const generate = async () => {
         setDisabled(true);
 
@@ -49,19 +50,30 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
         setDisabled(false);
     };
 
-    if(mode === "generate") {
+    if (mode === "generate") {
         return (
-            
+
             <Dialog {...props}>
                 <DialogTitle>
                     Generate new Ethereum wallet
                 </DialogTitle>
                 <DialogContent>
-                    <EthereumWalletNameField 
-                        value={name}
-                        fullWidth
-                        onChange={(e) => setName(e.target.value)}
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <EthereumWalletNameField
+                                value={name}
+                                fullWidth
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SafeSelector
+                                value={keycard.safe.id}
+                                onChange={(e) => setKeycard(keycards.find((keycard) => keycard.safe.id === e.target.value))}
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setMode(null)}>

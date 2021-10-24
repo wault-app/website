@@ -13,6 +13,7 @@ import RSAProvider from "@components/RSAProvider";
 
 import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";
+import WarningDialog from "@components/WarningDialog";
 
 const NAVBAR_EXCLUDED = [
     "/auth/signin",
@@ -32,6 +33,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             </Head>
             <CssBaseline />
             <SnackbarProvider>
+                <WarningDialog />
                 <NoSsr>
                     <RSAProvider>
                         <AuthenticationProvider>

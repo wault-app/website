@@ -7,6 +7,7 @@ import CopyPasswordButton from "../CopyPasswordButton";
 import ShowDescriptionButton from "../ShowDescriptionButton";
 import { AccountType } from "@wault/typings";
 import { Box } from "@mui/system";
+import Platforms from "@wault/platforms";
 
 export type AccountDialogProps = DialogProps & {
     account: AccountType;
@@ -14,6 +15,7 @@ export type AccountDialogProps = DialogProps & {
 
 const AccountDialog = (props: AccountDialogProps) => {
     const { account } = props;
+    const platform = Platforms.get(account.platform);
     const theme = useTheme();
 
     return (
@@ -26,7 +28,7 @@ const AccountDialog = (props: AccountDialogProps) => {
                                 backgroundSize: "cover",
                                 width: "100%",
                                 height: 64,
-                                background: `linear-gradient(${props.color || theme.palette.primary.main}, transparent)`,
+                                background: `linear-gradient(${platform.color || theme.palette.primary.main}, transparent)`,
                             }}
                         />
                         <PlatformIcon

@@ -1,7 +1,7 @@
 import EthereumIcon from "@components/EthereumIcon";
 import WalletDialog from "@components/WalletDialog";
-import { ListItem, ListItemAvatar, ListItemText, ThemeProvider } from "@mui/material";
-import { Box, createTheme, useTheme } from "@mui/system";
+import { ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { Box, useTheme } from "@mui/system";
 import { WalletType } from "@wault/typings";
 import { useState } from "react";
 

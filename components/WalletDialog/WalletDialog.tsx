@@ -1,5 +1,5 @@
 import { QrCodeRounded, VpnKeyRounded } from "@mui/icons-material";
-import { Dialog, DialogContent, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Dialog, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { WalletType } from "@wault/typings";
 
 export type WalletDialogProps = DialogProps & {

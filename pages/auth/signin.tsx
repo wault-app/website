@@ -1,5 +1,4 @@
 import { useUser } from "@components/AuthenticationProvider";
-import Background from "@components/Background";
 import EmailTextField from "@components/EmailTextField";
 import Logo from "@components/Logo";
 import PasswordTextField from "@components/PasswordTextField";
@@ -10,7 +9,7 @@ import VerticalCenter from "@components/VerticalCenter";
 import Authentication from "@lib/api/Authentication";
 import User from "@lib/api/User";
 import { CreditCardRounded as CreditCardIcon, LocalAtmRounded as CryptoRounded, LockRounded as TwoFactorAuthenticationIcon, PersonRounded as AccountIcon } from "@mui/icons-material";
-import { Button, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography, useTheme } from "@mui/material";
+import { Button, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
@@ -45,7 +44,6 @@ const SigninPage = (props: SigninPageProps) => {
     const { user, setUser } = useUser();
     const { privateKey, setPublicKey, setPrivateKey } = useRSA();
     const { enqueueSnackbar } = useSnackbar();
-    const theme = useTheme();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -60,7 +58,7 @@ const SigninPage = (props: SigninPageProps) => {
     }
 
     const auth = async () => {
-        if(disabled) return;
+        if (disabled) return;
 
         setDisabled(true);
 
@@ -77,8 +75,8 @@ const SigninPage = (props: SigninPageProps) => {
             });
 
             router.push("/");
-        } catch(e) {
-            if(e instanceof Error) {
+        } catch (e) {
+            if (e instanceof Error) {
                 enqueueSnackbar(e.message, {
                     variant: "error",
                 });
@@ -165,35 +163,31 @@ const SigninPage = (props: SigninPageProps) => {
                 </Paper>
             </Grid>
             <Grid item sx={{ display: { xs: "none", md: "block" } }} md={8}>
-                {theme.palette.mode === "dark" ? (
-                    <VerticalCenter>
-                        <Container>
-                            <List>
-                                {features.map(({ title, description, icon: Icon }, index) => (
-                                    <ListItem key={`feature-list-item-${index}`}>
-                                        <ListItemIcon >
-                                            <Icon fontSize={"large"} />
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            primary={(
-                                                <Typography variant={"h6"}>
-                                                    {title}
-                                                </Typography>
-                                            )}
-                                            secondary={(
-                                                <Typography variant={"body1"}>
-                                                    {description}
-                                                </Typography>
-                                            )}
-                                        />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </Container>
-                    </VerticalCenter>
-                ) : (
-                    <Background sx={{ width: "100%", height: "100%" }} />
-                )}
+                <VerticalCenter>
+                    <Container>
+                        <List>
+                            {features.map(({ title, description, icon: Icon }, index) => (
+                                <ListItem key={`feature-list-item-${index}`}>
+                                    <ListItemIcon >
+                                        <Icon fontSize={"large"} />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={(
+                                            <Typography variant={"h6"}>
+                                                {title}
+                                            </Typography>
+                                        )}
+                                        secondary={(
+                                            <Typography variant={"body1"}>
+                                                {description}
+                                            </Typography>
+                                        )}
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Container>
+                </VerticalCenter>
             </Grid>
         </Grid>
     );

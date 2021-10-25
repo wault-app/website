@@ -35,14 +35,12 @@ const AccountItem = (props: AccountItemProps) => {
         );
     }
 
-    const { account } = props;
-
     return (
         <Box>
             <AccountDialog
                 maxWidth={"md"}
                 fullWidth
-                account={account}
+                account={props.account}
                 open={open}
                 onClose={() => setOpen(false)}
             />
@@ -71,12 +69,12 @@ const AccountItem = (props: AccountItemProps) => {
                 <ListItemAvatar sx={{ mr: 1 }}>
                     <PlatformIcon
                         size={48}
-                        hostname={account.platform}
+                        hostname={props.account.platform}
                     />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={account.platform}
-                    secondary={account.username}
+                    primary={props.account.platform}
+                    secondary={props.account.username}
                 />
             </ListItem>
         </Box>

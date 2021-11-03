@@ -2,18 +2,18 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { CssBaseline, NoSsr } from "@mui/material";
-import FaviconList from "@components/FaviconList";
+import FaviconList from "@components/misc/FaviconList";
 import { SnackbarProvider } from "notistack";
-import NavigationBar from "@components/NavigationBar";
-import AuthenticationProvider from "@components/AuthenticationProvider/AuthenticationProvider";
-import KeycardProvider from "@components/KeycardProvider";
-import DarkModeProvider from "@components/ThemeProvider";
+import NavigationBar from "@components/navbar/NavigationBar";
+import AuthenticationProvider from "@components/providers/AuthenticationProvider/AuthenticationProvider";
+import KeycardProvider from "@components/providers/KeycardProvider";
+import DarkModeProvider from "@components/providers/ThemeProvider";
 import { useRouter } from "next/router";
-import RSAProvider from "@components/RSAProvider";
+import RSAProvider from "@components/providers/RSAProvider";
 
 import "../public/css/react-credit-card.css";
 import "../public/css/fixes.css";
-import WarningDialog from "@components/WarningDialog";
+import WarningDialog from "@components/misc/WarningDialog";
 
 const NAVBAR_EXCLUDED = [
     "/auth/signin",

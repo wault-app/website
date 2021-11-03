@@ -1,8 +1,8 @@
-import DeviceList from "@components/DeviceList";
-import ColorSchemaSelector from "@components/ColorSchemaSelector";
-import DarkModeSwitch from "@components/DarkModeSwitch";
-import ExportDataButton from "@components/ExportDataButton";
-import ImportDataButton from "@components/ImportDataButton";
+import DeviceList from "@components/settings/DeviceList";
+import ColorSchemaSelector from "@components/settings/ColorSchemaSelector";
+import DarkModeSwitch from "@components/settings/DarkModeSwitch";
+import ExportDataButton from "@components/settings/ExportDataButton";
+import ImportDataButton from "@components/settings/ImportDataButton";
 import { Card, Container, Grid, List, ListSubheader } from "@mui/material";
 
 export type SettingsPageProps = {};

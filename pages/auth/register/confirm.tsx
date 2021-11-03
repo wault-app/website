@@ -1,4 +1,4 @@
-import { useRSA } from "@components/RSAProvider";
+import { useRSA } from "@components/providers/RSAProvider";
 import Authentication from "@lib/api/Authentication";
 import { CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
@@ -45,7 +45,7 @@ const RedirectPage = () => {
 
         xhr.open('head', url);
         xhr.send(null);
-    }, [id, secret]);
+    }, [id, secret, enqueueSnackbar, router, setPrivateKey, setPublicKey]);
 
     return (
         <Grid

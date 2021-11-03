@@ -1,8 +1,8 @@
-import AddItemFAB from "@components/AddItemFAB";
+import AddItemFAB from "@components/items/AddItemFAB";
 import { Fragment } from "react";
-import { useKeycards } from "@components/KeycardProvider";
-import SafeItem from "@components/SafeItem";
-import NoSafeCreated from "@components/NoSafeCreated";
+import { useKeycards } from "@components/providers/KeycardProvider";
+import SafeItem from "@components/safe/SafeItem";
+import NoSafeCreated from "@components/misc/NoSafeCreated";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 

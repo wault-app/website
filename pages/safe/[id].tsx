@@ -1,14 +1,14 @@
-import { useKeycards } from "@components/KeycardProvider";
-import BadgeList, { BadgeType } from "@components/BadgeList";
+import { useKeycards } from "@components/providers/KeycardProvider";
+import BadgeList, { BadgeType } from "@components/safe/BadgeList";
 import { Card, CardContent, Container, Typography } from "@mui/material";
 import Category from "@wault/category";
 import { ItemType } from "@wault/typings";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { Box } from "@mui/system";
-import AccountItem from "@components/AccountItem";
-import CreditCardItem from "@components/CreditCardItem";
-import WalletItem from "@components/WalletItem";
+import AccountItem from "@components/account/AccountItem";
+import CreditCardItem from "@components/credit-card/CreditCardItem";
+import WalletItem from "@components/crypto/WalletItem";
 
 const SafePage = () => {
     const router = useRouter();

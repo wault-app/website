@@ -1,14 +1,14 @@
-import EmailTextField from "@components/EmailTextField";
-import PasswordTextField from "@components/PasswordTextField";
-import UsernameTextField from "@components/UsernameTextField";
-import VerticalCenter from "@components/VerticalCenter";
+import EmailTextField from "@components/inputs/EmailTextField";
+import PasswordTextField from "@components/inputs/PasswordTextField";
+import UsernameTextField from "@components/inputs/UsernameTextField";
+import VerticalCenter from "@components/misc/VerticalCenter";
 import Authentication from "@lib/api/Authentication";
 import { Button, Card, CardContent, Container, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
-import { useRSA } from "@components/RSAProvider";
-import Background from "@components/Background";
+import { useRSA } from "@components/providers/RSAProvider";
+import Background from "@components/misc/Background";
 
 const RegistrationPage = () => {
     const [email, setEmail] = useState("");

@@ -93,7 +93,7 @@ const KeycardProvider = (props: KeycardProviderProps) => {
 
     useEffect(() => {
         load();
-    }, [load]);
+    }, []);
 
     if(error) { 
         return (

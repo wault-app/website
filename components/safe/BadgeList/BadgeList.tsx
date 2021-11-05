@@ -87,7 +87,7 @@ const BadgeList = (props: BadgeListProps) => {
             <TransitionGroup component={null}>
                 {filtered.filter((el) => el.items.length > 0).map(
                     (tag) => (
-                        <Collapse orientation="horizontal" key={`tag-${tag.id}`}>
+                        <Collapse style={{ minWidth: undefined }} orientation="horizontal" key={`tag-${tag.id}`}>
                             <Grid item sx={{ mr: 1, mb: 1 }}>
                                 <Chip
                                     onClick={() => {

@@ -63,7 +63,7 @@ const ItemList = ({ items }: { items: ItemType[] }) => {
     const theme = useTheme();
     
     return (
-        <Grid container spacing={1} sx={{ maxHeight: 36, pb: 1, overflow: "hidden", flexWrap: "nowrap" }}>
+        <Grid container spacing={1} sx={{ maxHeight: 36, pb: 1, flexWrap: "nowrap" }}>
             {items.map((item) => (
                 item.type === "account" ? (
                     <Grid item>

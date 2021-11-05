@@ -8,7 +8,6 @@ import { Box } from "@mui/system";
 import CreditCardIcon from "@mui/icons-material/CreditCardRounded";
 import Issuers from "@lib/credit-cards/issuers/issuers";
 import Payment from "payment";
-import Platforms from "@wault/platforms";
 
 export type SafeItemProps = {
     loading: true;

@@ -12,6 +12,7 @@ module.exports = withBundleAnalyzer({
         // a non-locale prefixed path e.g. `/hello`
         defaultLocale: "en",
     },
+    generateBuildId: () => 'build',
     async headers() {
         return [{
             source: "/(.*)",

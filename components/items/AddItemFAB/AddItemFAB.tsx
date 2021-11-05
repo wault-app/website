@@ -1,5 +1,5 @@
 import { Fab } from "@mui/material";
-import { AddRounded } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/AddRounded";
 import { Fragment, useState } from "react";
 import AddItemDialog from "../AddItemDialog";
 
@@ -26,7 +26,7 @@ const AddItemFAB = () => {
                     mb: 4,
                 }}
             >
-                <AddRounded />
+                <AddIcon />
             </Fab>
         </Fragment>
     );

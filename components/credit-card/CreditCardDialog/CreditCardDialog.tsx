@@ -1,6 +1,7 @@
 import { CreditCardType } from "@wault/typings";
 import { Button, Dialog, DialogContent, DialogActions, Grid, List, ListItem, ListItemIcon, ListItemText, DialogProps } from "@mui/material";
-import { VisibilityOffRounded as HideIcon, VisibilityRounded as ShowIcon } from "@mui/icons-material";
+import ShowIcon from "@mui/icons-material/VisibilityRounded";
+import HideIcon from "@mui/icons-material/VisibilityOffRounded";
 import { useState } from "react";
 import ReactCreditCard from "react-credit-cards";
 import CopyCardNumberButton from "../CopyCardNumberButton";

@@ -1,5 +1,5 @@
 import { Avatar, Chip, Collapse, Grid } from "@mui/material";
-import { DoneRounded } from "@mui/icons-material";
+import SelectedIcon from "@mui/icons-material/DoneRounded";
 import { useMemo } from "react";
 import { TransitionGroup } from "react-transition-group";
 
@@ -104,7 +104,7 @@ const BadgeList = (props: BadgeListProps) => {
                                     avatar={
                                         props.selected.includes(tag.id) ? (
                                             <Avatar>
-                                                <DoneRounded />
+                                                <SelectedIcon />
                                             </Avatar>
                                         ) : (
                                             <Avatar>

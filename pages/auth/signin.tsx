@@ -8,7 +8,10 @@ import UserComponent from "@components/navbar/UserComponent";
 import VerticalCenter from "@components/misc/VerticalCenter";
 import Authentication from "@lib/api/Authentication";
 import User from "@lib/api/User";
-import { CreditCardRounded as CreditCardIcon, LocalAtmRounded as CryptoRounded, LockRounded as TwoFactorAuthenticationIcon, PersonRounded as AccountIcon } from "@mui/icons-material";
+import CreditCardIcon from "@mui/icons-material/CreditCardRounded";
+import CryptoIcon from "@mui/icons-material/LocalAtmRounded";
+import TwoFactorAuthenticationIcon from "@mui/icons-material/LockRounded";
+import AccountIcon from "@mui/icons-material/PersonRounded";
 import { Button, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -30,7 +33,7 @@ const features = [
     {
         title: "Cryptocurrencies go brrrr",
         description: "Store your Ethereum wallet and check the value of it",
-        icon: CryptoRounded,
+        icon: CryptoIcon,
     },
     {
         title: "Faster shopping",

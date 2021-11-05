@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { HomeRounded as HomeIcon } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/HomeRounded";
 
 export type HomeButtonProps = {
     onClick: () => void;

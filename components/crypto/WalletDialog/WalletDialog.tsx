@@ -1,4 +1,5 @@
-import { QrCodeRounded, VpnKeyRounded } from "@mui/icons-material";
+import KeyIcon from "@mui/icons-material/VpnKeyRounded";
+import QrIcon from "@mui/icons-material/QrCodeRounded";
 import { Dialog, DialogProps, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { WalletType } from "@wault/typings";
 
@@ -17,7 +18,7 @@ const WalletDialog = (props: WalletDialogProps) => {
                     <List>
                         <ListItem button onClick={() => { }}>
                             <ListItemIcon>
-                                <QrCodeRounded />
+                                <QrIcon />
                             </ListItemIcon>
                             <ListItemText
                                 primary={"Show QR code"}
@@ -26,7 +27,7 @@ const WalletDialog = (props: WalletDialogProps) => {
                         
                         <ListItem button onClick={() => { }}>
                             <ListItemIcon>
-                                <VpnKeyRounded />
+                                <KeyIcon />
                             </ListItemIcon>
                             <ListItemText
                                 primary={"Copy private key"}

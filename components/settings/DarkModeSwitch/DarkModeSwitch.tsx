@@ -1,4 +1,4 @@
-import { Brightness2Rounded as DarkModeIcon } from "@mui/icons-material";
+import DarkModeIcon from "@mui/icons-material/Brightness2Rounded";
 import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Switch } from "@mui/material";
 import { useTheme } from "@components/providers/ThemeProvider";
 

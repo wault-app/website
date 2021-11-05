@@ -1,6 +1,6 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { FileCopyRounded as CopyIcon } from "@mui/icons-material";
+import CopyIcon from "@mui/icons-material/FileCopyRounded";
 import Clipboard from "@lib/clipboard";
 
 export type CopyCardNumberButtonProps = {

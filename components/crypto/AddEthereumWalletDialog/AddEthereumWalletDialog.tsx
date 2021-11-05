@@ -2,12 +2,12 @@ import EthereumWalletNameField from "@components/inputs/EthereumWalletNameField"
 import { useKeycards } from "@components/providers/KeycardProvider";
 import { useRSA } from "@components/providers/RSAProvider";
 import Item from "@lib/api/Item";
-import { AddRounded, UploadRounded as ImportIcon } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/AddRounded";
+import ImportIcon from "@mui/icons-material/UploadRounded";
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, Grid, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { ItemTypeWithoutID } from "@wault/typings";
-import { Wallet } from "ethers";
 import { useSnackbar } from "notistack";
-import SafeSelector from "../../inputs/SafeSelector";
+import SafeSelector from "@components/inputs/SafeSelector";
 import { useState } from "react";
 
 export type AddEthereumWalletDialogProps = DialogProps & {
@@ -27,6 +27,7 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
 
     const generate = async () => {
         setDisabled(true);
+        const { Wallet } = await import("ethers");
 
         const data: ItemTypeWithoutID = {
             type: "wallet",
@@ -95,7 +96,7 @@ const AddEthereumWalletDialog = (props: AddEthereumWalletDialogProps) => {
             <List>
                 <ListItem button onClick={() => setMode("generate")}>
                     <ListItemIcon>
-                        <AddRounded />
+                        <AddIcon />
                     </ListItemIcon>
                     <ListItemText
                         primary={"Generate new wallet"}

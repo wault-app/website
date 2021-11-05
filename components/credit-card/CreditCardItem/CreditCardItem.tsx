@@ -1,7 +1,7 @@
 import { CreditCardType } from "@wault/typings";
 import Issuers from "@lib/credit-cards/issuers/issuers";
 import { ListItem, ListItemAvatar, ListItemText, useTheme } from "@mui/material";
-import { CreditCardRounded } from "@mui/icons-material";
+import CreditCardIcon from "@mui/icons-material/CreditCardRounded";
 import CreditCardDialog from "../CreditCardDialog/CreditCardDialog";
 import Payments from "payment";
 import { Fragment, useState } from "react";
@@ -34,7 +34,7 @@ const CreditCardItem = ({ creditCard }: CreditCardItemProps) => {
                         borderRadius: "12px",
                         boxShadow: theme.shadows[2],
                     }}>
-                        <CreditCardRounded
+                        <CreditCardIcon
                             style={{
                                 width: 24,
                                 height: 24,

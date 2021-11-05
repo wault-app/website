@@ -1,5 +1,7 @@
 import { Container, Grid, Typography } from "@mui/material";
-import EmptyCanvasIllustration from "@components/images/EmptyCanvasIllustration";
+import dynamic from "next/dynamic";
+
+const EmptyCanvasIllustration = dynamic(() => import("@components/images/EmptyCanvasIllustration"));
 
 const NoSafeCreated = () => (
     <Container maxWidth={"sm"} sx={{ pt: 8, pb: 8 }}>

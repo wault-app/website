@@ -1,5 +1,8 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, IconButton, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction, Skeleton } from "@mui/material";
-import { DesktopWindowsRounded as DesktopIcon, ExitToAppRounded as LogoutIcon, LanguageRounded as BrowserIcon, SmartphoneRounded as MobileIcon } from "@mui/icons-material";
+import DesktopIcon from "@mui/icons-material/DesktopWindowsRounded";
+import LogoutIcon from "@mui/icons-material/ExitToAppRounded"
+import BrowserIcon from "@mui/icons-material/LanguageRounded";
+import MobileIcon from "@mui/icons-material/SmartphoneRounded";
 import Device, { DeviceType } from "@lib/api/Device";
 import { Fragment, useState } from "react";
 import { useSnackbar } from "notistack";

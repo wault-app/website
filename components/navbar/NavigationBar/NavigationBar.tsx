@@ -1,5 +1,5 @@
 import { AppBar, Drawer, Hidden, IconButton, Toolbar, } from "@mui/material";
-import { MenuRounded as MenuIcon } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/MenuRounded";
 import { Fragment, PropsWithChildren, useState } from "react";
 import DrawerContent from "../Drawer";
 import { Box } from "@mui/system";

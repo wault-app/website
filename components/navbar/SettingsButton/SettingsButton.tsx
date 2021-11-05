@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { SettingsRounded as SettingsIcon } from "@mui/icons-material";
+import SettingsIcon from "@mui/icons-material/SettingsRounded";
 
 export type SettingsButtonProps = {
     onClick: () => void;

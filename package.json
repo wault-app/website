@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
+    "analyze": "cross-env ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -14,6 +15,7 @@
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "@mui/system": "^5.0.0",
+    "@next/bundle-analyzer": "^12.0.2",
     "@wault/category": "git+https://github.com/wault-app/category.git",
     "@wault/platforms": "git+https://github.com/wault-app/platforms.git",
     "@wault/totp": "git+https://github.com/wault-app/totp.git",
@@ -50,6 +52,7 @@
     "@types/qrcode": "^1.4.0",
     "@types/react": "^17.0.8",
     "@types/react-credit-cards": "^0.8.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.0",
     "next-secure-headers": "^2.2.0",

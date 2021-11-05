@@ -1,6 +1,6 @@
 import { createTheme, Dialog, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText, ThemeProvider } from "@mui/material";
 import { PaletteOptions, useTheme } from "@components/providers/ThemeProvider";
-import { PaletteRounded as PaletteIcon } from "@mui/icons-material";
+import PaletteIcon from "@mui/icons-material/PaletteRounded";
 import { Fragment, useState } from "react";
 
 export type ColorSchemaSelectorProps = {};

@@ -5,9 +5,10 @@ import { useRouter } from "next/router";
 import { ItemType, KeycardType } from "@wault/typings";
 import PlatformIcon from "@components/account/PlatformIcon";
 import { Box } from "@mui/system";
-import { CreditCardRounded } from "@mui/icons-material";
+import CreditCardIcon from "@mui/icons-material/CreditCardRounded";
 import Issuers from "@lib/credit-cards/issuers/issuers";
 import Payment from "payment";
+import Platforms from "@wault/platforms";
 
 export type SafeItemProps = {
     loading: true;
@@ -80,7 +81,7 @@ const ItemList = ({ items }: { items: ItemType[] }) => {
                             borderRadius: "6px",
                             boxShadow: theme.shadows[2],
                         }}>
-                            <CreditCardRounded
+                            <CreditCardIcon
                                 style={{
                                     width: 12,
                                     height: 12,

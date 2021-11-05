@@ -1,6 +1,7 @@
 import SafeIcon from "@components/icons/SafeIcon";
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { CreditCardRounded as CreditCardIcon, PersonRounded as AccountItem } from "@mui/icons-material";
+import CreditCardIcon from "@mui/icons-material/CreditCardRounded";
+import AccountIcon from "@mui/icons-material/PersonRounded"; 
 import { Fragment, useState } from "react";
 import AddAccountDialog from "@components/account/AddAccountDialog";
 import AddCreditCardDialog from "@components/credit-card/AddCreditCardDialog";
@@ -52,7 +53,7 @@ const AddItemDialog = (props: AddItemDialogProps) => {
                             disabled={!isAvailable}
                         >
                             <ListItemIcon>
-                                <AccountItem />
+                                <AccountIcon />
                             </ListItemIcon>
                             <ListItemText
                                 primary={"Account"}

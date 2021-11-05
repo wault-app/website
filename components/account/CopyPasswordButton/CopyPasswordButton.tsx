@@ -1,4 +1,4 @@
-import { VpnKeyRounded as PasswordIcon } from "@mui/icons-material";
+import PasswordIcon from "@mui/icons-material/VpnKeyRounded";
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import Clipboard from "@lib/clipboard";
 import { useSnackbar } from "notistack";

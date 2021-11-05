@@ -1,6 +1,8 @@
 import { Collapse, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from "@mui/material";
 import { Fragment, useState } from "react";
-import { DescriptionRounded as DescriptionIcon, ExpandLessRounded as DecreaseIcon, ExpandMoreRounded as ExpandIcon } from "@mui/icons-material";
+import ExpandIcon from "@mui/icons-material/ExpandMoreRounded";
+import DecreaseIcon from "@mui/icons-material/ExpandLessRounded"; 
+import DescriptionIcon from "@mui/icons-material/DescriptionRounded";
 import { Box } from "@mui/system";
 
 /**
